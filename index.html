@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة القيادة الاستراتيجية | محمد طلعت عبد العزيز</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;500;600;700;900&family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#07090f;--surface:#0c1018;--surface2:#111620;--surface3:#16202e;
+  --border:rgba(100,160,255,0.1);--border2:rgba(100,160,255,0.06);
+  --gold:#c9a84c;--gold2:#e8c96a;--gold-dim:rgba(201,168,76,0.12);
+  --blue:#4a9eff;--blue-dim:rgba(74,158,255,0.1);
+  --text:#e8edf5;--text2:#8fa3c0;--text3:#4d6282;
+  --green:#2dd4a0;--green-dim:rgba(45,212,160,0.1);
+  --red:#ff6b6b;--red-dim:rgba(255,107,107,0.1);
+  --purple:#a78bfa;--purple-dim:rgba(167,139,250,0.1);
+  --orange:#fb923c;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(74,158,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(74,158,255,0.025) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;z-index:0;}
+.orb{position:fixed;pointer-events:none;z-index:0;border-radius:50%;}
+.orb1{top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,0.07) 0%,transparent 70%);}
+.orb2{bottom:-300px;left:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(74,158,255,0.05) 0%,transparent 70%);}
+
+/* SIDEBAR */
+.sidebar{position:fixed;right:0;top:0;bottom:0;width:260px;background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column;z-index:100;transition:transform .3s ease;}
+.sidebar-brand{padding:22px 20px;border-bottom:1px solid var(--border);}
+.sb-name{font-family:'Amiri',serif;font-size:17px;font-weight:700;color:var(--gold);line-height:1.3;}
+.sb-en{font-size:9px;color:var(--text3);letter-spacing:.18em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;margin-top:3px;}
+.sb-role{font-size:11px;color:var(--text2);margin-top:7px;line-height:1.6;}
+.ai-pill{display:inline-flex;align-items:center;gap:5px;background:var(--gold-dim);border:1px solid rgba(201,168,76,.2);border-radius:20px;padding:3px 10px;font-size:10px;color:var(--gold);margin-top:9px;}
+.ai-pill-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.7);}}
+.nav{padding:12px 0;flex:1;overflow-y:auto;}
+.nav-sec{padding:8px 20px 3px;font-size:9px;color:var(--text3);letter-spacing:.2em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;}
+.nav-item{display:flex;align-items:center;gap:11px;padding:9px 20px;cursor:pointer;transition:all .2s;font-size:13px;color:var(--text2);border-right:3px solid transparent;}
+.nav-item:hover{background:var(--blue-dim);color:var(--text);}
+.nav-item.active{color:var(--blue);border-right-color:var(--blue);background:var(--blue-dim);}
+.nav-icon{font-size:15px;width:18px;text-align:center;}
+.nav-badge{margin-right:auto;background:var(--gold-dim);color:var(--gold);font-size:10px;padding:1px 7px;border-radius:10px;font-family:'IBM Plex Mono',monospace;}
+.sidebar-foot{padding:14px 20px;border-top:1px solid var(--border);}
+.ai-status{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--text3);}
+.ai-status-dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 1.8s infinite;}
+
+/* MAIN */
+.main{margin-right:260px;min-height:100vh;position:relative;z-index:1;}
+.topbar{position:sticky;top:0;background:rgba(7,9,15,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 28px;height:58px;display:flex;align-items:center;gap:14px;z-index:50;}
+.tb-title{font-size:13px;color:var(--text2);}
+.tb-title span{color:var(--text);font-weight:600;}
+.tb-actions{margin-right:auto;display:flex;gap:9px;align-items:center;}
+.date-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text3);background:var(--surface2);padding:4px 11px;border-radius:4px;border:1px solid var(--border2);}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 15px;border-radius:6px;border:none;cursor:pointer;font-family:'Cairo',sans-serif;font-size:12px;font-weight:600;transition:all .2s;}
+.btn-gold{background:var(--gold);color:var(--bg);}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-1px);}
+.btn-ghost{background:var(--surface2);color:var(--text2);border:1px solid var(--border);}
+.btn-ghost:hover{background:var(--surface3);color:var(--text);}
+.btn-blue{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(74,158,255,.2);}
+.btn-blue:hover{background:rgba(74,158,255,.2);}
+.menu-tog{display:none;width:34px;height:34px;border-radius:7px;border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer;align-items:center;justify-content:center;font-size:17px;}
+
+/* PAGES */
+.page{display:none;padding:28px;animation:fadeIn .3s ease;}
+.page.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.pg-eye{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:7px;}
+.pg-title{font-family:'Amiri',serif;font-size:30px;font-weight:700;line-height:1.2;margin-bottom:5px;}
+.pg-title span{color:var(--gold);}
+.pg-sub{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:28px;}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border2);border-radius:12px;overflow:hidden;margin-bottom:20px;}
+.card-head{padding:14px 18px;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:9px;}
+.ch-icon{font-size:17px;}
+.ch-title{font-size:13px;font-weight:600;color:var(--text);}
+.ch-en{font-size:9px;color:var(--text3);font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;}
+.ch-badge{margin-right:auto;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 9px;border-radius:10px;}
+.bg-green{background:var(--green-dim);color:var(--green);}
+.bg-blue{background:var(--blue-dim);color:var(--blue);}
+.bg-gold{background:var(--gold-dim);color:var(--gold);}
+.bg-purple{background:var(--purple-dim);color:var(--purple);}
+.bg-red{background:var(--red-dim);color:var(--red);}
+.card-body{padding:18px;}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:18px;}
+.span2{grid-column:span 2;}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:24px;}
+.stat{background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:18px;position:relative;overflow:hidden;transition:all .3s;}
+.stat:hover{border-color:var(--border);transform:translateY(-2px);}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.s-gold::before{background:linear-gradient(90deg,var(--gold),transparent);}
+.s-blue::before{background:linear-gradient(90deg,var(--blue),transparent);}
+.s-green::before{background:linear-gradient(90deg,var(--green),transparent);}
+.s-purple::before{background:linear-gradient(90deg,var(--purple),transparent);}
+.s-red::before{background:linear-gradient(90deg,var(--red),transparent);}
+.stat-lbl{font-size:9px;color:var(--text3);letter-spacing:.15em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;margin-bottom:7px;}
+.stat-val{font-size:30px;font-weight:900;line-height:1;margin-bottom:3px;}
+.s-gold .stat-val{color:var(--gold);}
+.s-blue .stat-val{color:var(--blue);}
+.s-green .stat-val{color:var(--green);}
+.s-purple .stat-val{color:var(--purple);}
+.s-red .stat-val{color:var(--red);}
+.stat-sub{font-size:10px;color:var(--text3);}
+.stat-ico{position:absolute;top:14px;left:14px;font-size:22px;opacity:.25;}
+
+/* TAG */
+.tag{display:inline-flex;align-items:center;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;margin:2px;}
+.t-geo{background:var(--gold-dim);color:var(--gold);}
+.t-psy{background:var(--purple-dim);color:var(--purple);}
+.t-hyb{background:var(--red-dim);color:var(--red);}
+.t-pol{background:var(--blue-dim);color:var(--blue);}
+.t-med{background:var(--green-dim);color:var(--green);}
+.t-soc{background:rgba(251,146,60,.1);color:var(--orange);}
+
+/* STATUS */
+.stt{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:600;}
+.stt::before{content:'';width:5px;height:5px;border-radius:50%;}
+.stt-pub{background:var(--green-dim);color:var(--green);}
+.stt-pub::before{background:var(--green);}
+.stt-sch{background:var(--blue-dim);color:var(--blue);}
+.stt-sch::before{background:var(--blue);animation:pulse 1.5s infinite;}
+.stt-rev{background:var(--gold-dim);color:var(--gold);}
+.stt-rev::before{background:var(--gold);}
+.stt-drf{background:rgba(77,98,130,.2);color:var(--text3);}
+.stt-drf::before{background:var(--text3);}
+
+/* AI PANEL */
+.ai-panel{background:linear-gradient(135deg,rgba(201,168,76,.04),rgba(74,158,255,.04));border:1px solid rgba(201,168,76,.14);border-radius:12px;padding:20px;position:relative;overflow:hidden;}
+.ai-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold),var(--blue),transparent);}
+.ai-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.ai-orb{width:34px;height:34px;border-radius:50%;background:conic-gradient(var(--gold),var(--blue),var(--purple),var(--gold));animation:spin 9s linear infinite;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.ai-ttl{font-size:13px;font-weight:700;}
+.ai-sub{font-size:10px;color:var(--text3);}
+.ai-inp{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 13px;color:var(--text);font-family:'Cairo',sans-serif;font-size:12px;outline:none;transition:border-color .2s;direction:rtl;resize:vertical;}
+.ai-inp:focus{border-color:var(--gold);}
+.ai-inp::placeholder{color:var(--text3);}
+.ai-out{background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:14px;font-size:12px;color:var(--text2);line-height:1.9;direction:rtl;min-height:80px;max-height:500px;overflow-y:auto;}
+.ai-think{display:flex;gap:5px;align-items:center;padding:10px 0;}
+.ai-think span{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:bounce 1.2s infinite;}
+.ai-think span:nth-child(2){animation-delay:.2s;}
+.ai-think span:nth-child(3){animation-delay:.4s;}
+@keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:.5;}40%{transform:translateY(-7px);opacity:1;}}
+.ai-row{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+
+/* ARTICLE TABLE */
+.atbl{width:100%;border-collapse:collapse;}
+.atbl th{text-align:right;font-size:9px;color:var(--text3);letter-spacing:.15em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;padding:0 14px 11px;border-bottom:1px solid var(--border2);font-weight:400;}
+.atbl td{padding:13px 14px;border-bottom:1px solid var(--border2);font-size:12px;vertical-align:middle;}
+.atbl tr:last-child td{border-bottom:none;}
+.atbl tr:hover td{background:var(--surface2);}
+.art-num{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text3);width:38px;}
+.art-ttl{font-size:13px;font-weight:600;color:var(--text);line-height:1.4;cursor:pointer;transition:color .2s;}
+.art-ttl:hover{color:var(--blue);}
+.art-dt{font-size:10px;color:var(--text3);font-family:'IBM Plex Mono',monospace;margin-top:2px;}
+
+/* ICON BTNS */
+.ibtns{display:flex;gap:5px;}
+.ibtn{width:27px;height:27px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .2s;}
+.ibtn:hover{background:var(--blue-dim);color:var(--blue);border-color:var(--blue);}
+
+/* PLATFORM ICONS */
+.plats{display:flex;gap:5px;}
+.plat{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;cursor:default;}
+.pl-li{background:rgba(0,119,181,.15);color:#4da3d4;}
+.pl-ig{background:rgba(225,48,108,.15);color:#e1306c;}
+.pl-x{background:rgba(231,233,234,.08);color:#ccc;}
+.pl-w{background:var(--gold-dim);color:var(--gold);}
+
+/* TIMELINE */
+.tl{position:relative;padding-right:22px;}
+.tl::before{content:'';position:absolute;right:7px;top:0;bottom:0;width:1px;background:var(--border);}
+.tl-item{position:relative;padding:0 20px 20px 0;}
+.tl-dot{position:absolute;right:0;top:4px;width:14px;height:14px;border-radius:50%;border:2px solid var(--bg);}
+.tl-day{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;}
+.tl-plat{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;margin-bottom:5px;padding:2px 7px;border-radius:4px;}
+.tl-li{background:rgba(0,119,181,.15);color:#4da3d4;}
+.tl-ig{background:rgba(225,48,108,.15);color:#e1306c;}
+.tl-x{background:rgba(231,233,234,.07);color:#ccc;}
+.tl-all{background:var(--gold-dim);color:var(--gold);}
+.tl-body{background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:10px 13px;font-size:12px;color:var(--text2);line-height:1.7;}
+.tl-cap{font-size:11px;color:var(--text3);margin-top:7px;font-style:italic;border-top:1px solid var(--border2);padding-top:7px;}
+
+/* DIVIDER */
+.div{height:1px;background:var(--border2);margin:16px 0;}
+
+/* PROGRESS */
+.prg-item{margin-bottom:13px;}
+.prg-lbl{display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px;color:var(--text2);}
+.prg-lbl span:last-child{color:var(--text3);font-family:'IBM Plex Mono',monospace;}
+.prg-bar{height:4px;background:var(--surface2);border-radius:2px;overflow:hidden;}
+.prg-fill{height:100%;border-radius:2px;transition:width 1.4s ease;}
+
+/* FORM */
+.fg{margin-bottom:14px;}
+.fl{display:block;font-size:10px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;margin-bottom:5px;}
+.fi{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:9px 13px;color:var(--text);font-family:'Cairo',sans-serif;font-size:12px;outline:none;transition:border-color .2s;direction:rtl;}
+.fi:focus{border-color:var(--blue);}
+.fi::placeholder{color:var(--text3);}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.fgrid .fg.full{grid-column:span 2;}
+
+/* MODAL */
+.modal-ov{position:fixed;inset:0;background:rgba(7,9,15,.88);backdrop-filter:blur(12px);z-index:500;display:none;align-items:center;justify-content:center;padding:18px;}
+.modal-ov.open{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;max-width:820px;width:100%;max-height:88vh;overflow:hidden;display:flex;flex-direction:column;animation:mIn .3s ease;}
+@keyframes mIn{from{opacity:0;transform:scale(.95);}to{opacity:1;transform:scale(1);}}
+.modal-hd{padding:18px 22px;border-bottom:1px solid var(--border2);display:flex;align-items:flex-start;gap:12px;}
+.modal-tw{flex:1;}
+.modal-ttl{font-family:'Amiri',serif;font-size:20px;font-weight:700;line-height:1.3;}
+.modal-meta{font-size:10px;color:var(--text3);font-family:'IBM Plex Mono',monospace;margin-top:3px;}
+.modal-cls{width:30px;height:30px;border-radius:7px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
+.modal-cls:hover{background:var(--red-dim);color:var(--red);border-color:var(--red);}
+.modal-body{padding:22px;overflow-y:auto;flex:1;font-size:13px;line-height:1.9;color:var(--text2);}
+.modal-tabs{display:flex;gap:6px;padding:12px 22px;border-bottom:1px solid var(--border2);overflow-x:auto;}
+.mtab{padding:6px 14px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--text2);transition:all .2s;white-space:nowrap;}
+.mtab.active{background:var(--gold-dim);color:var(--gold);border-color:rgba(201,168,76,.3);}
+.mtab:hover{color:var(--text);}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+.sec-ttl{font-size:10px;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;margin:18px 0 9px;padding-bottom:5px;border-bottom:1px solid var(--gold-dim);}
+.sec-ttl:first-child{margin-top:0;}
+.lang-block{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:14px;margin-bottom:12px;}
+.lang-tag{font-size:9px;font-family:'IBM Plex Mono',monospace;color:var(--text3);letter-spacing:.12em;margin-bottom:7px;text-transform:uppercase;}
+.copy-btn{display:inline-flex;align-items:center;gap:4px;background:var(--surface3);border:1px solid var(--border);border-radius:5px;padding:3px 9px;font-size:10px;color:var(--text3);cursor:pointer;transition:all .2s;margin-top:8px;}
+.copy-btn:hover{color:var(--gold);border-color:var(--gold);}
+
+/* SECURITY */
+.sec-meter{height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;margin-bottom:11px;}
+.sec-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--red),var(--gold),var(--green));transition:width 1s ease;}
+.sec-item{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border2);font-size:12px;}
+.sec-item:last-child{border-bottom:none;}
+.sv-ok{color:var(--green);font-family:'IBM Plex Mono',monospace;font-size:10px;}
+.sv-warn{color:var(--gold);font-family:'IBM Plex Mono',monospace;font-size:10px;}
+.sv-bad{color:var(--red);font-family:'IBM Plex Mono',monospace;font-size:10px;}
+
+/* NOTIF */
+.notif{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--border2);}
+.notif-ico{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.notif-txt{font-size:11px;color:var(--text2);line-height:1.5;}
+.notif-time{font-size:10px;color:var(--text3);font-family:'IBM Plex Mono',monospace;margin-top:2px;}
+
+/* EMAIL */
+.email{display:flex;gap:10px;padding:9px 11px;border-radius:7px;cursor:pointer;transition:background .2s;}
+.email:hover{background:var(--surface2);}
+.ea{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
+.ef{flex:1;min-width:0;}
+.efrom{font-size:12px;font-weight:600;}
+.esub{font-size:11px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
+.etime{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text3);flex-shrink:0;}
+.unread-dot{width:6px;height:6px;background:var(--blue);border-radius:50%;flex-shrink:0;margin-top:7px;}
+
+/* CALENDAR */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+.cday-lbl{text-align:center;font-size:9px;color:var(--text3);font-family:'IBM Plex Mono',monospace;padding:3px;}
+.cday{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:5px;font-size:11px;cursor:pointer;transition:all .2s;position:relative;}
+.cday:hover{background:var(--surface2);}
+.cday.today{background:var(--gold-dim);color:var(--gold);font-weight:700;}
+.cday.has-li::after{content:'';position:absolute;bottom:2px;width:4px;height:4px;border-radius:50%;background:#0077b5;}
+.cday.has-ig::after{background:#e1306c;}
+.cday.has-x::after{background:#ccc;}
+.cday.empty{opacity:.2;pointer-events:none;}
+
+/* BRAND */
+.brand-axis{background:var(--surface2);border-right:3px solid var(--gold);padding:12px 14px;border-radius:0 8px 8px 0;margin-bottom:10px;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .sidebar{transform:translateX(100%);}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-right:0;}
+  .g2,.g3,.fgrid{grid-template-columns:1fr;}
+  .span2{grid-column:span 1;}
+  .fgrid .fg.full{grid-column:span 1;}
+  .topbar{padding:0 14px;}
+  .page{padding:14px;}
+  .stats{grid-template-columns:repeat(2,1fr);}
+  .menu-tog{display:flex!important;}
+}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:3px;}
+
+/* ── BILINGUAL TOGGLE ── */
+.lang-toggle{display:flex;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:3px;gap:2px;flex-shrink:0;}
+.lang-btn{padding:4px 12px;border-radius:16px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--text3);font-family:'IBM Plex Mono',monospace;letter-spacing:.08em;transition:all .2s;}
+.lang-btn.active{background:var(--gold);color:var(--bg);}
+.lang-btn:hover:not(.active){color:var(--text);}
+
+/* hide/show based on lang */
+html[lang="ar"] .en-only{display:none!important;}
+html[lang="en"] .ar-only{display:none!important;}
+html[lang="en"]{direction:ltr;}
+html[lang="en"] .sidebar{right:auto;left:0;border-left:none;border-right:1px solid var(--border);}
+html[lang="en"] .main{margin-right:0;margin-left:260px;}
+html[lang="en"] .nav-item{border-right:none;border-left:3px solid transparent;}
+html[lang="en"] .nav-item.active{border-left-color:var(--blue);}
+html[lang="en"] .nav-badge{margin-right:0;margin-left:auto;}
+html[lang="en"] .ai-inp{direction:ltr;text-align:left;}
+html[lang="en"] .fi{direction:ltr;text-align:left;}
+html[lang="en"] .atbl th{text-align:left;}
+html[lang="en"] .art-ttl{direction:ltr;}
+html[lang="en"] .brand-axis{border-right:none;border-left:3px solid var(--gold);}
+html[lang="en"] .tl{padding-right:0;padding-left:22px;}
+html[lang="en"] .tl::before{right:auto;left:7px;}
+html[lang="en"] .tl-dot{right:auto;left:0;}
+html[lang="en"] .tl-item{padding:0 0 20px 20px;}
+@media(max-width:900px){
+  html[lang="en"] .sidebar{left:0;right:auto;transform:translateX(-100%);}
+  html[lang="en"] .sidebar.open{transform:translateX(0);}
+  html[lang="en"] .main{margin-left:0;}
+}
+</style>
+</head>
+<body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="sb-name">محمد طلعت عبد العزيز</div>
+    <div class="sb-en">Mohamed Talaat Abdel Aziz</div>
+    <div class="sb-role ar-only">محلل سياسي استراتيجي · باحث في علم النفس السياسي والحروب الهجينة · البحرين</div>
+    <div class="sb-role en-only">Strategic Political Analyst · Political Psychology & Hybrid Warfare Researcher · Bahrain</div>
+    <div class="ai-pill"><span class="ai-pill-dot"></span><span class="ar-only">Claude + Gemini · مفعّل</span><span class="en-only">Claude + Gemini · Active</span></div>
+  </div>
+  <nav class="nav">
+    <div class="nav-sec ar-only">الرئيسية</div>
+    <div class="nav-sec en-only">Main</div>
+    <div class="nav-item active" onclick="nav('home')"><span class="nav-icon">🏠</span><span class="ar-only">لوحة القيادة</span><span class="en-only">Dashboard</span></div>
+    <div class="nav-item" onclick="nav('articles')"><span class="nav-icon">📝</span><span class="ar-only">الأرشيف والمقالات</span><span class="en-only">Archive & Articles</span><span class="nav-badge">3</span></div>
+    <div class="nav-item" onclick="nav('generator')"><span class="nav-icon">✦</span><span class="ar-only">مولّد المحتوى AI</span><span class="en-only">AI Content Generator</span><span class="nav-badge" style="background:var(--gold-dim);color:var(--gold)">NEW</span></div>
+    <div class="nav-item" onclick="nav('campaigns')"><span class="nav-icon">📣</span><span class="ar-only">الحملات التسويقية</span><span class="en-only">Marketing Campaigns</span></div>
+    <div class="nav-sec ar-only">الاتصالات</div>
+    <div class="nav-sec en-only">Communications</div>
+    <div class="nav-item" onclick="nav('email')"><span class="nav-icon">📧</span><span class="ar-only">البريد والتقويم</span><span class="en-only">Email & Calendar</span><span class="nav-badge">4</span></div>
+    <div class="nav-item" onclick="nav('platforms')"><span class="nav-icon">🌐</span><span class="ar-only">المنصات والموقع</span><span class="en-only">Platforms & Website</span></div>
+    <div class="nav-sec ar-only">الاستراتيجية</div>
+    <div class="nav-sec en-only">Strategy</div>
+    <div class="nav-item" onclick="nav('brand')"><span class="nav-icon">👑</span><span class="ar-only">هوية البراند</span><span class="en-only">Brand Identity</span></div>
+    <div class="nav-item" onclick="nav('security')"><span class="nav-icon">🛡️</span><span class="ar-only">الأمن السيبراني</span><span class="en-only">Cyber Security</span></div>
+    <div class="nav-item" onclick="nav('archive')"><span class="nav-icon">🗄️</span><span class="ar-only">الأرشيف التاريخي</span><span class="en-only">Historical Archive</span><span class="nav-badge">150+</span></div>
+  </nav>
+  <div class="sidebar-foot">
+    <div class="ai-status"><div class="ai-status-dot"></div><span class="ar-only">الذكاء الاصطناعي · نشط</span><span class="en-only">AI Intelligence · Active</span></div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <button class="menu-tog" id="menuTog" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+    <div class="tb-title" id="tbTitle">🏠 <span class="ar-only">لوحة القيادة</span><span class="en-only">Dashboard</span></div>
+    <div class="tb-actions">
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btnAR" onclick="setLang('ar')">AR</button>
+        <button class="lang-btn" id="btnEN" onclick="setLang('en')">EN</button>
+      </div>
+      <div class="date-tag" id="dateTag"></div>
+      <a href="https://mail.google.com/mail/u/0/#compose" target="_blank" class="btn btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:5px;" title="إنشاء رسالة جديدة">✉ Gmail</a>
+      <button class="btn btn-ghost" onclick="nav('generator')"><span class="ar-only">✦ مولّد AI</span><span class="en-only">✦ AI Generator</span></button>
+      <button class="btn btn-gold" onclick="nav('articles');setTimeout(openAdd,100)"><span class="ar-only">+ مقال جديد</span><span class="en-only">+ New Article</span></button>
+    </div>
+  </div>
+
+  <!-- ══════════════ HOME ══════════════ -->
+  <div class="page active" id="page-home">
+    <div class="pg-eye ar-only">Strategic Command Center · مركز القيادة الاستراتيجية</div>
+    <div class="pg-eye en-only">Strategic Command Center · Bahrain to the World</div>
+    <div class="pg-title ar-only">مرحباً، <span>محمد طلعت عبد العزيز</span></div>
+    <div class="pg-title en-only">Welcome, <span>Mohamed Talaat Abdel Aziz</span></div>
+    <div class="pg-sub ar-only">المفكر الاستراتيجي · الباحث في علم النفس السياسي الاستراتيجي وعلوم الحروب الهجينة</div>
+    <div class="pg-sub en-only">Strategic Thinker · Researcher in Strategic Political Psychology &amp; Hybrid Warfare Sciences</div>
+    <!-- TICKER -->
+    <div id="tickerWrap" style="background:linear-gradient(90deg,var(--bg) 0%,rgba(201,168,76,.07) 20%,rgba(201,168,76,.07) 80%,var(--bg) 100%);border-top:1px solid rgba(201,168,76,.2);border-bottom:1px solid rgba(201,168,76,.2);overflow:hidden;height:42px;display:flex;align-items:center;margin:4px 0 18px;position:relative;">
+      <div style="position:absolute;right:0;top:0;bottom:0;width:70px;background:linear-gradient(to left,var(--bg),transparent);z-index:2;pointer-events:none;"></div>
+      <div style="position:absolute;left:0;top:0;bottom:0;width:70px;background:linear-gradient(to right,var(--bg),transparent);z-index:2;pointer-events:none;"></div>
+      <div id="tickerInner" style="display:flex;animation:tickerScroll 75s linear infinite;white-space:nowrap;font-family:'Amiri',serif;font-size:14px;color:var(--gold);line-height:42px;direction:rtl;"></div>
+    </div>
+    <style>@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}} #tickerWrap:hover #tickerInner{animation-play-state:paused}</style>
+    <script>(function(){var q=['«السيادة المطلقة أو التبعية الأنيقة — لا خيار ثالث»','⬥','«الذخيرة الفكرية هي القوة الناعمة الحقيقية التي تصنع النموذج الملهم»','⬥','«العقل في الفخ قضية أمن قومي — الصمود يتطلب الانتقال من رد الفعل إلى الاستجابة متعددة المستويات»','⬥','«في حروب الجيل الخامس التغريدة والمقطع رصاصات فكرية»','⬥','«المناعة الفكرية ليست ترفاً بل شرط من شروط الأمن القومي المعاصر»','⬥','«حين تفقد النخب مناعتها الفكرية لا تسقط وحدها بل تسحب معها المجتمع والدولة»','⬥','«النفط الفكري هو وقود السيادة الحقيقية في النظام الدولي الجديد»','⬥','«الهيبة لا تُسمع فقط بل تُرى — Prestige is a State of Presence»','⬥','«أفضل الممارسات ليست سلعاً عابرة للحدود — ما يصلح في سنغافورة قد يفشل في المنامة لاختلاف الجينات الاجتماعية»','⬥','«Strategy acknowledges no middle ground between Sovereignty and Subservience»','⬥','«المحتوى العظيم بلا خطة اختراق هو مجرد صرخة في وادٍ»','⬥','«طلب المساعدة هو أخطر فعل تمردي تستطيع إنقاذ ذاتك به»','⬥'];var t=document.getElementById('tickerInner');if(t){var s=q.join('    ');t.textContent=s+'        '+s;}}());</script>
+    <div class="stats">
+      <div class="stat s-gold"><div class="stat-ico">📝</div><div class="stat-lbl ar-only">مقالات 2026</div><div class="stat-lbl en-only">Articles 2026</div><div class="stat-val">9</div><div class="stat-sub ar-only">8 منشور + 1 قيد التطوير</div><div class="stat-sub en-only">8 published + 1 in progress</div></div>
+      <div class="stat s-blue"><div class="stat-ico">📣</div><div class="stat-lbl ar-only">حملات نشطة</div><div class="stat-lbl en-only">Active Campaigns</div><div class="stat-val">2</div><div class="stat-sub">LinkedIn + IG + X</div></div>
+      <div class="stat s-green"><div class="stat-ico">✅</div><div class="stat-lbl ar-only">منشورات الأسبوع</div><div class="stat-lbl en-only">Posts This Week</div><div class="stat-val">7</div><div class="stat-sub ar-only">من أصل 9</div><div class="stat-sub en-only">of 9 scheduled</div></div>
+      <div class="stat s-purple"><div class="stat-ico">🗄️</div><div class="stat-lbl ar-only">الأرشيف الكلي</div><div class="stat-lbl en-only">Total Archive</div><div class="stat-val">153</div><div class="stat-sub ar-only">150 + 3 جديد</div><div class="stat-sub en-only">150 legacy + 3 new</div></div>
+      <div class="stat s-red"><div class="stat-ico">🛡️</div><div class="stat-lbl ar-only">تهديدات مرصودة</div><div class="stat-lbl en-only">Monitored Threats</div><div class="stat-val">2</div><div class="stat-sub ar-only">تحت المراقبة</div><div class="stat-sub en-only">under watch</div></div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-head"><span class="ch-icon">📝</span><div><div class="ch-title">آخر المقالات</div><div class="ch-en">Latest Articles · 2026</div></div><span class="ch-badge bg-blue">2026</span></div>
+        <div class="card-body" style="padding:0">
+          <table class="atbl"><tbody>
+            <tr><td><div class="art-ttl" onclick="openModal('a5')">مانيفستو السيادة الذهنية: الجندي الدبلوماسي</div><div class="art-dt">2026 · GSGI · استبانة استراتيجية</div></td><td><span class="tag t-psy">نفس سياسي</span><span class="tag t-pol">سيادة</span></td><td><span class="stt stt-pub">منشور</span></td></tr>
+            <tr><td><div class="art-ttl" onclick="openModal('a6')">العقل في الفخ: التناقض المعرفي والشخصيات الحدية</div><div class="art-dt">2026 · جزءان · GSGI</div></td><td><span class="tag t-psy">نفس سياسي</span><span class="tag t-geo">جيوسياسة</span></td><td><span class="stt stt-pub">منشور</span></td></tr>
+            <tr><td><div class="art-ttl" onclick="openModal('a7')">جيوبوليتيك الأنا النرجسية: مصفوفة الارتهان</div><div class="art-dt">2026 · GSGI · ٣ مراحل إطلاق</div></td><td><span class="tag t-psy">نفس سياسي</span><span class="tag t-geo">جيوسياسة</span></td><td><span class="stt stt-pub">منشور</span></td></tr>
+            <tr><td><div class="art-ttl" onclick="openModal('a8')">المناعة الفكرية: العقل خط الدفاع الأخير</div><div class="art-dt">2026 · البلاد البحرينية</div></td><td><span class="tag t-psy">نفس سياسي</span><span class="tag t-pol">أمن قومي</span></td><td><span class="stt stt-pub">منشور</span></td></tr>
+            <tr><td><div class="art-ttl" onclick="openModal('a1')">المنظومة الشاملة للتحصين الجيوسياسي</div><div class="art-dt">مارس 2026 · البلاد البحرينية</div></td><td><span class="tag t-geo">جيوسياسة</span><span class="tag t-psy">نفس سياسي</span></td><td><span class="stt stt-pub">منشور</span></td></tr>
+            <tr><td><div class="art-ttl" onclick="openModal('a2')">تأميم الوعي.. معركة السيادة الذهنية</div><div class="art-dt">فبراير 2026 · البلاد البحرينية</div></td><td><span class="tag t-hyb">حروب هجينة</span><span class="tag t-pol">سياسة</span></td><td><span class="stt stt-pub">منشور</span></td></tr>
+            <tr><td><div class="art-ttl">الجندي الدبلوماسي.. عقيدة المواجهة</div><div class="art-dt">يناير 2026 · قيد المراجعة</div></td><td><span class="tag t-psy">نفس سياسي</span></td><td><span class="stt stt-rev">مراجعة</span></td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <div class="ai-panel">
+        <div class="ai-head"><div class="ai-orb">✦</div><div><div class="ai-ttl">المساعد الاستراتيجي</div><div class="ai-sub">Claude AI · توليد فوري</div></div></div>
+        <input class="ai-inp" id="quickInp" placeholder="أدخل عنوان المقال لفكرة تسويقية سريعة..." style="margin-bottom:9px;">
+        <div class="ai-row"><button class="btn btn-gold" onclick="quickGen()">توليد فكرة ✦</button><button class="btn btn-ghost" onclick="nav('generator')">الأداة الكاملة ←</button></div>
+        <div class="ai-out" id="quickOut"><div style="color:var(--text3);text-align:center;padding:14px 0;font-size:11px">أدخل عنواناً للتوليد الفوري...</div></div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-head"><span class="ch-icon">📅</span><div><div class="ch-title">جدول هذا الأسبوع</div><div class="ch-en">This Week</div></div><span class="ch-badge bg-green">مجدول</span></div>
+        <div class="card-body">
+          <div class="tl">
+            <div class="tl-item"><div class="tl-dot" style="background:#0077b5"></div><div class="tl-day">الأحد · 9 مارس</div><div class="tl-plat tl-li">in LinkedIn · 9:00ص</div><div class="tl-body">Thread تشويقي — تأميم الوعي<div class="tl-cap">«إن أخطر أنواع الاحتلال ليس احتلال الأوطان...»</div></div></div>
+            <div class="tl-item"><div class="tl-dot" style="background:#e1306c"></div><div class="tl-day">الثلاثاء · 11 مارس</div><div class="tl-plat tl-ig">📸 Instagram · 7:00م</div><div class="tl-body">إنفوجرافيك — مصفوفة الردع المعرفي</div></div>
+            <div class="tl-item"><div class="tl-dot" style="background:#ccc"></div><div class="tl-day">الجمعة · 14 مارس</div><div class="tl-plat tl-x">𝕏 X · 12:00ظ</div><div class="tl-body">Thread كامل — السيادة الذهنية</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="ch-icon">🔔</span><div><div class="ch-title">التنبيهات</div><div class="ch-en">Alerts</div></div><span class="ch-badge bg-gold">3 جديد</span></div>
+        <div class="card-body">
+          <div class="notif"><div class="notif-ico" style="background:var(--green-dim);color:var(--green)">✅</div><div><div class="notif-txt">نُشر المقال بنجاح على البلاد البحرينية</div><div class="notif-time">اليوم 09:15</div></div></div>
+          <div class="notif"><div class="notif-ico" style="background:var(--red-dim);color:var(--red)">🛡️</div><div><div class="notif-txt">تنبيه أمني: نشاط غير معتاد — تم التحقق والحجب</div><div class="notif-time">أمس 22:40</div></div></div>
+          <div class="notif"><div class="notif-ico" style="background:var(--blue-dim);color:var(--blue)">📧</div><div><div class="notif-txt">4 رسائل جديدة في البريد الإلكتروني</div><div class="notif-time">أمس 14:20</div></div></div>
+          <div class="notif"><div class="notif-ico" style="background:var(--gold-dim);color:var(--gold)">🤖</div><div><div class="notif-txt">AI اقترح 3 موضوعات للمقالات القادمة</div><div class="notif-time">أمس 11:00</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ ARTICLES ══════════════ -->
+  <div class="page" id="page-articles">
+    <div class="pg-eye ar-only">Article Archive · أرشيف المقالات</div>
+    <div class="pg-eye en-only">Article Archive · 2026 onwards</div>
+    <div class="pg-title ar-only">الأرشيف <span>والمقالات</span></div>
+    <div class="pg-title en-only">Archive <span>& Articles</span></div>
+    <div class="pg-sub ar-only">كل مقال يحتوي: مسودة · نسخة نهائية · إيجاز استراتيجي · ورقة بحثية · إنفوجرافيك · خطة تسويق — جميعها باللغتين</div>
+    <div class="pg-sub en-only">Each article contains: Draft · Final Version · Strategic Brief · Research Paper · Infographic · Marketing Plan — all in both languages</div>
+    <div class="stats">
+      <div class="stat s-gold"><div class="stat-lbl">إجمالي</div><div class="stat-val">153</div><div class="stat-sub">2015—2026</div></div>
+      <div class="stat s-blue"><div class="stat-lbl">مقالات 2026</div><div class="stat-val">3</div><div class="stat-sub">جارية</div></div>
+      <div class="stat s-green"><div class="stat-lbl">منشورة</div><div class="stat-val">2</div><div class="stat-sub">هذا العام</div></div>
+      <div class="stat s-purple"><div class="stat-lbl">تصنيفات</div><div class="stat-val">6</div><div class="stat-sub">مجالات</div></div>
+    </div>
+    <!-- ADD FORM -->
+    <div class="card" id="addCard" style="display:none;margin-bottom:18px;">
+      <div class="card-head"><span class="ch-icon">➕</span><div><div class="ch-title">إضافة مقال جديد</div><div class="ch-en">New Article</div></div><button class="btn btn-ghost" style="margin-right:auto" onclick="closeAdd()">إغلاق ✕</button></div>
+      <div class="card-body">
+        <div class="fgrid">
+          <div class="fg full"><label class="fl">عنوان المقال</label><input class="fi" id="nTitle" placeholder="أدخل عنوان المقال..."></div>
+          <div class="fg"><label class="fl">التاريخ</label><input class="fi" id="nDate" type="date"></div>
+          <div class="fg"><label class="fl">التصنيف</label><select class="fi" id="nCat"><option value="geo">جيوسياسة</option><option value="psy">علم النفس السياسي</option><option value="hyb">حروب هجينة</option><option value="pol">سياسة</option><option value="med">إعلام</option><option value="soc">اجتماع سياسي</option></select></div>
+          <div class="fg"><label class="fl">رابط المقال</label><input class="fi" id="nLink" placeholder="https://albiladdaily.com/..."></div>
+          <div class="fg"><label class="fl">الحالة</label><select class="fi" id="nStatus"><option value="drf">مسودة</option><option value="rev">قيد المراجعة</option><option value="pub">منشور</option><option value="sch">مجدول</option></select></div>
+          <div class="fg full"><label class="fl">مسودة / ملخص المقال</label><textarea class="fi ai-inp" id="nDraft" placeholder="الصق نص المقال أو ملخصه هنا..." style="min-height:100px"></textarea></div>
+          <div class="fg full"><button class="btn btn-gold" onclick="addArticle()" style="font-size:13px;padding:10px 22px">✦ حفظ + توليد المكونات الستة بالـ AI</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="ch-icon">📋</span><div><div class="ch-title">قائمة المقالات</div><div class="ch-en">Articles · 2026</div></div><button class="btn btn-ghost" style="margin-right:auto;font-size:11px" onclick="openAdd()">+ إضافة</button></div>
+      <div class="card-body" style="padding:0">
+        <table class="atbl">
+          <thead><tr><th>#</th><th>العنوان</th><th>التصنيف</th><th>المنصات</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+          <tbody id="artBody">
+            <tr>
+              <td class="art-num">001</td>
+              <td><div class="art-ttl" onclick="openModal('a1')">المنظومة الشاملة للتحصين الجيوسياسي</div><div class="art-dt">مارس 2026</div></td>
+              <td><span class="tag t-geo">جيوسياسة</span><span class="tag t-psy">نفس سياسي</span></td>
+              <td><div class="plats"><span class="plat pl-li">in</span><span class="plat pl-ig">📸</span><span class="plat pl-x">𝕏</span><span class="plat pl-w">🔗</span></div></td>
+              <td><span class="stt stt-pub">منشور</span></td>
+              <td><div class="ibtns"><button class="ibtn" onclick="openModal('a1')" title="عرض">👁</button><button class="ibtn" onclick="nav('generator')" title="توليد AI">✦</button><button class="ibtn" onclick="nav('campaigns')" title="حملة">📣</button></div></td>
+            </tr>
+            <tr>
+              <td class="art-num">002</td>
+              <td><div class="art-ttl" onclick="openModal('a2')">تأميم الوعي.. معركة السيادة الذهنية</div><div class="art-dt">فبراير 2026</div></td>
+              <td><span class="tag t-hyb">حروب هجينة</span><span class="tag t-pol">سياسة</span></td>
+              <td><div class="plats"><span class="plat pl-li">in</span><span class="plat pl-ig">📸</span><span class="plat pl-x">𝕏</span></div></td>
+              <td><span class="stt stt-pub">منشور</span></td>
+              <td><div class="ibtns"><button class="ibtn" onclick="openModal('a2')">👁</button><button class="ibtn" onclick="nav('generator')">✦</button><button class="ibtn" onclick="nav('campaigns')">📣</button></div></td>
+            </tr>
+            <tr>
+              <td class="art-num">004</td>
+              <td><div class="art-ttl" onclick="openModal('a4')">النفط الفكري: وقود المستقبل ومحدد سيادة الدول</div><div class="art-dt">2026 · البلاد البحرينية · رابط منشور ✅ · ISI + White Paper</div></td>
+              <td><span class="tag t-geo">جيوسياسة</span><span class="tag t-eco">اقتصاد معرفي</span><span class="tag t-pol">سيادة</span></td>
+              <td><div class="plats"><span class="plat pl-li">in</span><span class="plat pl-x">𝕏</span><span class="plat pl-w">🔗</span></div></td>
+              <td><span class="stt stt-pub">منشور</span></td>
+              <td><div class="ibtns"><button class="ibtn" onclick="openModal('a4')" title="عرض">👁</button><button class="ibtn" onclick="nav('generator')" title="توليد AI">✦</button><button class="ibtn" onclick="nav('campaigns')" title="حملة">📣</button></div></td>
+            </tr>
+            <tr>
+              <td class="art-num">003</td>
+              <td><div class="art-ttl" onclick="openModal('a3')">اقتصاد المشاعر السياسية: هندسة الإدراك في عصر السيادة المعرفية</div><div class="art-dt">2026 · المكونات الستة كاملة ✅</div></td>
+              <td><span class="tag t-psy">نفس سياسي</span><span class="tag t-geo">جيوسياسة</span><span class="tag t-pol">تكنوقراطية</span></td>
+              <td><div class="plats"><span class="plat pl-li">in</span><span class="plat pl-ig">📸</span><span class="plat pl-x">𝕏</span><span class="plat pl-w">🔗</span></div></td>
+              <td><span class="stt stt-pub">منشور</span></td>
+              <td><div class="ibtns"><button class="ibtn" onclick="openModal('a3')" title="عرض">👁</button><button class="ibtn" onclick="nav('generator')" title="توليد AI">✦</button><button class="ibtn" onclick="nav('campaigns')" title="حملة">📣</button></div></td>
+            </tr>
+            <tr>
+              <td class="art-num">008</td>
+              <td><div class="art-ttl" onclick="openModal('a5')">مانيفستو السيادة الذهنية: عقيدة الجندي الدبلوماسي</div><div class="art-dt">2026 · GSGI · استبانة استراتيجية ✅</div></td>
+              <td><span class="tag t-psy">نفس سياسي</span><span class="tag t-pol">سيادة</span><span class="tag t-hyb">حروب هجينة</span></td>
+              <td><div class="plats"><span class="plat pl-li">in</span><span class="plat pl-x">𝕏</span><span class="plat pl-ig">📸</span></div></td>
+              <td><span class="stt stt-pub">منشور</span></td>
+              <td><div class="ibtns"><button class="ibtn" onclick="openModal('a5')">👁</button><button class="ibtn" onclick="nav('generator')">✦</button><button class="ibtn" onclick="nav('campaigns')">📣</button></div></td>
+            </tr>
+            <tr>
+              <td class="art-num">007</td>
+              <td><div class="art-ttl" onclick="openModal('a6')">العقل في الفخ: التناقض المعرفي والشخصيات الحدية/النرجسية</div><div class="art-dt">2026 · جزءان · GSGI · استبانة + خطة تسويق ✅</div></td>
+              <td><span class="tag t-psy">نفس سياسي</span><span class="tag t-geo">جيوسياسة</span></td>
+              <td><div class="plats"><span class="plat pl-li">in</span><span class="plat pl-x">𝕏</span><span class="plat pl-ig">📸</span></div></td>
+              <td><span class="stt stt-pub">منشور</span></td>
+              <td><div class="ibtns"><button class="ibtn" onclick="openModal('a6')">👁</button><button class="ibtn" onclick="nav('generator')">✦</button><button class="ibtn" onclick="nav('campaigns')">📣</button></div></td>
+            </tr>
+            <tr>
+              <td class="art-num">006</td>
+              <td><div class="art-ttl" onclick="openModal('a7')">جيوبوليتيك الأنا النرجسية: مصفوفة الارتهان وهندسة التآكل</div><div class="art-dt">2026 · جزء ٢/٢ · GSGI · خطة تسويق ٣ مراحل ✅</div></td>
+              <td><span class="tag t-psy">نفس سياسي</span><span class="tag t-geo">جيوسياسة</span></td>
+              <td><div class="plats"><span class="plat pl-li">in</span><span class="plat pl-x">𝕏</span><span class="plat pl-ig">📸</span></div></td>
+              <td><span class="stt stt-pub">منشور</span></td>
+              <td><div class="ibtns"><button class="ibtn" onclick="openModal('a7')">👁</button><button class="ibtn" onclick="nav('generator')">✦</button><button class="ibtn" onclick="nav('campaigns')">📣</button></div></td>
+            </tr>
+            <tr>
+              <td class="art-num">005</td>
+              <td><div class="art-ttl" onclick="openModal('a8')">المناعة الفكرية: حين يصبح العقل خط الدفاع الأخير</div><div class="art-dt">2026 · البلاد البحرينية · ٣ ركائز + ٥ مراحل التآكل ✅</div></td>
+              <td><span class="tag t-psy">نفس سياسي</span><span class="tag t-pol">أمن قومي</span></td>
+              <td><div class="plats"><span class="plat pl-li">in</span><span class="plat pl-x">𝕏</span><span class="plat pl-ig">📸</span></div></td>
+              <td><span class="stt stt-pub">منشور</span></td>
+              <td><div class="ibtns"><button class="ibtn" onclick="openModal('a8')">👁</button><button class="ibtn" onclick="nav('generator')">✦</button><button class="ibtn" onclick="nav('campaigns')">📣</button></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ AI GENERATOR ══════════════ -->
+  <div class="page" id="page-generator">
+    <div class="pg-eye ar-only">AI Content Generator · مولّد المحتوى الاستراتيجي</div>
+    <div class="pg-eye en-only">AI Content Generator · Strategic Intelligence Suite</div>
+    <div class="pg-title ar-only">مولّد <span>المكونات الستة</span></div>
+    <div class="pg-title en-only">Generate <span>The Six Components</span></div>
+    <div class="pg-sub ar-only">الصق مسودة المقال → اضغط زراً واحداً → الـ AI يولّد المكونات الستة كاملة باللغتين العربية والإنجليزية</div>
+    <div class="pg-sub en-only">Paste your article draft → Press one button → AI generates all six components in both Arabic and English</div>
+
+    <div class="g2">
+      <!-- INPUT PANEL -->
+      <div>
+        <div class="ai-panel" style="margin-bottom:18px;">
+          <div class="ai-head"><div class="ai-orb">✦</div><div><div class="ai-ttl">مدخلات المقال</div><div class="ai-sub">الصق المسودة وحدد التصنيف</div></div></div>
+          <div class="fg"><label class="fl">عنوان المقال</label><input class="ai-inp" id="genTitle" placeholder="عنوان المقال..."></div>
+          <div class="fg"><label class="fl">التصنيف</label>
+            <select class="ai-inp" id="genCat">
+              <option>جيوسياسة</option><option>علم النفس السياسي</option><option>حروب هجينة</option><option>سياسة</option><option>إعلام</option>
+            </select>
+          </div>
+          <div class="fg"><label class="fl">مسودة المقال (الصق النص هنا)</label><textarea class="ai-inp" id="genDraft" placeholder="الصق نص المقال أو مسودته هنا..." style="min-height:160px;"></textarea></div>
+          <div class="ai-row" style="flex-wrap:wrap;gap:8px;margin-top:4px;">
+            <button class="btn btn-gold" onclick="genAll()" style="font-size:13px;padding:10px 20px;">✦ توليد المكونات الستة كاملة</button>
+          </div>
+          <div id="genProgress" style="display:none;margin-top:12px;">
+            <div style="font-size:11px;color:var(--text3);margin-bottom:8px;font-family:'IBM Plex Mono',monospace;" id="genProgressTxt">جارٍ التوليد...</div>
+            <div style="height:3px;background:var(--surface2);border-radius:2px;overflow:hidden;"><div id="genProgressBar" style="height:100%;background:linear-gradient(90deg,var(--gold),var(--blue));border-radius:2px;width:0%;transition:width .5s ease;"></div></div>
+          </div>
+        </div>
+        <!-- INDIVIDUAL BUTTONS -->
+        <div class="card">
+          <div class="card-head"><span class="ch-icon">⚡</span><div><div class="ch-title">توليد مكوّن واحد</div><div class="ch-en">Single Component</div></div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:8px;">
+            <button class="btn btn-ghost" style="justify-content:flex-start;gap:10px;" onclick="genSingle('draft')">📄 مسودة المقال</button>
+            <button class="btn btn-ghost" style="justify-content:flex-start;gap:10px;" onclick="genSingle('final')">📰 النسخة النهائية (عربي + إنجليزي)</button>
+            <button class="btn btn-ghost" style="justify-content:flex-start;gap:10px;" onclick="genSingle('brief')">📊 الإيجاز الاستراتيجي (عربي + إنجليزي)</button>
+            <button class="btn btn-ghost" style="justify-content:flex-start;gap:10px;" onclick="genSingle('research')">🔬 الورقة البحثية (عربي + إنجليزي)</button>
+            <button class="btn btn-ghost" style="justify-content:flex-start;gap:10px;" onclick="genSingle('infographic')">🖼 مقترح الإنفوجرافيك</button>
+            <button class="btn btn-ghost" style="justify-content:flex-start;gap:10px;" onclick="genSingle('campaign')">📣 خطة التسويق بالأيام (عربي + إنجليزي)</button>
+          </div>
+        </div>
+      </div>
+      <!-- OUTPUT PANEL -->
+      <div>
+        <div class="card" style="position:sticky;top:70px;">
+          <div class="card-head">
+            <span class="ch-icon">✦</span>
+            <div><div class="ch-title">المحتوى المولَّد</div><div class="ch-en">AI Generated Output</div></div>
+            <button class="btn btn-ghost" style="margin-right:auto;font-size:10px;" onclick="copyOutput()">نسخ 📋</button>
+          </div>
+          <!-- TABS -->
+          <div id="outTabs" style="display:none;" class="modal-tabs">
+            <div class="mtab active" onclick="switchTab('draft',this)">📄 مسودة</div>
+            <div class="mtab" onclick="switchTab('final',this)">📰 نهائي</div>
+            <div class="mtab" onclick="switchTab('brief',this)">📊 إيجاز</div>
+            <div class="mtab" onclick="switchTab('research',this)">🔬 بحثية</div>
+            <div class="mtab" onclick="switchTab('infographic',this)">🖼 إنفوجرافيك</div>
+            <div class="mtab" onclick="switchTab('campaign',this)">📣 تسويق</div>
+          </div>
+          <div class="card-body">
+            <div id="outPlaceholder" style="text-align:center;padding:50px 20px;color:var(--text3);">
+              <div style="font-size:40px;margin-bottom:12px;">✦</div>
+              <div style="font-size:13px;">الصق مسودة المقال واضغط «توليد المكونات الستة»</div>
+              <div style="font-size:11px;margin-top:6px;line-height:1.8;">سيولّد الـ AI:<br>مسودة · نسخة نهائية · إيجاز استراتيجي<br>ورقة بحثية · إنفوجرافيك · خطة تسويق<br>— جميعها بالعربية والإنجليزية —</div>
+            </div>
+            <div id="tabContent" style="display:none;">
+              <div id="tab-draft" class="tab-pane active"></div>
+              <div id="tab-final" class="tab-pane"></div>
+              <div id="tab-brief" class="tab-pane"></div>
+              <div id="tab-research" class="tab-pane"></div>
+              <div id="tab-infographic" class="tab-pane"></div>
+              <div id="tab-campaign" class="tab-pane"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ CAMPAIGNS ══════════════ -->
+  <div class="page" id="page-campaigns">
+    <div class="pg-eye ar-only">Marketing Campaigns · الحملات التسويقية</div>
+    <div class="pg-eye en-only">Marketing Campaigns · AI-Powered Plans</div>
+    <div class="pg-title ar-only">حملة <span>تأميم الوعي</span></div>
+    <div class="pg-title en-only">Campaign: <span>Consciousness</span></div>
+    <div class="pg-sub ar-only">خطة النشر المفصّلة — مولّدة بالذكاء الاصطناعي · 7 أيام · جميع المنصات</div>
+    <div class="pg-sub en-only">Detailed publishing plan — AI-generated · 7 days · all platforms</div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-head"><span class="ch-icon">📅</span><div><div class="ch-title">خطة الأيام السبعة</div><div class="ch-en">7-Day Plan</div></div><span class="ch-badge bg-gold">AI مولَّد</span></div>
+        <div class="card-body">
+          <div class="tl">
+            <div class="tl-item"><div class="tl-dot" style="background:#0077b5"></div><div class="tl-day">اليوم ١ — الأحد · إشعال الفتيل</div><div class="tl-plat tl-li">in LinkedIn + X · 9:00ص</div><div class="tl-body">Thread تشويقي (4 تغريدات)<div class="tl-cap">«إن أخطر أنواع الاحتلال ليس احتلال الأوطان، بل استيطان الوعي...»</div></div></div>
+            <div class="tl-item"><div class="tl-dot" style="background:#e1306c"></div><div class="tl-day">اليوم ٢ — الاثنين · الإنفوجرافيك</div><div class="tl-plat tl-ig">📸 Instagram · 7:00م</div><div class="tl-body">مصفوفة الردع المعرفي — صورة بصرية<div class="tl-cap">#تأميم_الوعي #السيادة_الذهنية #محمد_طلعت_عبدالعزيز</div></div></div>
+            <div class="tl-item"><div class="tl-dot" style="background:#0077b5"></div><div class="tl-day">اليوم ٣ — الثلاثاء · التعمق</div><div class="tl-plat tl-li">in LinkedIn · 10:00ص</div><div class="tl-body">مقال قصير — «أكاديمية الوعي الاستراتيجي»</div></div>
+            <div class="tl-item"><div class="tl-dot" style="background:#e1306c"></div><div class="tl-day">اليوم ٥ — الخميس · الاستشهادات</div><div class="tl-plat tl-ig">📸 Instagram · 6:00م</div><div class="tl-body">3 اقتباسات بصرية + Stories</div></div>
+            <div class="tl-item"><div class="tl-dot" style="background:var(--gold)"></div><div class="tl-day">اليوم ٧ — السبت · التتويج</div><div class="tl-plat tl-all">جميع المنصات · 12:00ظ</div><div class="tl-body">ملخص الحملة + رابط المقال + دعوة للتفاعل</div></div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px;">
+        <div class="ai-panel">
+          <div class="ai-head"><div class="ai-orb">✦</div><div><div class="ai-ttl">مولّد حملة جديدة</div><div class="ai-sub">لأي مقال — باللغتين</div></div></div>
+          <input class="ai-inp" id="campTitle" placeholder="عنوان المقال..." style="margin-bottom:8px;">
+          <div class="ai-row">
+            <select class="ai-inp" id="campPlat" style="flex:1"><option value="all">كل المنصات</option><option>LinkedIn</option><option>Instagram</option><option>X</option></select>
+            <select class="ai-inp" id="campDays" style="flex:1"><option value="7">7 أيام</option><option value="5">5 أيام</option><option value="3">3 أيام</option></select>
+            <button class="btn btn-gold" onclick="genCampaign()">توليد ✦</button>
+          </div>
+          <div class="ai-out" id="campOut" style="margin-top:10px;min-height:120px;"><div style="color:var(--text3);text-align:center;padding:20px;font-size:11px">أدخل عنوان المقال لتوليد خطة تسويقية كاملة...</div></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="ch-icon">#</span><div><div class="ch-title">الهاشتاقات الثابتة</div></div></div>
+          <div class="card-body" style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span class="tag t-pol">#تأميم_الوعي</span><span class="tag t-psy">#السيادة_الذهنية</span><span class="tag t-hyb">#الحروب_الهجينة</span><span class="tag t-geo">#الفكر_الاستراتيجي</span><span class="tag t-med">#محمد_طلعت_عبدالعزيز</span><span class="tag t-soc">#البحرين</span><span class="tag t-pol">#الخليج</span><span class="tag t-geo">#علم_النفس_السياسي</span><span class="tag t-psy">#NationalizationOfConsciousness</span><span class="tag t-geo">#StrategicAnalysis</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ EMAIL ══════════════ -->
+  <div class="page" id="page-email">
+    <div class="pg-eye ar-only">Email & Calendar · البريد والتقويم</div>
+    <div class="pg-eye en-only">Email & Calendar · Gmail + Google Calendar</div>
+    <div class="pg-title ar-only">البريد <span>والتقويم</span></div>
+    <div class="pg-title en-only">Email <span>& Calendar</span></div>
+    <div class="pg-sub ar-only">Gmail + Google Calendar · مدمج مع جدول النشر</div>
+    <div class="pg-sub en-only">Gmail + Google Calendar · integrated with publishing schedule</div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-head"><span class="ch-icon">📧</span><div><div class="ch-title">صندوق الوارد</div><div class="ch-en">Gmail Inbox</div></div><span class="ch-badge bg-blue">4 جديد</span></div>
+        <div class="card-body">
+          <div class="email"><div class="ea" style="background:var(--blue-dim);color:var(--blue)">ص</div><div class="ef"><div class="efrom">صحيفة البلاد البحرينية</div><div class="esub">تأكيد نشر مقال منطلقات — الأسبوع القادم</div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;"><div class="etime">10:30</div><div class="unread-dot"></div></div></div>
+          <div class="email"><div class="ea" style="background:var(--gold-dim);color:var(--gold)">م</div><div class="ef"><div class="efrom">مركز GSGI</div><div class="esub">الإيجاز الاستراتيجي المجمع — نسخة مراجعة</div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;"><div class="etime">أمس</div><div class="unread-dot"></div></div></div>
+          <div class="email"><div class="ea" style="background:var(--green-dim);color:var(--green)">L</div><div class="ef"><div class="efrom">LinkedIn</div><div class="esub">Your post reached 2,400 impressions</div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;"><div class="etime">أمس</div><div class="unread-dot"></div></div></div>
+          <div class="email"><div class="ea" style="background:var(--purple-dim);color:var(--purple)">G</div><div class="ef"><div class="efrom">Google Calendar</div><div class="esub">تذكير: موعد مقال — 18 مارس 2026</div></div><div class="etime">الأمس</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="ch-icon">📅</span><div><div class="ch-title">مارس 2026</div><div class="ch-en">Publishing Calendar</div></div></div>
+        <div class="card-body">
+          <div class="cal">
+            <div class="cday-lbl">أح</div><div class="cday-lbl">إث</div><div class="cday-lbl">ث</div><div class="cday-lbl">أر</div><div class="cday-lbl">خ</div><div class="cday-lbl">ج</div><div class="cday-lbl">س</div>
+            <div class="cday empty">26</div><div class="cday empty">27</div><div class="cday empty">28</div><div class="cday empty">1</div><div class="cday empty">2</div><div class="cday empty">3</div><div class="cday empty">4</div>
+            <div class="cday has-li">5</div><div class="cday">6</div><div class="cday has-ig">7</div><div class="cday">8</div><div class="cday has-li">9</div><div class="cday">10</div><div class="cday today">11</div>
+            <div class="cday has-li">12</div><div class="cday">13</div><div class="cday has-x">14</div><div class="cday">15</div><div class="cday has-li">16</div><div class="cday">17</div><div class="cday has-ig">18</div>
+            <div class="cday">19</div><div class="cday has-li">20</div><div class="cday">21</div><div class="cday">22</div><div class="cday has-ig">23</div><div class="cday">24</div><div class="cday">25</div>
+          </div>
+          <div style="display:flex;gap:14px;margin-top:14px;font-size:10px;color:var(--text3);">
+            <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#0077b5;margin-left:4px;"></span>LinkedIn</span>
+            <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#e1306c;margin-left:4px;"></span>Instagram</span>
+            <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ccc;margin-left:4px;"></span>X</span>
+          </div>
+          <div style="margin-top:12px;background:var(--surface2);border-radius:7px;padding:10px;font-size:11px;color:var(--text3);line-height:1.9;">✅ 7 منشورات مجدولة<br>📅 مقال الأسبوع: 18 مارس<br>🔔 تذكير قبل 24 ساعة</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ PLATFORMS ══════════════ -->
+  <div class="page" id="page-platforms">
+    <div class="pg-eye ar-only">Digital Presence · الحضور الرقمي</div>
+    <div class="pg-eye en-only">Digital Presence · All Channels</div>
+    <div class="pg-title ar-only">المنصات <span>والموقع</span></div>
+    <div class="pg-title en-only">Platforms <span>& Website</span></div>
+    <div class="pg-sub ar-only">إدارة جميع قنوات النشر من مكان واحد · ربط تلقائي قادم</div>
+    <div class="pg-sub en-only">Manage all publishing channels from one place · auto-sync coming soon</div>
+    <div class="g2">
+      <div class="card"><div class="card-head"><span class="ch-icon">🌐</span><div><div class="ch-title">الموقع الشخصي</div><div class="ch-en">WordPress</div></div><span class="ch-badge bg-gold">قيد الإطلاق</span></div><div class="card-body"><div class="sec-item"><div style="font-size:12px;color:var(--text2)">الحالة</div><span class="sv-warn">قيد المراجعة</span></div><div class="sec-item"><div style="font-size:12px;color:var(--text2)">المنصة</div><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text3)">WordPress</span></div><div class="sec-item"><div style="font-size:12px;color:var(--text2)">SSL</div><span class="sv-ok">فعّال ✓</span></div><div class="sec-item"><div style="font-size:12px;color:var(--text2)">ربط الداشبورد</div><span class="sv-warn">قادم</span></div><div class="sec-item"><div style="font-size:12px;color:var(--text2)">نشر تلقائي</div><span class="sv-warn">قادم</span></div><div class="div"></div><div style="font-size:11px;color:var(--text3)">بعد الإطلاق يتصل الداشبورد بالموقع للنشر التلقائي</div></div></div>
+      <div class="card"><div class="card-head"><span class="ch-icon">📱</span><div><div class="ch-title">منصات التواصل</div><div class="ch-en">Social Platforms</div></div></div><div class="card-body"><div class="sec-item"><div style="font-size:12px;color:#4da3d4">LinkedIn</div><span class="sv-ok">مربوط ✓</span></div><div class="sec-item"><div style="font-size:12px;color:#e1306c">Instagram</div><span class="sv-ok">مربوط ✓</span></div><div class="sec-item"><div style="font-size:12px;color:#ccc">X (Twitter)</div><span class="sv-ok">مربوط ✓</span></div><div class="sec-item"><div style="font-size:12px;color:#ff0000">YouTube</div><span class="sv-warn">قادم</span></div><div class="sec-item"><div style="font-size:12px;color:var(--green)">Gmail</div><span class="sv-ok">مربوط ✓</span></div><div class="sec-item"><div style="font-size:12px;color:#4285f4">Google Calendar</div><span class="sv-ok">مربوط ✓</span></div><div class="sec-item"><div style="font-size:12px;color:var(--text2)">بريد الدومين</div><span class="sv-warn">بعد الاستلام</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- ══════════════ BRAND ══════════════ -->
+  <div class="page" id="page-brand">
+    <div class="pg-eye ar-only">Personal Brand · الهوية الشخصية</div>
+    <div class="pg-eye en-only">Personal Brand · Strategic Identity</div>
+    <div class="pg-title ar-only">هوية <span>البراند</span></div>
+    <div class="pg-title en-only">Brand <span>Identity</span></div>
+    <div class="pg-sub ar-only">انطلاقاً من البحرين · نحو الخليج والعالم العربي والعالم</div>
+    <div class="pg-sub en-only">From Bahrain · to the Gulf, Arab World and beyond</div>
+    <div class="g2">
+      <div class="card"><div class="card-head"><span class="ch-icon">👑</span><div><div class="ch-title">المحور الجوهري</div><div class="ch-en">Core Brand</div></div></div><div class="card-body">
+        <div style="background:var(--gold-dim);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:20px;text-align:center;margin-bottom:18px;"><div style="font-family:'Amiri',serif;font-size:22px;color:var(--gold);line-height:1.5">«المحلل الذي يقرأ ما وراء الحدث»</div><div style="font-size:10px;color:var(--text3);margin-top:6px;font-family:'IBM Plex Mono',monospace">The Analyst Who Reads Beyond the Event</div></div>
+        <div class="prg-item"><div class="prg-lbl"><span>الإعلام السياسي</span><span>الأساس</span></div><div class="prg-bar"><div class="prg-fill" style="width:90%;background:var(--blue)"></div></div></div>
+        <div class="prg-item"><div class="prg-lbl"><span>علم النفس السياسي</span><span>المميِّز</span></div><div class="prg-bar"><div class="prg-fill" style="width:95%;background:var(--purple)"></div></div></div>
+        <div class="prg-item"><div class="prg-lbl"><span>الحروب الهجينة</span><span>التخصص النادر</span></div><div class="prg-bar"><div class="prg-fill" style="width:85%;background:var(--red)"></div></div></div>
+        <div class="prg-item"><div class="prg-lbl"><span>الجيوسياسة</span><span>الإطار</span></div><div class="prg-bar"><div class="prg-fill" style="width:80%;background:var(--gold)"></div></div></div>
+      </div></div>
+      <div class="card"><div class="card-head"><span class="ch-icon">🗺️</span><div><div class="ch-title">خارطة الانتشار</div><div class="ch-en">Expansion Map</div></div></div><div class="card-body">
+        <div class="brand-axis"><div style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:4px">🇧🇭 البحرين — المنطلق</div><div style="font-size:11px;color:var(--text3)">صحيفة البلاد · مركز GSGI · القاعدة الأكاديمية</div></div>
+        <div class="brand-axis" style="border-right-color:var(--blue)"><div style="font-size:12px;font-weight:600;color:var(--blue);margin-bottom:4px">🌍 الخليج العربي — الدائرة الأولى</div><div style="font-size:11px;color:var(--text3)">السعودية · الإمارات · الكويت · قطر · عُمان</div></div>
+        <div class="brand-axis" style="border-right-color:var(--green)"><div style="font-size:12px;font-weight:600;color:var(--green);margin-bottom:4px">🌎 العالم العربي — الدائرة الثانية</div><div style="font-size:11px;color:var(--text3)">مصر · الأردن · لبنان · المغرب العربي والمشرق</div></div>
+        <div class="brand-axis" style="border-right-color:var(--purple)"><div style="font-size:12px;font-weight:600;color:var(--purple);margin-bottom:4px">🌐 العالم — الأفق الاستراتيجي</div><div style="font-size:11px;color:var(--text3)">منصات إنجليزية · Think Tanks · مراكز بحثية دولية</div></div>
+      </div></div>
+    </div>
+  </div>
+
+    <div class="g2">
+      <div class="card"><div class="card-head"><span class="ch-icon">📬</span><div><div class="ch-title ar-only">رسالة رؤساء الصحف</div><div class="ch-title en-only">Press Pitch Letter</div><div class="ch-en">Media Outreach Template</div></div></div><div class="card-body">
+        <div class="lang-block"><div class="lang-tag">🇧🇭 النسخة العربية — جاهزة للإرسال</div><p style="line-height:2;font-size:12px"><strong>الموضوع:</strong> طلب نشر مقال استراتيجي يحمل بصمة تحليلية نادرة<br><br>السادة رؤساء تحرير المحترمين، تحية طيبة وبعد،<br>أود بداية أن أُعرب عن تقديري العميق لدوركم ومساهمتكم في إثراء المشهد الإعلامي العربي. إن المنابر التي تقودونها ليست مجرد صحف أو منصات، بل منارات فكرية تساهم في تشكيل الوعي العام.<br><br>أنا محمد طلعت عبدالعزيز — كاتب ومحلل سياسي واستراتيجي، متابع للقضايا الرقمية والسياسية المعاصرة والحروب الهجينة. لدي مقالات رأي تحليلية تحقق صدى فكرياً واسعاً لدى النخب الأكاديمية وصانّاع القرار في البحرين والمنطقة.<br><br>أُرفق مقالاتي التي تتميز بـ: تحليل استراتيجي ناقد معرفي — رصانة لغوية وتربوية — أطر قابلة لفتح منابر النقاش العلمي والسياسي.<br><br>أنا على استعداد لتقديم أعمال أخرى وفق رؤيتكم التحريرية، أو لإجراء حوار موسّع. تقديم المقالات لكم شرف لي.<br><br>✍ محمد طلعت عبد العزيز | <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f596909a929696c4b59298949c99db969a98">[email&#160;protected]</a> | +973 3710 9909</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div>
+        <div class="lang-block"><div class="lang-tag">🌐 English Version — Ready to Send</div><p style="line-height:2;font-size:12px;direction:ltr;text-align:left"><strong>Subject:</strong> Submission of Strategic Analysis for Publication<br><br>To the Distinguished Editors-in-Chief,<br>I am Mohamed Talaat AbdulAziz — a political and strategic analyst specializing in contemporary digital issues, hybrid warfare, and political psychology. My analytical contributions have resonated deeply within academic circles and among decision-makers in Bahrain and the wider region.<br><br>I am pleased to submit my recent articles characterized by: Strategic & Analytical Depth — Linguistic & Intellectual Rigor — Framework-Driven Content designed to open new vistas for high-level debate.<br><br>I remain at your disposal to provide further contributions aligned with your editorial vision.<br><br>✍ Mohamed Talaat AbdulAziz | <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9af9fff5fdf9f9abdafdf7fbf3f6b4f9f5f7">[email&#160;protected]</a> | +973 3710 9909 | +973 6666 5449</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>
+      </div></div>
+      <div class="card"><div class="card-head"><span class="ch-icon">💬</span><div><div class="ch-title ar-only">المقولات المأثورة</div><div class="ch-title en-only">Strategic Quotes</div><div class="ch-en">Quote Arsenal — AR · EN</div></div></div><div class="card-body" style="max-height:420px;overflow-y:auto">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:var(--gold-dim);border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:12px;"><div style="font-size:12px;color:var(--gold);line-height:1.8;font-family:'Amiri',serif">«هدفنا واضح: خريج يملك كفاءة "هارفارد"... لكنه يملك قلب وولاء "ابن الأرض"»</div><div style="font-size:10px;color:var(--text3);margin-top:4px;direction:ltr">"A Harvard-qualified graduate — yet possessing the heart and unwavering loyalty of a Son of the Soil."</div><button class="copy-btn" style="margin-top:6px;font-size:9px" onclick="copyText('هدفنا واضح: خريج يملك كفاءة هارفارد لكنه يملك قلب وولاء ابن الأرض')">نسخ</button></div>
+          <div style="background:rgba(77,163,212,.05);border:1px solid rgba(77,163,212,.2);border-radius:8px;padding:12px;"><div style="font-size:12px;color:var(--blue);line-height:1.8;font-family:'Amiri',serif">«في حروب الجيل الخامس، "التغريدة" و"المقطع" هما "رصاصات فكرية" — إذا لم نحوّل هؤلاء الشباب إلى "دبلوماسيين شعبيين" فنحن نترك جبهتنا الداخلية مكشوفة تماماً»</div><div style="font-size:10px;color:var(--text3);margin-top:4px;direction:ltr">"In the era of 5G Warfare, digital content serves as Intellectual Munitions. Failing to mobilize our youth as Citizen-Diplomats means leaving our domestic front entirely defenseless."</div><button class="copy-btn" style="margin-top:6px;font-size:9px" onclick="copyText('في حروب الجيل الخامس التغريدة والمقطع هما رصاصات فكرية')">نسخ</button></div>
+          <div style="background:rgba(106,76,147,.05);border:1px solid rgba(106,76,147,.2);border-radius:8px;padding:12px;"><div style="font-size:12px;color:var(--purple);line-height:1.8;font-family:'Amiri',serif">«الاستراتيجيات لا تعرف الموازنة بين الحق والباطل أو السيادة والتبعية. إما وعيٌ مؤمَّن يقوده أبناء الأرض، أو تبعية مقنَّعة تحت مسمى التطوير»</div><div style="font-size:10px;color:var(--text3);margin-top:4px;direction:ltr">"Strategy acknowledges no middle ground between Truth and Falsehood, or Sovereignty and Subservience."</div><button class="copy-btn" style="margin-top:6px;font-size:9px" onclick="copyText('الاستراتيجيات لا تعرف الموازنة: إما وعي مؤمن يقوده أبناء الأرض أو تبعية مقنعة')">نسخ</button></div>
+          <div style="background:rgba(76,175,80,.05);border:1px solid rgba(76,175,80,.2);border-radius:8px;padding:12px;"><div style="font-size:12px;color:var(--green);line-height:1.8;font-family:'Amiri',serif">«ينبغي أن ندرك أن "أفضل الممارسات" ليست سلعاً عابرة للحدود كقطع الغيار — ما يصلح في سنغافورة قد يفشل في الرياض أو المنامة أو دبي لاختلاف الجينات الاجتماعية»</div><div style="font-size:10px;color:var(--text3);margin-top:4px;direction:ltr">"Best Practices are not cross-border commodities; they are the progeny of environment and culture."</div><button class="copy-btn" style="margin-top:6px;font-size:9px" onclick="copyText('أفضل الممارسات ليست سلعاً عابرة للحدود — ما يصلح في سنغافورة قد يفشل في المنامة لاختلاف الجينات الاجتماعية')">نسخ</button></div>
+          <div style="background:rgba(255,107,107,.05);border:1px solid rgba(255,107,107,.2);border-radius:8px;padding:12px;"><div style="font-size:12px;color:var(--red);line-height:1.8;font-family:'Amiri',serif">«أتيقن أن المحتوى العظيم بلا "خطة اختراق" هو مجرد صرخة في وادٍ — نحن لا نريد "مشاهدات" عابرة، بل "تأثيراً في دوائر صنع القرار العالمي"»</div><div style="font-size:10px;color:var(--text3);margin-top:4px;direction:ltr">"Strategic Content without a Dissemination Doctrine is merely a voice in the wilderness."</div><button class="copy-btn" style="margin-top:6px;font-size:9px" onclick="copyText('المحتوى العظيم بلا خطة اختراق هو مجرد صرخة في وادٍ')">نسخ</button></div>
+          <div style="background:var(--gold-dim);border:1px solid rgba(201,168,76,.15);border-radius:8px;padding:12px;"><div style="font-size:12px;color:var(--gold);line-height:1.8;font-family:'Amiri',serif">«في عالم السياسة والأرقام "الهيبة لا تُسمع فقط، بل تُرى"»</div><div style="font-size:10px;color:var(--text3);margin-top:4px;direction:ltr">"In the realm of politics and power, Prestige is not merely an echo to be heard, but a State of Presence to be witnessed."</div><button class="copy-btn" style="margin-top:6px;font-size:9px" onclick="copyText('في عالم السياسة والأرقام الهيبة لا تُسمع فقط بل تُرى')">نسخ</button></div>
+          <div style="background:rgba(77,163,212,.05);border:1px solid rgba(77,163,212,.15);border-radius:8px;padding:12px;"><div style="font-size:12px;color:var(--blue);line-height:1.8;font-family:'Amiri',serif">«متى ننتقل من مرحلة "تدريب الموظفين" إلى مرحلة "صناعة القادة الاستراتيجيين"؟»</div><div style="font-size:10px;color:var(--text3);margin-top:4px;direction:ltr">"When shall we transcend 'Employee Training' and institutionalize 'Strategic Leadership Engineering'?"</div><button class="copy-btn" style="margin-top:6px;font-size:9px" onclick="copyText('متى ننتقل من مرحلة تدريب الموظفين إلى مرحلة صناعة القادة الاستراتيجيين؟')">نسخ</button></div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ══════════════ SECURITY ══════════════ -->
+  <div class="page" id="page-security">
+    <div class="pg-eye ar-only">Cyber Security · الأمن السيبراني</div>
+    <div class="pg-eye en-only">Cyber Security · Threat Shield</div>
+    <div class="pg-title ar-only">درع <span>الحماية</span></div>
+    <div class="pg-title en-only">Protection <span>Shield</span></div>
+    <div class="pg-sub ar-only">حماية استباقية لكاتب تحت رصد — بيانات حساسة محلية فقط</div>
+    <div class="pg-sub en-only">Proactive protection for a monitored writer — sensitive data stored locally only</div>
+    <div class="stats">
+      <div class="stat s-green"><div class="stat-lbl">مستوى الأمان</div><div class="stat-val" style="font-size:20px">عالٍ</div><div class="stat-sub">85%</div></div>
+      <div class="stat s-red"><div class="stat-lbl">تهديدات</div><div class="stat-val">2</div><div class="stat-sub">تحت المراقبة</div></div>
+      <div class="stat s-blue"><div class="stat-lbl">2FA</div><div class="stat-val">✓</div><div class="stat-sub">جميع الحسابات</div></div>
+      <div class="stat s-gold"><div class="stat-lbl">آخر فحص</div><div class="stat-val" style="font-size:16px">اليوم</div><div class="stat-sub">09:00ص</div></div>
+    </div>
+    <div class="g2">
+      <div class="card"><div class="card-head"><span class="ch-icon">🛡️</span><div><div class="ch-title">حالة الحماية</div></div></div><div class="card-body">
+        <div class="sec-meter"><div class="sec-fill" style="width:85%"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--text3);margin-bottom:14px;font-family:'IBM Plex Mono',monospace;"><span>منخفض</span><span style="color:var(--green)">85% عالٍ</span><span>مثالي</span></div>
+        <div class="sec-item"><div style="font-size:12px;color:var(--text2)">كلمات المرور</div><span class="sv-ok">قوية ✓</span></div>
+        <div class="sec-item"><div style="font-size:12px;color:var(--text2)">مصادقة ثنائية 2FA</div><span class="sv-ok">مفعّل ✓</span></div>
+        <div class="sec-item"><div style="font-size:12px;color:var(--text2)">VPN</div><span class="sv-warn">يُنصح به</span></div>
+        <div class="sec-item"><div style="font-size:12px;color:var(--text2)">النسخ الاحتياطي</div><span class="sv-warn">أسبوعي</span></div>
+        <div class="sec-item"><div style="font-size:12px;color:var(--text2)">بيانات حساسة سحابية</div><span class="sv-ok">لا يوجد ✓</span></div>
+      </div></div>
+      <div class="card"><div class="card-head"><span class="ch-icon">⚠️</span><div><div class="ch-title">التهديدات المرصودة</div></div><span class="ch-badge bg-red">2 نشط</span></div><div class="card-body">
+        <div style="background:var(--red-dim);border:1px solid rgba(255,107,107,.2);border-radius:8px;padding:13px;margin-bottom:11px;"><div style="font-size:12px;font-weight:600;color:var(--red);margin-bottom:5px">🚨 نشاط غير معتاد</div><div style="font-size:11px;color:var(--text2);line-height:1.7">محاولات دخول من IP مجهول · الحالة: محجوب<br><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text3)">أمس 22:40</span></div></div>
+        <div style="background:var(--gold-dim);border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:13px;"><div style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:5px">⚠️ رسائل مشبوهة</div><div style="font-size:11px;color:var(--text2);line-height:1.7">3 رسائل بروابط مشبوهة · تم الحجر تلقائياً</div></div>
+        <div class="div"></div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.9;">✅ البيانات الحساسة: محلية فقط<br>✅ الأرشيف: نسخة محلية + سحابة مشفّرة<br>🔒 التوصية: تفعيل VPN دائم</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ══════════════ ARCHIVE ══════════════ -->
+  <div class="page" id="page-archive">
+    <div class="pg-eye ar-only">Historical Archive · الأرشيف التاريخي</div>
+    <div class="pg-eye en-only">Historical Archive · 2015 – 2025</div>
+    <div class="pg-title ar-only">أرشيف <span>150+ مقال</span></div>
+    <div class="pg-title en-only">Archive <span>150+ Articles</span></div>
+    <div class="pg-sub ar-only">2015 — 2025 · استيراد PDF بالذكاء الاصطناعي · بدون إعادة كتابة</div>
+    <div class="pg-sub en-only">2015 — 2025 · AI-powered PDF import · no manual retyping required</div>
+    <div class="card">
+      <div class="card-head"><span class="ch-icon">🗄️</span><div><div class="ch-title">استيراد الأرشيف التاريخي</div><div class="ch-en">Legacy Import · AI OCR</div></div><span class="ch-badge bg-gold">150+ PDF</span></div>
+      <div class="card-body">
+        <div style="text-align:center;padding:40px 20px;">
+          <div style="font-size:60px;margin-bottom:14px">🗄️</div>
+          <div style="font-family:'Amiri',serif;font-size:22px;color:var(--text);margin-bottom:8px">الأرشيف جاهز للاستيراد</div>
+          <div style="font-size:13px;color:var(--text2);max-width:480px;margin:0 auto 22px;line-height:1.8;">ارفع ملفات PDF لمقالاتك من 2015 إلى 2025. الذكاء الاصطناعي يقرأها ويصنّفها ويستخرج الملخصات تلقائياً — دون إعادة كتابة أي نص.</div>
+          <div style="border:2px dashed var(--border);border-radius:10px;padding:28px;max-width:400px;margin:0 auto 20px;cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="font-size:28px;margin-bottom:8px">📎</div>
+            <div style="font-size:13px;color:var(--text2)">اسحب ملفات PDF هنا</div>
+            <div style="font-size:10px;color:var(--text3);margin-top:4px;font-family:'IBM Plex Mono',monospace">PDF صورة → OCR → تصنيف AI → أرشيف منظّم</div>
+          </div>
+          <button class="btn btn-gold" style="font-size:13px;padding:11px 26px;" onclick="nav('generator')">🤖 ابدأ بمولّد AI</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- MODAL -->
+<div class="modal-ov" id="artModal">
+  <div class="modal">
+    <div class="modal-hd">
+      <div class="modal-tw">
+        <div class="modal-ttl" id="mTitle">عنوان المقال</div>
+        <div class="modal-meta" id="mMeta"></div>
+      </div>
+      <button class="modal-cls" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-tabs" id="mTabs">
+      <div class="mtab active" onclick="mSwitch('draft',this)">📄 مسودة</div>
+      <div class="mtab" onclick="mSwitch('final',this)">📰 نهائي</div>
+      <div class="mtab" onclick="mSwitch('brief',this)">📊 إيجاز</div>
+      <div class="mtab" onclick="mSwitch('research',this)">🔬 بحثية</div>
+      <div class="mtab" onclick="mSwitch('infographic',this)">🖼 إنفوجرافيك</div>
+      <div class="mtab" onclick="mSwitch('campaign',this)">📣 تسويق</div>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ══ BILINGUAL ══
+const i18n={
+  home:       {ar:'لوحة القيادة',          en:'Dashboard'},
+  articles:   {ar:'الأرشيف والمقالات',     en:'Archive & Articles'},
+  generator:  {ar:'مولّد المحتوى AI',       en:'AI Content Generator'},
+  campaigns:  {ar:'الحملات التسويقية',     en:'Marketing Campaigns'},
+  email:      {ar:'البريد والتقويم',        en:'Email & Calendar'},
+  platforms:  {ar:'المنصات والموقع',        en:'Platforms & Website'},
+  brand:      {ar:'هوية البراند',           en:'Brand Identity'},
+  security:   {ar:'الأمن السيبراني',        en:'Cyber Security'},
+  archive:    {ar:'الأرشيف التاريخي',       en:'Historical Archive'}
+};
+const icons={home:'🏠',articles:'📝',generator:'✦',campaigns:'📣',email:'📧',platforms:'🌐',brand:'👑',security:'🛡️',archive:'🗄️'};
+let currentLang='ar';
+
+function setLang(lang){
+  currentLang=lang;
+  const html=document.getElementById('htmlRoot');
+  html.setAttribute('lang',lang);
+  html.setAttribute('dir',lang==='ar'?'rtl':'ltr');
+  document.getElementById('btnAR').classList.toggle('active',lang==='ar');
+  document.getElementById('btnEN').classList.toggle('active',lang==='en');
+  // update topbar title for current page
+  const activePage=document.querySelector('.page.active');
+  if(activePage){
+    const id=activePage.id.replace('page-','');
+    const label=i18n[id];
+    if(label) document.getElementById('tbTitle').innerHTML=`${icons[id]||'📌'} <span>${label[lang]}</span>`;
+  }
+}
+
+// ══ NAV ══
+function nav(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const pg=document.getElementById('page-'+id);
+  if(pg)pg.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>{if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes("'"+id+"'"))n.classList.add('active');});
+  const label=i18n[id];
+  if(label) document.getElementById('tbTitle').innerHTML=`${icons[id]||'📌'} <span>${label[currentLang]}</span>`;
+  if(window.innerWidth<=900)document.getElementById('sidebar').classList.remove('open');
+}
+// DATE
+(function(){const d=new Date(),days=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'],months=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];document.getElementById('dateTag').textContent=`${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;})();
+
+// ══ ADD ARTICLE ══
+function openAdd(){document.getElementById('addCard').style.display='block';document.getElementById('addCard').scrollIntoView({behavior:'smooth'});}
+function closeAdd(){document.getElementById('addCard').style.display='none';}
+function addArticle(){
+  const title=document.getElementById('nTitle').value.trim();
+  if(!title){alert('الرجاء إدخال عنوان المقال');return;}
+  alert('✦ تم حفظ المقال!\n\nسيبدأ AI بتوليد المكونات الستة.\nانتقل إلى صفحة «مولّد المحتوى AI» وألصق النص للتوليد الكامل.');
+  closeAdd();
+  nav('generator');
+}
+
+// ══ MODAL DATA ══
+const articleData={
+  a1:{
+    title:'المنظومة الشاملة للتحصين الجيوسياسي: من "فخ العقل" إلى "السيادة المستردة"',
+    meta:'مارس 2026 · صحيفة البلاد البحرينية · صفحة منطلقات',
+    draft:`<div class="sec-ttl">مسودة المقال — Draft</div>
+<div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div>
+<p>هذا المقال يختزل الفكر الاستراتيجي ويدمج بين تشريح "الفخ المعرفي" وبين هندسة "الارتهان العاطفي"، وصولاً إلى عقيدة التحرير. تبدأ العملية بخلق "فراغ إدراكي" ناتج عن التناقض المعرفي، مما يجعل المجتمعات والمنظمات عرضة لما يُعرف بـ "الهشاشة المجتمعية المعرفية".</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button>
+</div>
+<div class="lang-block"><div class="lang-tag">🌐 English</div>
+<p>This article condenses strategic thinking by integrating the analysis of the "Cognitive Trap" with the engineering of "Emotional Hostage-Taking", culminating in a liberation doctrine. The process initiates by creating a "Perceptual Vacuum" resulting from cognitive dissonance, rendering societies and organizations vulnerable to "Cognitive Societal Fragility."</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button>
+</div>`,
+    final:`<div class="sec-ttl">النسخة النهائية — Final Version</div>
+<div class="lang-block"><div class="lang-tag">🇧🇭 العربية — النسخة المنشورة</div>
+<p><strong>المنظومة الشاملة للتحصين الجيوسياسي</strong><br><br>في عالمٍ باتت فيه الحروب أكثر دهاءً وأقل ضجيجاً، يصبح التحصين الجيوسياسي ضرورةً وجودية لا ترفاً فكرياً. يطرح هذا المقال رؤية شاملة تنطلق من تشريح "الفخ المعرفي" وصولاً إلى بروتوكول "السيادة المستردة"، مؤسساً لعقيدة استراتيجية متكاملة تجمع بين الأبعاد النفسية والجيوسياسية.</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button>
+</div>
+<div class="lang-block"><div class="lang-tag">🌐 English — Published Version</div>
+<p><strong>The Comprehensive System of Geopolitical Fortification</strong><br><br>In a world where wars have become more cunning and less noisy, geopolitical fortification becomes an existential necessity rather than an intellectual luxury. This article presents a comprehensive vision that moves from analyzing the "Cognitive Trap" to the "Reclaimed Sovereignty" protocol, establishing an integrated strategic doctrine that combines psychological and geopolitical dimensions.</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button>
+</div>`,
+    brief:`<div class="sec-ttl">الإيجاز الاستراتيجي — Strategic Brief</div>
+<div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div>
+<p><strong>العنوان:</strong> المنظومة الشاملة للتحصين الجيوسياسي<br><strong>الفكرة المحورية:</strong> الانتقال من حالة "الاستلاب المعرفي" إلى حالة "السيادة المستردة"<br><strong>المحاور الخمسة:</strong><br>١. تشريح الانكشاف المعرفي<br>٢. الهوية السيكولوجية للهجين النرجسي-الحدي<br>٣. هندسة الارتهان وتكتيك الأيكيدو النفسي<br>٤. مصفوفة الاستلاب الكلي<br>٥. بروتوكول السيادة المستردة<br><strong>الخلاصة:</strong> "الجندي الدبلوماسي" هو المصل الذي يحمي الجينوم الاجتماعي من التآكل.</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button>
+</div>
+<div class="lang-block"><div class="lang-tag">🌐 English</div>
+<p><strong>Title:</strong> The Comprehensive System of Geopolitical Fortification<br><strong>Core Idea:</strong> Transition from "Cognitive Alienation" to "Reclaimed Sovereignty"<br><strong>Five Pillars:</strong><br>1. Diagnostic of Cognitive Exposure<br>2. The Pathological Hybrid Identity (NPD-BPD)<br>3. Hostage Engineering & Aikido Tactics<br>4. The Matrix of Total Alienation<br>5. Reclaimed Sovereignty Protocol<br><strong>Conclusion:</strong> The "Diplomatic Soldier" is the antidote protecting the social genome from erosion.</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button>
+</div>`,
+    research:`<div class="sec-ttl">الورقة البحثية — Research Paper</div>
+<div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div>
+<p><strong>المقدمة:</strong> تنبثق هذه الورقة البحثية من إشكالية مركزية: كيف تتحول المجتمعات من حالة الهشاشة المعرفية إلى حالة التحصين السيادي؟<br><br><strong>الإطار النظري:</strong> تستند هذه الدراسة إلى ثلاثة محاور: نظرية التناقض المعرفي (Festinger)، ونموذج الارتهان العاطفي في علم النفس السياسي، ومفهوم الهشاشة المجتمعية المعرفية.<br><br><strong>المنهجية:</strong> تحليل نوعي يعتمد على دراسة الحالات الجيوسياسية ومقاطعتها بالأدلة النفسية الإكلينيكية.<br><br><strong>النتائج:</strong> يُثبت البحث أن الدول والمؤسسات التي تعاني من "فراغ إدراكي" تكون أكثر عرضة للاختراق الناعم.</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button>
+</div>
+<div class="lang-block"><div class="lang-tag">🌐 English</div>
+<p><strong>Introduction:</strong> This research paper emerges from a central problematic: How do societies transition from cognitive fragility to sovereign fortification?<br><br><strong>Theoretical Framework:</strong> This study relies on three axes: Cognitive Dissonance Theory (Festinger), Emotional Hostage-Taking models in political psychology, and the concept of Cognitive Societal Fragility.<br><br><strong>Methodology:</strong> Qualitative analysis based on geopolitical case studies cross-referenced with clinical psychological evidence.<br><br><strong>Findings:</strong> The research demonstrates that states and institutions suffering from a "Perceptual Vacuum" are significantly more vulnerable to soft power penetration.</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button>
+</div>`,
+    infographic:`<div class="sec-ttl">مقترح الإنفوجرافيك — Infographic Blueprint</div>
+<div class="lang-block"><div class="lang-tag">🎨 التصميم البصري — Visual Design</div>
+<p><strong>العنوان البصري:</strong> مصفوفة الردع المعرفي<br><strong>النوع:</strong> مخطط انسيابي هرمي عمودي<br><strong>الألوان:</strong> أسود عميق + ذهبي + أزرق استراتيجي<br><br><strong>المحتوى البصري:</strong><br>🔴 المرحلة ١: الفراغ الإدراكي (نقطة البداية)<br>⬇️ الهجين النرجسي-الحدي (الفيروس)<br>🔶 المرحلة ٢: الارتهان العاطفي<br>⬇️ تكتيك الأيكيدو النفسي<br>🔴 المرحلة ٣: الاستلاب الكلي<br>⬆️ (انقلاب المسار)<br>🟢 المرحلة ٤: التمرد الأسمى<br>✅ المرحلة ٥: السيادة المستردة<br><br><strong>الحجم المقترح:</strong> 1080×1350 للـ Instagram · 1200×627 للـ LinkedIn</p>
+</div>`,
+    campaign:`<div class="sec-ttl">خطة التسويق — Marketing Plan</div>
+<div class="lang-block"><div class="lang-tag">🇧🇭 خطة 7 أيام — عربي</div>
+<p><strong>اليوم ١ — الأحد (LinkedIn + X):</strong><br>Thread تشويقي: «في عالم باتت فيه الحروب أكثر دهاءً، هل أنت محصّن؟» + أول 4 تغريدات تشويقية<br><br><strong>اليوم ٢ — الاثنين (Instagram):</strong><br>إنفوجرافيك مصفوفة الردع المعرفي<br>#تأميم_الوعي #السيادة_الذهنية #محمد_طلعت_عبدالعزيز<br><br><strong>اليوم ٣ — الثلاثاء (LinkedIn):</strong><br>مقال تحليلي قصير — «ما هو الجندي الدبلوماسي؟»<br><br><strong>اليوم ٥ — الخميس (Instagram + X):</strong><br>3 اقتباسات بصرية + Stories<br><br><strong>اليوم ٧ — السبت (جميع المنصات):</strong><br>ملخص الحملة + رابط المقال الكامل</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button>
+</div>
+<div class="lang-block"><div class="lang-tag">🌐 7-Day Plan — English</div>
+<p><strong>Day 1 — Sunday (LinkedIn + X):</strong><br>Teaser Thread: "In a world where wars are smarter and quieter — are you fortified?" + 4-tweet thread<br><br><strong>Day 2 — Monday (Instagram):</strong><br>Cognitive Deterrence Matrix infographic<br>#NationalizationOfConsciousness #SovereignMind #MohamedTalaat<br><br><strong>Day 3 — Tuesday (LinkedIn):</strong><br>Short analytical post — "What is the Diplomatic Soldier?"<br><br><strong>Day 5 — Thursday (Instagram + X):</strong><br>3 visual quote cards + Stories<br><br><strong>Day 7 — Saturday (All Platforms):</strong><br>Campaign summary + full article link + CTA</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button>
+</div>`
+  },
+  a5:{
+    title:'مانيفستو السيادة الذهنية: عقيدة الجندي الدبلوماسي في مواجهة الانكشاف الاستراتيجي',
+    meta:'2026 · صحيفة البلاد البحرينية · بقلم: محمد طلعت عبد العزيز',
+    draft:`<div class="sec-ttl">مسودة المقال — Draft</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div><p style="line-height:2">في لحظة تاريخية فارقة، يواجه العقل العربي والعمق الخليجي تحدياً يتجاوز الأبعاد العسكرية التقليدية نحو معضلة <strong>"وجودية إدراكية"</strong> تفرضها <strong>"سيولة استراتيجية"</strong> لا تعترف بالحدود المادية وحدها. فحماية السيادة اليوم لم تعد تقتصر على الترسانات الحربية، بل باتت ترتكز جوهرياً على <strong>"المناعة الفكرية"</strong> كحائط صد منيع ضد محاولات <strong>"تفكيك شيفرة الوعي الوطني"</strong>.<br><br>إن الخطر الحقيقي يكمن في هندسة تبعية مقنعة تسعى لإحلال وعي استهلاكي باهت يُفرغ الدولة من روحها السيادية ويحولها إلى مجرد كيان وظيفي مسلوب الإرادة. ولهذا نطرح عقيدة <strong>"الجندي الدبلوماسي"</strong> — ليس كمسمى وظيفي، بل كوعي وطني شامل يدرك فيه المواطن أن الكلمة والمقطع المرئي هما مناورات استراتيجية في ميدان صراع الإرادات.</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English</div><p style="line-height:2;direction:ltr;text-align:left">At this critical historical juncture, the Arab mind confronts a challenge transcending traditional military dimensions — an <strong>"existential-perceptual"</strong> dilemma imposed by a <strong>"strategic fluidity"</strong> that refuses to acknowledge physical borders alone. Sovereignty today hinges fundamentally on <strong>"Intellectual Immunity"</strong> as a bulwark against <strong>"deconstructing the national consciousness code."</strong><br><br>The genuine peril lies in a sophisticated engineering of masked dependency — hollowing out the state's sovereign soul. We propose the doctrine of the <strong>"Diplomatic Soldier"</strong> — not as a job title, but as a comprehensive national consciousness where the citizen recognizes that the word and the digital clip are <strong>strategic maneuvers in the theater of the struggle of wills.</strong></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    final:`<div class="sec-ttl">النسخة النهائية — Final Version</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية — النص الكامل</div><p style="line-height:2.1"><strong>مانيفستو السيادة الذهنية: عقيدة "الجندي الدبلوماسي" في مواجهة الانكشاف الاستراتيجي</strong><br>بقلم: محمد طلعت عبد العزيز | باحث في شؤون الإعلام والوعي الاستراتيجي وعلم النفس السياسي<br><br>في لحظة تاريخية فارقة، يواجه العقل العربي والعمق الخليجي تحدياً يتجاوز الأبعاد العسكرية التقليدية نحو معضلة "وجودية إدراكية" تفرضها "سيولة استراتيجية" لا تعترف بالحدود المادية وحدها. فحماية السيادة اليوم لم تعد تقتصر على الترسانات الحربية، بل باتت ترتكز بصورة جوهرية على "المناعة الفكرية" كحائط صد منيع ضد محاولات "تفكيك شيفرة الوعي الوطني".<br><br>إن الخطر الحقيقي يكمن في هندسة تبعية مقنعة تسعى لإحلال وعي استهلاكي باهت يفرغ الدولة من روحها السيادية ويحولها إلى مجرد كيان وظيفي مسلوب الإرادة. لقد أدى الانفصال بين النمو المادي والأصالة الفكرية إلى خلق ثغرات نفذت منها حروب الجيل الخامس، حيث أضحت المنصات الرقمية والمؤثرون أدوات ضغط سياسي تسلب الشباب إرادتهم وتحولهم من مشاريع قادة سياديين إلى مستهلكين لتيارات تسويقية تستهدف تآكل اليقين الذاتي للجبهة الداخلية.<br><br>القوة الناعمة الحقيقية هي "الذخيرة الفكرية" (Intellectual Munitions) التي تصنع نموذجاً ملهماً وسردية وطنية صلبة تصمد أمام الأزمات. ومن هذا المنطلق نطرح عقيدة "الجندي الدبلوماسي" ليس كمسمى وظيفي، بل كوعي وطني شامل. اليوم نحن أمام اختيار أوحد لا ثاني له: إما صياغة عقول أجيالنا بمداد أصالتنا وسيادتنا المطلقة، أو تركهم نهباً لخوارزميات غريبة تعيد صياغتهم كأدوات في مشاريع تبعية أنيقة. الخيار بين <strong>السيادة المطلقة</strong> أو <strong>التبعية الأنيقة</strong>.<br><br><em>© حقوق الملكية الفكرية محفوظة — محمد طلعت عبد العزيز</em></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — Full Version</div><p style="line-height:2.1;direction:ltr;text-align:left"><strong>The Manifesto of Cognitive Sovereignty: The "Diplomatic Soldier" Doctrine in the Face of Strategic Exposure</strong><br>By: Mohamed Talaat Abdel Aziz | Researcher in Media Affairs, Strategic Awareness, and Political Psychology<br><br>Safeguarding sovereignty today hinges on "Intellectual Immunity" as a bulwark against "deconstructing the national consciousness code." The genuine peril lies in sophisticated masked dependency engineering — hollowing out the state's sovereign soul, reducing it to a mere functional entity stripped of its will.<br><br>The decoupling of material growth from intellectual authenticity created strategic fissures exploited by Fifth-Generation Warfare. Digital platforms and influencers have become tools of political pressure — stripping youth of agency and transforming potential sovereign leaders into consumers of trends aimed at eroding the home front's self-certainty.<br><br>True Soft Power is "Intellectual Munitions" — crafting an inspiring model and resilient national narrative. We propose the "Diplomatic Soldier" doctrine as a comprehensive national consciousness where word and digital clip are strategic maneuvers in the struggle of wills. The corrective path demands intellectual nationalization of educational institutions as factories for sovereign awareness — running parallel to digital sovereignty that transforms national cadres into unofficial ambassadors.<br><br>Today we face one singular, non-negotiable choice: either forge our generations' minds with the ink of our authenticity and absolute sovereignty, or abandon them as prey to alien algorithms. The choice: <strong>Absolute Sovereignty</strong> or <strong>Elegant Dependency.</strong><br><br><em>© All intellectual property rights reserved — Mohamed Talaat Abdel Aziz</em></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    brief:`<div class="sec-ttl">الإيجاز الاستراتيجي — Strategic Brief</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div><p style="line-height:2"><strong>المحاور الجوهرية:</strong><br>• التهديد: "الاختراق الناعم" عبر غطاء العولمة → التبعية التكنوقراطية → فراغ في الجينوم الاجتماعي<br>• السلاح الفعلي: القوة الناعمة = الذخيرة الفكرية (Intellectual Munitions)<br>• العقيدة المقترحة: الجندي الدبلوماسي — المواطن الواعي أن الكلمة والمقطع مناورات استراتيجية<br>• المسار التصحيحي: تأميم فكري للمؤسسات التعليمية + سيادة رقمية + سفراء غير رسميين<br>• الخلاصة الحتمية: السيادة المطلقة أو التبعية الأنيقة — لا خيار ثالث<br><br><strong>الجمهور المستهدف:</strong> صناع القرار + النخب الأكاديمية + الجيل الشاب + المؤثرون الوطنيون</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English</div><p style="line-height:2;direction:ltr;text-align:left"><strong>Core Axes:</strong><br>• Threat: "Soft Penetration" under globalization → Technocratic Dependency → Social Genome erosion<br>• Real Weapon: Soft Power = Intellectual Munitions<br>• Proposed Doctrine: Diplomatic Soldier — citizen recognizing word & clip as strategic maneuvers<br>• Corrective Path: Intellectual nationalization of education + digital sovereignty + unofficial ambassadors<br>• Inevitable Conclusion: Absolute Sovereignty or Elegant Dependency — no third option<br><br><strong>Target Audience:</strong> Decision-makers + Academic elites + Youth + National influencers</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    research:`<div class="sec-ttl">الورقة البحثية — Research Paper</div><div class="lang-block"><div class="lang-tag">🇧🇭 الاستبانة الاستراتيجية المطورة — GSGI</div><p style="line-height:2"><strong>"وثيقة استنطاق الوعي وفرض الإرادة السيادية"</strong><br>صادر عن: المركز الدولي للتهديدات الاستراتيجية (GSGI) — محمد طلعت عبد العزيز، المؤسس والرئيس التنفيذي<br><br><strong>المحور الأول: اختبار المناعة الوجدانية</strong><br>١. الاختراق الرقمي: هل تُصنف نشاطك كـ"ثغر سيادي" تذود عنه، أم أنك ناقل (Carrier) لسرديات خوارزمية؟<br>٢. التبعية الناعمة: هل نمط حياتك اختيار من قيمك الوطنية، أم استجابة لـ"هندسة اجتماعية" وافدة؟<br>٣. الارتباط بالعمق: هل الانفتاح عزز حصونك الذاتية، أم أدى إلى "تميع الهوية"؟<br><br><strong>المحور الثاني: استنطاق المسؤولية التاريخية (للنخب)</strong><br>١. هل خططكم التطويرية تخضع لمختبر "الأصالة الثقافية" أم تتبنى "القوالب الجاهزة"؟<br>٢. هل تمتلك مؤسستك "بروتوكول ردع" لحروب المعلومات، أم استجابتكم تقليدية رد فعل؟<br>٣. هل تعترف أن التفوق العمراني دون "تحصين جيوسياسي للعقل" كيان هش قابل للاختراق؟<br><br><strong>المحور الثالث: نحو عقيدة الجندي الدبلوماسي</strong><br>١. هل تؤيد تحويل التعليم إلى "مصانع الوعي السيادي"؟<br>٢. كيف نحول المؤثرين إلى "سفراء غير رسميين" يحملون الذخيرة الفكرية؟<br><br><strong>مؤشر النتيجة:</strong> 80%+ = ردع معرفي صلب | 50-79% = انكشاف جزئي | أقل من 50% = استلاب كلي</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — GSGI Strategic Assessment</div><p style="line-height:2;direction:ltr;text-align:left"><strong>"Document of Cognitive Inquiry and Sovereign Will-Imposition"</strong><br>Issued by: GSGI – Global Strategic Intelligence | Mohamed Talaat Abdel Aziz, Founder & CEO<br><br><strong>Module I: Intellectual Immunity (General Public & Influencers)</strong><br>1. Do you categorize your digital activity as a "Sovereign Outpost" or are you a mere "Carrier" of algorithmic narratives?<br>2. Is your lifestyle an authentic choice rooted in national values, or a response to external "Social Engineering"?<br>3. Has globalization strengthened your internal fortifications, or led to "Identity Liquidity"?<br><br><strong>Module II: Historical Responsibility (Elites & Decision Makers)</strong><br>1. Do your development plans undergo an "Intellectual Authenticity" lab, or adopt ready-made templates?<br>2. Does your organization possess a "Deterrence Protocol" for information wars?<br>3. Do you acknowledge that material superiority without "Geopolitical Mental Fortification" is fragile?<br><br><strong>Module III: The Diplomatic Soldier Doctrine</strong><br>1. Do you support transforming education into "Sovereign Consciousness Factories"?<br>2. How can we transform influencers into "Unofficial Ambassadors" carrying intellectual munitions?<br><br><strong>Index Scoring:</strong> 80%+ = Cognitive Deterrence | 50-79% = Partial Exposure | Below 50% = Total Alienation</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    infographic:`<div class="sec-ttl">مقترح الإنفوجرافيك — Infographic Blueprint</div><div class="lang-block"><div class="lang-tag">🎨 Design Specs</div><p style="line-height:2;direction:ltr;text-align:left"><strong>Title: "The Diplomatic Soldier Doctrine: Sovereign Immunity vs. Strategic Exposure"</strong><br>© Mohamed Talaat Abdel Aziz — All Rights Reserved<br><br><strong>VISUAL:</strong> Two-path fork road — Left: "Absolute Sovereignty" (shielded soldier) | Right: "Elegant Dependency" (chain on wrist)<br><br><strong>CENTER WHEEL — 3 Levels of Immunity:</strong><br>🟢 Sovereign Immunity (80%+) → Diplomatic Soldier Status<br>🟡 Strategic Exposure (50-79%) → Partial Occupation<br>🔴 Total Alienation (Below 50%) → Perceptual Emergency<br><br><strong>BOTTOM CALL TO ACTION:</strong><br>"Is your mind a sovereign fortress or a strategic loophole?" — GSGI Assessment QR<br><br><strong>Specs:</strong> LinkedIn 1200×627px | Instagram 1080×1350px<br>Colors: Military green #1a3d1a + Deep navy #0a0f1e + Gold #c9a84c<br>Signature: Mohamed Talaat Abdel Aziz — محمد طلعت عبد العزيز | GSGI</p></div>`,
+    campaign:`<div class="sec-ttl">خطة التسويق — Marketing Plan</div><div class="lang-block"><div class="lang-tag">🇧🇭 عربي — التدوينات الاستراتيجية</div><p style="line-height:2.1"><strong>التغريدة ١/٤ (الصدمة الواعية):</strong><br>«في حروب الجيل الخامس، لا توجد منطقة رمادية؛ إما أن تكون درعاً لوطنك أو ثغرة في وعيك.»<br>#السيادة_الذهنية #الجندي_الدبلوماسي #محمد_طلعت_عبد_العزيز<br><br><strong>التغريدة ٢/٤ (استفزاز النخبة):</strong><br>«سؤال للمؤثرين والشباب: هل أنت "مشروع قائد" يفرض إرادته، أم "مستهلك تريندات" تُسلب إرادته ببطء؟ كيف تحمي جينومك الاجتماعي؟»<br><br><strong>التغريدة ٣/٤ (نداء القرار):</strong><br>«البناء العمراني دون بناء عقلاني هو "تبعية أنيقة". التاريخ لا يرحم الأمم التي تهمل حصونها الذهنية.»<br>#الأمن_القومي #نخب_الوعي<br><br><strong>التغريدة ٤/٤ (الحسم):</strong><br>«إلى القادة: هل مؤسساتكم تخرج موظفاً تقليدياً أم جندياً دبلوماسياً؟ الفجوة بين النمو المادي وعمق الوعي هي مكمن الخطر.»<br><br><strong>المنصات:</strong> LinkedIn (مقال تحليلي) + X (سلسلة threads) + Instagram (بطاقات اقتباس)<br><strong>الهاشتاقات:</strong> #الجندي_الدبلوماسي #السيادة_الذهنية #المناعة_الفكرية #محمد_طلعت_عبد_العزيز</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — Strategic Threads</div><p style="line-height:2.1;direction:ltr;text-align:left"><strong>Thread 1/4 (Shock & Awareness):</strong><br>"In 5G Warfare, there is no gray zone — you are either a shield for your nation or a gap in its consciousness."<br>#MentalSovereignty #DiplomaticSoldier #MohamedTalaat<br><br><strong>Thread 2/4 (Elite Provocation):</strong><br>"A question for influencers & youth: Are you a 'sovereign leader project' or a 'trend consumer' whose will is slowly stolen? How do you protect your Social Genome?"<br><br><strong>Thread 3/4 (Decision Call):</strong><br>"Urban construction without intellectual architecture is 'Elegant Dependency.' History shows no mercy to nations that neglect their mental fortifications."<br>#NationalSecurity #CognitiveSovereignty<br><br><strong>Thread 4/4 (Final Verdict):</strong><br>"To leaders: Are your institutions producing conventional employees or Diplomatic Soldiers? The gap between material growth and depth of consciousness is where danger lurks."<br><br><strong>Platforms:</strong> LinkedIn (full analysis) + X (strategic threads) + Instagram (quote cards)<br><strong>Hashtags:</strong> #DiplomaticSoldier #MentalSovereignty #IntellectualImmunity #MohamedTalatAbdelAziz</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`
+  },
+  a6:{
+    title:'العقل في الفخ: هندسة التناقض المعرفي وانكشاف المجتمعات أمام الشخصيات الحدية والنرجسية',
+    meta:'2026 · جزءان · إيجاز استراتيجي GSGI + استبانة + خطة تسويق · محمد طلعت عبد العزيز',
+    draft:`<div class="sec-ttl">مسودة المقال — Draft (جزء ١ و٢)</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية — الجزء الأول</div><p style="line-height:2">إن الفهم العميق للتناقض المعرفي يكشف كيف تؤثر العمليات النفسية غير المتناسقة على سلوكيات الأفراد، خاصة عند تداخلها مع الشخصيات ذات الطابع الحدي والنرجسي. فهذه التداخلات لا تخلق صراعات داخلية فردية فحسب، بل تمتد لتؤثر على المحيط الاجتماعي بأكمله، مولدةً آثاراً متسلسلة تصل إلى الهيكل المجتمعي والسياسي.<br><br>تتجلى خطورة هذا المزج في أنه يخلق ما يسمى بـ <strong>"الفراغ الإدراكي"</strong> (Perceptual Vacuum)، حيث تصبح قدرة الفرد على تقييم المعلومات بشكل موضوعي محدودة، ما يجعل القرارات الشخصية والجماعية معرضة للانحراف أو الاستغلال. هذا ما يفتح الباب أمام <strong>"الهشاشة المجتمعية المعرفية"</strong> (Cognitive Societal Fragility) التي تجعل المجتمعات عرضة للتلاعب بالوعي الجماعي والابتزاز الانفعالي العام.</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — Part 1</div><p style="line-height:2;direction:ltr;text-align:left">A profound understanding of Cognitive Dissonance reveals how inconsistent psychological processes dictate individual behaviors, particularly when intersecting with Borderline (BPD) and Narcissistic (NPD) personalities. These intersections expand to impact the entire social environment, triggering chain reactions reaching the fabric of societal and political structures.<br><br>This fusion creates a <strong>"Perceptual Vacuum"</strong> — severely impairing objective information assessment, rendering decisions susceptible to exploitation. This opens the door to <strong>"Cognitive Societal Fragility"</strong> — leaving societies exposed to targeted media campaigns, manipulation of collective consciousness, and "Emotional Blackmail" for purposes of dominance and control.</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    final:`<div class="sec-ttl">النسخة النهائية — Final Version (الجزءان)</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية — النص الكامل</div><p style="line-height:2.1"><strong>العقل في الفخ: بين التناقض المعرفي والشخصيات الحدية والنرجسية (١/٢)</strong><br>بقلم: محمد طلعت عبد العزيز<br><br>إن الفهم العميق للتناقض المعرفي هو الذي يكشف كيف تؤثر العمليات النفسية غير المتناسقة على سلوكيات الأفراد، خاصةً عند تداخلها مع الشخصيات ذات الطابع الحدّي والنرجسي. هذه التداخلات لا تخلق صراعات داخلية فردية فحسب، بل تمتد لتؤثر على المحيط الاجتماعي بأكمله، مولدةً آثاراً متسلسلة تصل إلى الهيكل المجتمعي والسياسي.<br><br>تتجلى خطورة هذا المزج في أنه يخلق ما يسمى بـ "الفراغ الإدراكي"، حيث تصبح قدرة الفرد على تقييم المعلومات موضوعياً محدودة، ما يجعل القرارات معرضة للانحراف أو الاستغلال. من منظور سياسي واستراتيجي، فإن هذه التركيبة تفتح الباب أمام "الهشاشة المجتمعية المعرفية" (Cognitive Societal Fragility)، التي تجعل المجتمعات عرضة للتلاعب بالوعي الجماعي والابتزاز الانفعالي العام لأغراض السيطرة والتحكم.<br><br>إن معالجة هذا التحدي تتطلب إعادة هندسة الإطار المعرفي والسلوكي عبر برامج تدريبية، وتوعية معرفية، وآليات دعم نفسي واجتماعي. ومن الضروري تضمين خطط التدخل المبكر والتقويم المستمر.<br><br><em>© حقوق الملكية الفكرية محفوظة — محمد طلعت عبد العزيز</em></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — Full Text</div><p style="line-height:2.1;direction:ltr;text-align:left"><strong>The Mind in the Trap: Between Cognitive Dissonance, Borderline & Narcissistic Personalities (1/2)</strong><br>By: Mohamed Talaat Abdel Aziz<br><br>A profound understanding of Cognitive Dissonance reveals how inconsistent psychological processes dictate individual behaviors when intersecting with BPD and NPD personalities. These intersections impact the entire social environment, triggering chain reactions reaching societal and political structures.<br><br>The danger of this fusion lies in creating a "Perceptual Vacuum" — severely impairing objective information assessment, rendering decisions susceptible to deviation or exploitation. The most critical gap remains the absence of conscious evaluation systems accounting for the "Triple Dimensions" (cognitive, psychological, social). This opens the door to "Cognitive Societal Fragility" — leaving societies exposed to targeted media campaigns, manipulation of collective consciousness, and "Emotional Blackmail" for purposes of dominance and control.<br><br>Addressing this challenge requires "Re-engineering of the Cognitive and Behavioral Framework" through specialized training programs, cognitive awareness, and socio-psychological support mechanisms.<br><br><em>© All intellectual property rights reserved — Mohamed Talaat Abdel Aziz</em></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    brief:`<div class="sec-ttl">الإيجاز الاستراتيجي GSGI — Strategic Brief</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div><p style="line-height:2"><strong>المركز الدولي للتهديدات الاستراتيجية (GSGI)</strong><br><br><strong>١. التوصيف العملياتي:</strong> "الفراغ الإدراكي" الناتج عن تداخل التناقض المعرفي مع BPD & NPD → تحوله إلى "فيروس مؤسسي" يفكك الروابط الاجتماعية<br><br><strong>٢. التشخيص الجيوسياسي — الهشاشة المجتمعية المعرفية:</strong><br>• التلاعب بالوعي الجماعي عبر حملات إعلامية تستهدف الثغرات النفسية<br>• الابتزاز الانفعالي العام لأغراض السيطرة الخارجية<br><br><strong>٣. استراتيجية الاستجابة:</strong><br>• التحليل النفس-استراتيجي (Psycho-Strategic Analysis): دمج البيانات السلوكية بالنماذج الاجتماعية<br>• تأميم الأطر المعرفية: إعادة هندسة السلوك عبر برامج تخلق "الجندي الدبلوماسي"<br>• المحاكاة والتقييم الديناميكي لرصد "العدوانية الخفية" داخل الهياكل القيادية<br><br><strong>٤. الخلاصة السيادية:</strong> "العقل في الفخ" قضية أمن قومي — الصمود يتطلب الانتقال من "رد الفعل العفوي" إلى "الاستجابة متعددة المستويات"</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — GSGI Brief</div><p style="line-height:2;direction:ltr;text-align:left"><strong>Global Strategic Intelligence (GSGI)</strong><br><br><strong>1. Operational Diagnosis:</strong> "Perceptual Vacuum" from BPD & NPD intersection → transforms into "Institutional Virus" dismantling social bonds<br><br><strong>2. Geopolitical Impact — Cognitive Societal Fragility:</strong><br>• Manipulation of Collective Consciousness via targeted media narratives<br>• Covert Aggression & bias erosion within political/social structures<br><br><strong>3. Response Strategy:</strong><br>• Psycho-Strategic Analysis: merge behavioral data with social models<br>• Cognitive Re-nationalization: behavioral re-engineering creating the "Diplomatic Soldier"<br>• Dynamic simulation & assessment tools monitoring "Covert Aggression" in leadership structures<br><br><strong>4. Sovereign Conclusion:</strong> "Mind in the Trap" is a National Security issue — resilience requires transition from "Passive Observation" to "Proactive Cognitive Re-engineering"</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    research:`<div class="sec-ttl">الاستبانة الاستراتيجية — Strategic Assessment</div><div class="lang-block"><div class="lang-tag">🇧🇭 اختبار المناعة السيادية</div><p style="line-height:2"><strong>محور قياس المناعة الوجدانية (خطة الاختراق المعرفي)</strong><br><br><strong>السؤال ١ — الاختراق الرقمي:</strong><br>«هل تُصنف نشاطك الرقمي كـ"ثغر سيادي" تذود عنه، أم أنك مجرد ناقل (Carrier) لسرديات خوارزمية صُممت لهندسة وعيك الجماعي؟»<br><br><strong>السؤال ٢ — التبعية الناعمة:</strong><br>«إلى أي مدى تشعر أن نمط حياتك وقراراتك نابعة من قيمك الأصيلة، وليس استجابة لتناقض معرفي فرضته قوى السيطرة؟»<br><br><strong>السؤال ٣ — ذوبان الهوية:</strong><br>«هل انفتاحك المعرفي عزّز حصونك الذاتية، أم أدى إلى تآكل اليقين الذاتي وجعل وعيك عرضة للاستلاب الكلي؟»<br><br><strong>مؤشر التصنيف:</strong><br>إجابات واعية → حصانة سيادية (الجندي الدبلوماسي المحصن)<br>إجابات مترددة → سيولة إدراكية (الانكشاف — يحتاج الجزء الثاني)<br>إجابات ضبابية → استلاب كلي (طوارئ إدراكية)<br><br><em>«بعد قراءتك لهذا التشريح.. اختبر مناعتك السيادية: هل أنت في (فخ العقل) أم تمتلك مفاتيح سيادتك الذهنية؟»</em></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — Perceptual Sovereignty Matrix</div><p style="line-height:2;direction:ltr;text-align:left"><strong>Cognitive Immunity Assessment</strong><br><br><strong>Q1 — Digital Breach:</strong> "Do you categorize your digital activity as a 'Sovereign Outpost' you defend, or are you a mere 'Carrier' of algorithmic narratives engineered to reshape your collective consciousness?"<br><br><strong>Q2 — Soft Dependency:</strong> "To what extent are your lifestyle choices rooted in your authentic values, versus a response to cognitive dissonance imposed by controlling forces?"<br><br><strong>Q3 — Identity Liquidity:</strong> "Has your intellectual openness strengthened your defenses, or led to erosion of self-certainty exposing your consciousness to Total Alienation?"<br><br><strong>Classification Index:</strong><br>Aware responses → Sovereign Immunity (Fortified Diplomatic Soldier)<br>Hesitant responses → Cognitive Liquidity (Strategic Exposure — needs Part 2)<br>Vague responses → Total Alienation (Perceptual Emergency)<br><br><em>"After reading this dissection — test your sovereign immunity: Are you in the (Mind Trap) or do you hold the keys to your mental sovereignty?"</em></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    infographic:`<div class="sec-ttl">مقترح الإنفوجرافيك — Infographic Blueprint</div><div class="lang-block"><div class="lang-tag">🎨 Design: "المثلث المعرفي"</div><p style="line-height:2;direction:ltr;text-align:left"><strong>Title: "The Cognitive Trap: Triple Dimension Matrix"</strong><br>© Mohamed Talaat Abdel Aziz — GSGI<br><br><strong>VISUAL: Equilateral Triangle</strong><br>▲ Top: Cognitive Dimension — Perceptual Vacuum<br>▲ Left: Psychological Dimension — BPD + NPD Fusion → Institutional Virus<br>▲ Right: Social Dimension — Cognitive Societal Fragility<br>🔴 Center: "Mind in the Trap" — The Convergence Point<br><br><strong>BELOW TRIANGLE — Response Spectrum:</strong><br>🟢 Sovereign Immunity | 🟡 Cognitive Liquidity | 🔴 Total Alienation<br><br><strong>QUOTE CARD TEXT:</strong><br>"Cognitive Dissonance is the primary gateway to the occupation of collective consciousness." — Mohamed Talaat Abdel Aziz<br><br>Specs: 1080×1080 Square (Instagram) | 1200×627 (LinkedIn)</p></div>`,
+    campaign:`<div class="sec-ttl">خطة التسويق — Marketing Plan (خطة الاختراق المعرفي)</div><div class="lang-block"><div class="lang-tag">🇧🇭 جدول النشر المقترح</div><p style="line-height:2.1"><strong>اليوم الأول — البيان الافتتاحي:</strong> إطلاق "البيان الافتتاحي" + صورة المقال الرسمية<br>LinkedIn + X: «هل وعيك حصن منيع أم ثغرة استراتيجية؟»<br><br><strong>اليوم الثاني — الجزء الأول كاملاً:</strong> نشر المقال على LinkedIn + Thread في X<br><br><strong>اليوم الثالث — الاستبانة التفاعلية:</strong> طرح الاستبانة الاستراتيجية (المحور الأول) لقياس تفاعل الجمهور<br>«بعد قراءتك لهذا التشريح.. هل أنت في فخ العقل؟»<br><br><strong>اليوم الخامس — المحتوى المرئي:</strong> إنفوجرافيك "المثلث المعرفي" + بطاقات اقتباس<br><br><strong>اليوم السابع — الجزء الثاني:</strong> نشر الجزء الثاني + ربطه بالجزء الأول<br><br><strong>الهاشتاقات:</strong> #العقل_في_الفخ #الفراغ_الإدراكي #الهشاشة_المجتمعية #محمد_طلعت_عبد_العزيز #الوعي_الاستراتيجي</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — Cognitive Penetration Plan</div><p style="line-height:2.1;direction:ltr;text-align:left"><strong>Day 1 — Inaugural Statement:</strong> LinkedIn + X: "Is your mind a sovereign fortress or a strategic loophole?"<br><br><strong>Day 2 — Full Part 1:</strong> LinkedIn full article + X Thread<br><br><strong>Day 3 — Strategic Assessment:</strong> Launch the assessment poll: "After reading this dissection — test your cognitive immunity"<br><br><strong>Day 5 — Visual Content:</strong> "Triple Dimension" infographic + Sovereign Quote Cards<br><br><strong>Day 7 — Part 2 Launch:</strong> Publish Part 2 + link to Part 1<br><br><strong>Target Platforms:</strong> LinkedIn (elite) + X (engagement) + Think Tanks & Research Portals<br><strong>Hashtags:</strong> #MindInTheTrap #PerceptualVacuum #CognitiveSocietalFragility #MohamedTalaat #StrategicAwareness</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`
+  },
+  a7:{
+    title:'جيوبوليتيك الأنا النرجسية: مصفوفة الارتهان وهندسة التآكل الحيوي',
+    meta:'2026 · الجزء ٢/٢ · إيجاز استراتيجي GSGI + خطة تسويق كاملة · محمد طلعت عبد العزيز',
+    draft:`<div class="sec-ttl">مسودة المقال — Draft</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div><p style="line-height:2">لم تعد "الخيانة" في العرف النرجسي مجرد نزوة، بل هي <strong>"عقيدة تموضع"</strong> تقوم على إدارة النفس البشرية كأصول استراتيجية جامدة. فالأنا النرجسية لا تسعى للحب، بل تسعى لفرض السيطرة والسيادة، وتتبنى في سبيل ذلك استراتيجية <strong>"صناديق الاحتياط"</strong> أو <strong>"مشروع الإستبن"</strong> كصمام أمان يحميها من شبح الفراغ الوجودي.<br><br>نحن بصدد <strong>"هجين سيكولوجي فتاك"</strong> ناتج عن اندماج (النرجسية الخبيثة + الاضطراب الحدي)، يمارس <strong>"الذبول العاطفي"</strong> كفخ، وهو في الحقيقة <strong>"جلاد استراتيجي بامتياز"</strong> يتخفى في زي ضحية أبدية — المعجون المرضي لتشريح <strong>"الفيروس البشري المصاب"</strong>.</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English</div><p style="line-height:2;direction:ltr;text-align:left">In the narcissistic lexicon, "Betrayal" is no longer a mere whim — it is a <strong>"Positioning Doctrine"</strong> based on managing the human psyche as static strategic assets. The Narcissistic Ego seeks not love, but the imposition of control, adopting <strong>"Reserve Tanks"</strong> as a safety valve against existential void.<br><br>We analyze a <strong>"Lethal Psychological Hybrid"</strong> fusing Malignant Narcissism + BPD — masterfully using <strong>"Emotional Atrophy"</strong> as a trap. In reality, it is a <strong>"Strategic Executioner"</strong> masquerading as an eternal victim — the pathological anatomy of an <strong>"Infected Human Virus."</strong></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    final:`<div class="sec-ttl">النسخة النهائية — Final Version</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية — النص الكامل</div><p style="line-height:2.1"><strong>جيوبوليتيك الأنا النرجسية: إدارة "صناديق الاحتياط" كأداة للارتهان العاطفي</strong><br>بقلم: محمد طلعت عبد العزيز | باحث في الوعي الاستراتيجي وعلم النفس السياسي<br><br>لم تعد "الخيانة" في العرف النرجسي مجرد نزوة، بل هي "عقيدة تموضع" تقوم على إدارة النفس البشرية كأصول استراتيجية جامدة. فالأنا النرجسية لا تسعى للحب، بل تسعى إلى فرض السيطرة والسيادة، وهي في سبيل ذلك تتبنى استراتيجية "صناديق الاحتياط" أو "مشروع الإستبن" كصمام أمان يحميها من شبح الفراغ الوجودي.<br><br>نحن بصدد "فيروس بشري" ناتج عن اندماج النرجسية الخبيثة والاضطراب الحدي. هذا الهجين يمارس "الذبول العاطفي" كفخ ليجبر ضحيته على استنزاف طاقتها لإنعاشه إكلينيكياً، بينما هو في الحقيقة "جلاد استراتيجي بامتياز" يتخفى في زي ضحية أبدية.<br><br>مشكلة النرجسي تنحسر في فكرة "الأيكيدو Aikido" — يعتمد فيها على قوة الضحية وموارده في القضاء على كينونتها. فالنرجسي لا يسحق إلا بعد امتلاك "المفاتيح البيولوجية" للضحية، وعندما يحدث التماهي العضوي تبدأ الضحية في تقديم التنازلات الوجودية من أجل "رشفة حياة"، في حالة "الاستلاب الكلي" التي تتجاوز الأذى العقلي لتصبح احتلالاً للمؤشرات الحيوية والبقاء البيولوجي.<br><br>رسالتي لك: تيقن أن التعافي ليس مجرد نسيان، بل هو اعتراف رسمي بأنك كنت في حالة من "الاغتراب الوجداني القسري". الشجاعة هي طلب <strong>السيادة المستردة</strong> وليس التشافي فقط.<br><br><em>© حقوق الملكية الفكرية محفوظة — محمد طلعت عبد العزيز</em></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — Full Version</div><p style="line-height:2.1;direction:ltr;text-align:left"><strong>The Geopolitics of the Narcissistic Ego: Managing "Reserves" as a Tool for Emotional Hostage-Taking</strong><br>By: Mohamed Talaat Abdel Aziz | Researcher in Strategic Awareness and Political Psychology<br><br>"Betrayal" in the narcissistic lexicon is a "Positioning Doctrine" — managing the human psyche as frozen strategic assets. The Narcissistic Ego seeks not love but control, adopting "Reserve Tanks" as a safety valve against existential void. Boundaries of "Emotional Hostage-Taking" are drawn within the sadistic mind's factory, transforming the Other from partner into a "Sphere of Influence."<br><br>We analyze a lethal psychological hybrid — Malignant Narcissism fused with BPD — masterfully using "Emotional Atrophy" as a trap, forcing the prey into exhausting energy for clinical resuscitation. In reality, a "Strategic Executioner" masquerading as eternal victim.<br><br>The narcissist's methodology mirrors "Aikido" — borrowing the victim's strength to facilitate annihilation. After achieving "Organic Identification," the victim makes existential concessions for a sip of life, entering "Total Alienation" where harm transcends the mind to become an occupation of vital signs and biological survival itself.<br><br>My message to you: Recovery is not just forgetting — it is formal acknowledgment that you were in "Forced Emotional Alienation." Heroism lies in breaking the locks and reclaiming your "Ego." Courage is seeking <strong>Reclaimed Sovereignty</strong>.<br><br><em>© All intellectual property rights reserved — Mohamed Talaat Abdel Aziz</em></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    brief:`<div class="sec-ttl">الإيجاز الاستراتيجي المطور — Advanced GSGI Brief</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div><p style="line-height:2"><strong>١. المفهوم العقائدي:</strong> تحويل الوجدان الإنساني من (الشراكة) إلى (الأصول الاستراتيجية المجمدة) — النرجسي يرى الآخر "جغرافيا" قابلة للاحتلال<br><br><strong>٢. الهوية السيكولوجية للهجين:</strong><br>• سلطوية وجدانية مفترسة: تقتات على ذوبان الآخر<br>• الارتياب النرجسي: خلق "صناديق احتياط" بشرية للارتهان العاطفي<br><br><strong>٣. المناورة العملياتية — تكتيك الأيكيدو النفسي:</strong><br>• الامتلاك: الحصول على "المفاتيح البيولوجية"<br>• الاستنزاف: إجبار الضحية على "إنعاش" الجلاد<br>• التآكل: الوصول لـ(التماهي العضوي) — الضحية تصبح "رئة إضافية"<br><br><strong>٤. مصفوفة النتائج:</strong><br>• الاستلاب الكلي: احتلال المؤشرات الحيوية للبقاء<br>• الاغتراب الوجداني القسري: فقدان الهوية والبصمة الفكرية<br>• الأرض المحروقة: "الانسحاب القاتل" — الضحية حطام بلا أنا<br><br><strong>٥. المخرج السيادي:</strong> "التمرد الأسمى" — كسر العزلة السيكولوجية عبر المساعدة المتخصصة</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — GSGI Brief</div><p style="line-height:2;direction:ltr;text-align:left"><strong>1. Doctrinal Concept:</strong> Transformation of Human Psyche from (Partnership) to (Frozen Strategic Assets) — narcissist views Other as "Occupiable Geography"<br><br><strong>2. Pathological Hybrid Identity:</strong><br>• Predatory Affective Authoritarianism: feeds on dissolution of the other<br>• Narcissistic Paranoia: creates human "Reserve Tanks" for emotional hostage-taking<br><br><strong>3. Psychological Aikido Tactics:</strong><br>• Acquisition: obtaining "Biological Keys" (victim's intimate vulnerabilities)<br>• Depletion: coercing victim to exhaust vital energy to "resuscitate" executioner<br>• Erosion: reaching (Organic Identification) — victim becomes "Supplementary Lung"<br><br><strong>4. Impact Matrix:</strong><br>• Total Alienation: occupation of vital survival indicators<br>• Forced Affective Estrangement: loss of identity and intellectual fingerprint<br>• Scorched Earth: "Lethal Withdrawal" — victim shattered, devoid of Ego<br><br><strong>5. Sovereign Counter-Action:</strong> "The Ultimate Rebellion" — breaking psychological isolation via specialized professional intervention</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    research:`<div class="sec-ttl">الورقة البحثية — Research Paper</div><div class="lang-block"><div class="lang-tag">🇧🇭 دورة حياة الفيروس النرجسي</div><p style="line-height:2"><strong>المراحل الخمس للاستلاب الكلي:</strong><br><br><strong>المرحلة ١ — الانبهار (Idealization):</strong> قصف الحب (Love Bombing) → بناء "قضية وجود أبدية" زائفة<br><br><strong>المرحلة ٢ — التحقير التدريجي (Devaluation):</strong> التناقض المعرفي المُصنَّع → الضحية تبدأ بالتساؤل عن ذاتها<br><br><strong>المرحلة ٣ — الأيكيدو النفسي:</strong> امتلاك المفاتيح البيولوجية → التماهي العضوي → الاستنزاف الممنهج<br><br><strong>المرحلة ٤ — الصمت العقابي (Punitive Silence):</strong> تعميق الارتهان → "أنت لن تبقى بدوني"<br><br><strong>المرحلة ٥ — الانسحاب القاتل (Discard):</strong> سيكولوجية الأرض المحروقة → الضحية بلا هوية ولا بصمة<br><br><strong>خط التعافي:</strong> التمرد الأسمى → كسر العزلة → السيادة المستردة</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — 5-Stage Cycle</div><p style="line-height:2;direction:ltr;text-align:left"><strong>The 5 Stages of Total Alienation:</strong><br><br><strong>Stage 1 — Idealization:</strong> Love Bombing → building a false "Eternal Existential Cause"<br><strong>Stage 2 — Devaluation:</strong> Manufactured Cognitive Dissonance → victim begins self-questioning<br><strong>Stage 3 — Psychological Aikido:</strong> Acquiring Biological Keys → Organic Identification → systematic depletion<br><strong>Stage 4 — Punitive Silence:</strong> Deepening hostage-taking → "You cannot survive without me"<br><strong>Stage 5 — Lethal Withdrawal (Discard):</strong> Psychology of Scorched Earth → victim with no identity, no fingerprint<br><br><strong>Recovery Path:</strong> Ultimate Rebellion → Break Isolation → Reclaimed Sovereignty</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    infographic:`<div class="sec-ttl">مقترح الإنفوجرافيك — Infographic Blueprint</div><div class="lang-block"><div class="lang-tag">🎨 دورة حياة الفيروس النرجسي</div><p style="line-height:2;direction:ltr;text-align:left"><strong>Title: "The Narcissistic Virus: 5-Stage Lifecycle of Total Alienation"</strong><br>© Mohamed Talaat Abdel Aziz — GSGI<br><br><strong>VISUAL: Downward spiral with recovery branch</strong><br>🔵 Stage 1: Love Bombing (Idealization)<br>🟡 Stage 2: Devaluation — Cognitive Dissonance<br>🟠 Stage 3: Psychological Aikido — Biological Keys<br>🔴 Stage 4: Punitive Silence — Organic Identification<br>⚫ Stage 5: Lethal Withdrawal — Scorched Earth<br>↗️ Recovery: Ultimate Rebellion → Reclaimed Sovereignty<br><br><strong>QUOTE:</strong> "Seek help — it is the most dangerous act of rebellion." — Mohamed Talaat Abdel Aziz<br><br><strong>Hashtags embedded:</strong> #جيوبوليتيك_الأنا #الاستلاب_الكلي #الوعي_الاستراتيجي<br>Specs: 1080×1920px (Story) | 1080×1350px (Instagram) | 1200×627px (LinkedIn)</p></div>`,
+    campaign:`<div class="sec-ttl">خطة التسويق الكاملة — Digital Rollout Plan</div><div class="lang-block"><div class="lang-tag">🇧🇭 مراحل الإطلاق الرقمي</div><p style="line-height:2.1"><strong>المرحلة الأولى — "الارتياب الإيجابي":</strong><br>X + Instagram Stories: «هل أنت شريك أم مساحة نفوذ في صناديق احتياط النرجسي؟» أو «عشق الروح الحقيقي قد يكون هندسة للتآكل»<br>#جيوبوليتيك_الأنا #الاستلاب_الكلي #محمد_طلعت_عبد_العزيز<br><br><strong>المرحلة الثانية — "التشريح الإكلينيكي":</strong><br>LinkedIn (مقال كامل مع دعوة للأخصائيين النفسيين والمحللين للنقاش)<br>#جيوبوليتيك_الأنا #الاستلاب_الكلي #الوعي_الاستراتيجي<br><br><strong>المرحلة الثالثة — "الاستنهاض التوعوي":</strong><br>Poll: «هل شعرت يوماً بتآكل يقينك الذاتي في علاقة ما؟»<br>إنفوجرافيك: دورة حياة الفيروس النرجسي (من الانبهار إلى الانسحاب القاتل)<br><br><strong>Thread الأساسي (٥ تغريدات):</strong><br>١. الصدمة: «هل أنت شريك حياة أم مجرد "مساحة نفوذ"؟»<br>٢. التشخيص: «هجين نرجسي-حدي يمارس الذبول العاطفي كفخ»<br>٣. الأيكيدو النفسي: «لا يسحق النرجسي إلا بعد امتلاك مفاتيحك البيولوجية»<br>٤. الأرض المحروقة: «الانسحاب ليس غياباً، بل انتزاع لهويتك»<br>٥. النداء السيادي: «طلب المساعدة = أخطر فعل تمردي — استرد سيادتك»</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — 3-Phase Launch</div><p style="line-height:2.1;direction:ltr;text-align:left"><strong>Phase 1 — Teaser (X + Instagram):</strong><br>"Are you a life partner or a mere 'sphere of influence' in the narcissist's reserves?" | "True Soul Love may be the engineering of erosion"<br><br><strong>Phase 2 — Clinical Launch (LinkedIn):</strong><br>Full article with invitation to psychologists & strategic analysts for debate<br>#GeopoliticsOfNarcissism #TotalAlienation #StrategicAwareness<br><br><strong>Phase 3 — Engagement:</strong><br>Poll: "Have you ever felt the erosion of your self-certainty in a relationship?"<br>Infographic: Narcissistic Virus Lifecycle (from idealization to lethal withdrawal)<br><br><strong>5-Tweet Thread:</strong><br>1. Shock: "Are you a life partner or a narcissistic reserve asset?"<br>2. Diagnosis: "BPD-NPD hybrid using Emotional Atrophy as a trap"<br>3. Aikido: "The narcissist doesn't crush until possessing your biological keys"<br>4. Scorched Earth: "Withdrawal isn't absence — it's extirpation of your identity"<br>5. Sovereign Call: "Seeking help = most dangerous act of rebellion — reclaim your sovereignty"<br><br><strong>CTA (end each post):</strong> "Reclaim Your Mental Sovereignty Now" — استرد سيادتك الذهنية الآن</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`
+  },
+  a8:{
+    title:'المناعة الفكرية: حين يصبح العقل خط الدفاع الأخير',
+    meta:'2026 · صحيفة البلاد البحرينية · بقلم: محمد طلعت عبد العزيز',
+    draft:`<div class="sec-ttl">مسودة المقال — Draft</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div><p style="line-height:2">باتت المجتمعات الحديثة تعاني ترهلاً بالغاً في انسيابية المعلومات وكثرة تدفقها؛ الأمر الذي أوصلنا إلى <strong>"هشاشة فكرية"</strong> مصحوبة بنوع من الخمول في <strong>"غدد المناعة الفكرية"</strong>. فالمشكلة اليوم لم تعد في "ماذا نعرف"، بل في كيف نتلقى معارفنا؟ وكيف نفسّرها؟ وكيف نُعيد إنتاج ما يصل إلينا؟<br><br><strong>"المناعة الفكرية"</strong> ليست موقفاً أخلاقياً ولا ادعاء وعي، بل حالة نفسية-مؤسسية تُقاس بقدرة العقل الفردي والجمعي على مقاومة <strong>"الاختراق السردي"</strong>، وضبط الانفعال، وحماية المعنى من التآكل تحت ضغط الاستقطاب والخوف.</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English</div><p style="line-height:2;direction:ltr;text-align:left">Modern societies suffer from extreme sluggishness in information flow — leading to <strong>"intellectual fragility"</strong> and lethargy in the <strong>"intellectual immune system."</strong> The problem today is not "what we know," but how we receive, interpret, and reproduce what reaches us.<br><br><strong>"Intellectual Immunity"</strong> is not a moral stance or a claim to awareness — it is a psychological-institutional state measured by the ability of the individual and collective mind to resist <strong>"Narrative Infiltration,"</strong> control emotions, and protect meaning from erosion under the pressure of polarization and fear.</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    final:`<div class="sec-ttl">النسخة النهائية — Final Version</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية — النص الكامل</div><p style="line-height:2.1"><strong>المناعة الفكرية... حين يصبح العقل خط الدفاع الأخير</strong><br>بقلم: محمد طلعت عبد العزيز | باحث في شؤون الإعلام والوعي الاستراتيجي وعلم النفس السياسي<br><br>باتت المجتمعات الحديثة تعاني ترهلاً بالغاً في انسيابية المعلومات، الأمر الذي أوصلنا إلى "هشاشة فكرية" مصحوبة بخمول في "غدد المناعة الفكرية". المشكلة اليوم لم تعد في "ماذا نعرف"، بل في كيف نتلقى معارفنا؟ وكيف نُعيد إنتاجها؟<br><br>"المناعة الفكرية" ليست موقفاً أخلاقياً، بل حالة نفسية-مؤسسية تُقاس بقدرة العقل الفردي والجمعي على مقاومة "الاختراق السردي".<br><br>"الاستلاب المعاصر" لا يعتمد الإكراه المباشر، بل إعادة تشكيل الإدراك عبر تقديم الوقائع المجزّأة وتحقيق الشحن العاطفي المقصود، ثم إعادة صياغة الموقف عبر خوارزميات لا تهدف للحقيقة بل لتعظيم التفاعل النفسي-السلوكي. وعندها تتراكم الرسائل، وتُستنزف القدرة على التمييز، ويصبح العقل قابلاً للاختراق حتى وهو يظن نفسه ناقداً.<br><br>الخوف أداة إدارة تُعاد إنتاجها وفق تضخيم التهديد وتسطيح البدائل. حين تفشل النخب في تفكيك هذا الخوف، تتحول إلى ناقل ذكي للتزييف. والاستقطاب لا يبدأ سياسياً بل سلوكياً — يُدفع الفرد إلى الاصطفاف قبل الفهم، وإلى الرد قبل التحليل.<br><br>المناعة الفكرية الحقيقية تقوم على ثلاث ركائز: ضبط الاستجابة النفسية، والفرز المعرفي، وحماية المعنى. وحينما تفقد النخب مناعتها الفكرية، لا تسقط وحدها بل تسحب معها المجتمع والدولة إلى قرارات متسرعة ومسارات يصعب التراجع عنها.<br><br>المناعة الفكرية ليست "ترفاً فكرياً"، بل شرط من شروط الأمن القومي المعاصر.<br><br><em>© حقوق الملكية الفكرية محفوظة — محمد طلعت عبد العزيز</em></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — Full Version</div><p style="line-height:2.1;direction:ltr;text-align:left"><strong>Intellectual Immunity... When the Mind Becomes the Last Line of Defense</strong><br>By: Mohamed Talaat Abdel Aziz | Researcher in Media Affairs, Strategic Awareness, and Political Psychology<br><br>Modern societies suffer from extreme sluggishness in information flow — leading to "intellectual fragility" and lethargy in the intellectual immune system. The problem is not "what we know" but how we receive, interpret, and reproduce it.<br><br>"Intellectual Immunity" is a psychological-institutional state measured by resistance to "Narrative Infiltration," emotion management, and protecting meaning from erosion under polarization and fear.<br><br>Contemporary alienation relies not on direct coercion but on reshaping perception — fragmented facts achieve intended emotional charge, algorithms maximize psychological interaction. Messages accumulate, discernment depletes, and the mind becomes infiltratable even while considering itself critical.<br><br>Fear is a management tool reproduced through threat exaggeration and alternative flattening. When elites fail to dismantle fear, they become intelligent conveyors of falsification. Polarization begins behaviorally — individuals pushed to align before understanding, respond before analyzing.<br><br>True Intellectual Immunity rests on three pillars: psychological response management, cognitive sorting, and protection of meaning. When elites lose it, they drag society into hasty decisions and irreversible paths.<br><br>Intellectual Immunity is not "intellectual luxury" — it is a prerequisite of contemporary national security.<br><br><em>© All intellectual property rights reserved — Mohamed Talaat Abdel Aziz</em></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    brief:`<div class="sec-ttl">الإيجاز الاستراتيجي — Strategic Brief</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div><p style="line-height:2"><strong>الإشكالية:</strong> هشاشة المناعة الفكرية في مواجهة الاختراق السردي والشحن العاطفي المُصنَّع<br><br><strong>ثلاث ركائز المناعة الفكرية:</strong><br>١. ضبط الاستجابة النفسية: عدم السماح للخوف أو الغضب بقيادة النفس والفكر<br>٢. الفرز المعرفي: التمييز بين الخبر، السردية، الاتجاه، والمصلحة<br>٣. حماية المعنى: الحفاظ على القيم والهوية من التآكل تحت ضغط اللحظة<br><br><strong>التشخيص الجيوسياسي:</strong><br>• الخوف كأداة إدارة: تضخيم التهديد + تسطيح البدائل + الاستقطاب السلوكي<br>• النخب الخائفة = ناقل ذكي للتزييف ومساهم غير مباشر في الأزمات<br>• الاستقطاب يبدأ سلوكياً → الاصطفاف قبل الفهم → تآكل المعنى<br><br><strong>الخلاصة السيادية:</strong> المناعة الفكرية شرط من شروط الأمن القومي — وركيزة يجب تعميمها في مناهج الجامعات والمراكز البحثية</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English</div><p style="line-height:2;direction:ltr;text-align:left"><strong>Problem:</strong> Intellectual immunity fragility facing narrative infiltration and manufactured emotional charging<br><br><strong>Three Pillars of Intellectual Immunity:</strong><br>1. Psychological Response Management: not allowing fear or anger to lead the mind<br>2. Cognitive Sorting: distinguishing between news, narrative, trend, and interest<br>3. Protection of Meaning: preserving values and identity from erosion under moment-pressure<br><br><strong>Geopolitical Diagnosis:</strong><br>• Fear as management tool: threat exaggeration + alternative flattening + behavioral polarization<br>• Fearful elites = intelligent falsification conveyors contributing to crises<br>• Polarization begins behaviorally → alignment before understanding → meaning erosion<br><br><strong>Sovereign Conclusion:</strong> Intellectual Immunity is a national security prerequisite — a pillar to be mandated in university curricula and research centers</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    research:`<div class="sec-ttl">الورقة البحثية — Research Paper</div><div class="lang-block"><div class="lang-tag">🇧🇭 تشريح مراحل تدمير المناعة الفكرية</div><p style="line-height:2"><strong>المرحلة ١ — تراكم الرسائل:</strong> قصف المعلومات + الوقائع المجزأة → استنزاف القدرة على التمييز<br><br><strong>المرحلة ٢ — زرع الخوف:</strong> تضخيم التهديد + تسطيح البدائل → دفع الجماعات إلى مواقف حدية<br><br><strong>المرحلة ٣ — الاستقطاب السلوكي:</strong> الاصطفاف قبل الفهم + الرد قبل التحليل → تآكل المعنى<br><br><strong>المرحلة ٤ — فقدان الهيبة القيادية:</strong> القيم تُفرغ من محتواها + الأخلاق تُختزل في شعارات رنانة<br><br><strong>المرحلة ٥ — الشلل الاستراتيجي:</strong> فقدان المناعة = غياب المعنى = عدم القدرة على القرار<br><br><strong>نموذج الحل المقترح:</strong><br>• إعادة هندسة بيئة التفكير في المؤسسات والنخب<br>• برامج تدريب المناعة الفكرية للقيادات<br>• إدراج المناعة الفكرية في مناهج الجامعات والمراكز البحثية كشرط أمن قومي</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — 5-Stage Erosion Model</div><p style="line-height:2;direction:ltr;text-align:left"><strong>Stage 1 — Message Accumulation:</strong> Information bombardment + fragmented facts → depletion of discernment capacity<br><strong>Stage 2 — Fear Seeding:</strong> Threat exaggeration + alternative flattening → pushing groups to confrontational positions<br><strong>Stage 3 — Behavioral Polarization:</strong> Alignment before understanding + responding before analyzing → meaning erosion<br><strong>Stage 4 — Leadership Prestige Loss:</strong> Values emptied of content + morals reduced to slogans<br><strong>Stage 5 — Strategic Paralysis:</strong> Immunity loss = meaning loss = decision incapacity<br><br><strong>Proposed Solution Model:</strong><br>• Reengineer thinking environments in institutions and elites<br>• Intellectual Immunity training programs for leadership<br>• Mandate Intellectual Immunity in university curricula and research centers as national security prerequisite</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    infographic:`<div class="sec-ttl">مقترح الإنفوجرافيك — Infographic Blueprint</div><div class="lang-block"><div class="lang-tag">🎨 Design Specs</div><p style="line-height:2;direction:ltr;text-align:left"><strong>Title: "Intellectual Immunity: The 5-Stage Erosion vs. The 3-Pillar Defense"</strong><br>© Mohamed Talaat Abdel Aziz — All Rights Reserved<br><br><strong>LEFT SIDE — The Threat (5 Stages of Erosion):</strong><br>🔴 1. Message Accumulation → 2. Fear Seeding → 3. Behavioral Polarization → 4. Leadership Prestige Loss → 5. Strategic Paralysis<br><br><strong>RIGHT SIDE — The Defense (3 Pillars):</strong><br>🟢 1. Psychological Response Management<br>🟢 2. Cognitive Sorting<br>🟢 3. Protection of Meaning<br><br><strong>CENTER DIVIDER:</strong> "Is your mind the last line of defense or the first casualty?"<br><br>Colors: Red for threat side | Green for immunity pillars | Dark navy background<br>Specs: 1200×1350px (Instagram Landscape) | 1200×627px (LinkedIn)</p></div>`,
+    campaign:`<div class="sec-ttl">خطة التسويق — Marketing Plan</div><div class="lang-block"><div class="lang-tag">🇧🇭 عربي</div><p style="line-height:2.1"><strong>التغريدة الافتتاحية — X:</strong><br>«المناعة الفكرية ليست ترفاً، بل شرط أمن قومي. حين تفقد النخب مناعتها الفكرية، لا تسقط وحدها بل تسحب معها الدولة بأكملها.»<br>#المناعة_الفكرية #محمد_طلعت_عبد_العزيز<br><br><strong>LinkedIn — المقال التحليلي:</strong><br>«في زمن تتعدد فيه المصادر ويصعب التمييز، كيف تبني مناعتك الفكرية؟ ثلاث ركائز أساسية لحماية عقلك من "الاختراق السردي"»<br><br><strong>Instagram — Poll:</strong><br>«هل تعتقد أن قراراتك اليومية تأتي من قيمك الحقيقية أم من "شحن عاطفي مُصنَّع"؟» + إنفوجرافيك التهديد مقابل الدفاع<br><br><strong>الهاشتاقات:</strong> #المناعة_الفكرية #الاختراق_السردي #الأمن_القومي_المعرفي #محمد_طلعت_عبد_العزيز</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English</div><p style="line-height:2.1;direction:ltr;text-align:left"><strong>Opening X Thread:</strong><br>"Intellectual Immunity is not an intellectual luxury — it is a national security prerequisite. When elites lose it, they don't fall alone — they drag the entire state with them."<br>#IntellectualImmunity #MohamedTalaat<br><br><strong>LinkedIn — Analysis Post:</strong><br>"In an era of information overflow, how do you build intellectual immunity? Three essential pillars to protect your mind from 'Narrative Infiltration'"<br><br><strong>Instagram — Poll:</strong><br>"Do you believe your daily decisions stem from your true values or 'manufactured emotional charging'?" + Threat vs. Defense infographic<br><br><strong>Hashtags:</strong> #IntellectualImmunity #NarrativeInfiltration #CognitiveSecurity #MohamedTalatAbdelAziz</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`
+  },
+  a4:{
+    title:'النفط الفكري: وقود المستقبل ومحدد سيادة الدول في النظام الدولي الجديد',
+    meta:'2026 · صحيفة البلاد البحرينية · رابط المقال المنشور متاح · بقلم: محمد طلعت عبد العزيز',
+    draft:`<div class="sec-ttl">مسودة المقال — Draft</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية — الفكرة التأسيسية</div><p style="line-height:2">كانت عظمة الدول في القرن العشرين تُقاس بحجم احتياطاتها من النفط الخام. أما في عام 2026، فإن الدولة التي تملك آباراً من النفط ولا تملك <strong>"وقوداً فكرياً"</strong> أصيلاً أو <strong>"دبلوماسية استراتيجية"</strong> متغلغلة في صناعة القرار الدولي، أصبحت مجرد محطة وقود للآخرين؛ يملؤون خزاناتهم من أرضها، ويديرون محركاتها بعقولهم، ويتركون لها <strong>"عوادم" التبعية الاستراتيجية</strong>.<br><br>إن <strong>"الوقود الفكري"</strong> — أو ما اصطلحنا عليه بـ <strong>"النفط الرمادي"</strong> — هو نتاج عملية تكرير شاقة للهوية والوعي والذكاء الوطني المحلي. وعندما نستخرج هذا الوقود من عقول شبابنا وتكنوقراطنا، نضمن أولاً الملكية الفكرية للمنتج، وثانياً <strong>"البصمة الفدرالية للهوية الوطنية الموحدة"</strong>.</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — Founding Idea</div><p style="line-height:2;direction:ltr;text-align:left">The greatness of nations in the 20th century was measured by crude oil reserves. In 2026, a state with oil wells but no <strong>"Intellectual Fuel"</strong> or <strong>"Strategic Diplomacy"</strong> embedded in international decision-making has become merely a fuel station for others — they fill their tanks from its land, operate its engines with their minds, leaving behind the <strong>"exhaust" of Strategic Dependency</strong>.<br><br><strong>"Intellectual Fuel"</strong> — or what we term <strong>"Grey Petroleum"</strong> — is the product of a rigorous refining process of identity, consciousness, and local national intelligence. Extracting this fuel from our youth and technocrats ensures the intellectual property of the product and the <strong>"Federal Imprint of a Unified National Identity."</strong></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    final:`<div class="sec-ttl">النسخة النهائية المنشورة — Published Version</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية — النص الكامل المنشور<br><small>🔗 <a href="https://www.albiladpress.com/news/2026/6350/columns/982261.html" target="_blank" style="color:var(--gold)">رابط المقال في صحيفة البلاد</a></small></div><p style="line-height:2.1"><strong>"النفط الفكري" وقود المستقبل... لماذا لم يعُد النفط كافياً لتشغيل محركات السيادة؟</strong><br>بقلم: محمد طلعت عبد العزيز | باحث في شؤون الإعلام والوعي الاستراتيجي وعلم النفس السياسي<br><br>كانت عظمة الدول في القرن العشرين تُقاس بحجم احتياطاتها من النفط الخام. أما في عام 2026، فإن الدولة التي تملك آباراً من النفط ولا تملك "وقوداً فكرياً" أصيلاً أو "دبلوماسية استراتيجية" متغلغلةً في صناعة القرار الدولي الاستراتيجي، أصبحت مجرد محطة وقود للآخرين؛ يملؤون خزاناتهم من أرضها، ويديرون محركاتها بعقولهم، ويتركون لها "عوادم" التبعية الاستراتيجية.<br><br>ولهذا فإن الواقع المعاصر والتغييرات الجيوسياسية وارتهان منطقة الخليج بالنزاعات الدولية؛ يجعلنا نتدبر الأمر ملياً في التفكير في إعلان انتهاء عصر "الاستهلاك المعرفي"، كون محركات الدولة البحرينية المعاصرة بفرق عملها الاستراتيجية الكفؤة لا يمكن أن تعمل بوقود "مستورد" من المكاتب الاستشارية الأجنبية، لأن هذا الوقود مصمم ليعطيك "سرعة مؤقتة منزوع منها معايير السرعة الفكرية النفاثة" الأمر الذي يُفسد "المحرك الوطني" الطموح على المدى الطويل.<br><br>إن "الوقود الفكري" أو ما اصطلحنا عليه في أطروحاتنا بعنوان "النفط الرمادي" هو نتاجُ عمليةِ تكرير شاقةٍ للهوية والوعي، أما "الذكاء الوطني المحلي" وحده فهو القادر على إنتاج حلولٍ لمشاكلنا بـ"أدواتنا" لا بـ"كتالوجات" غربية أو شرقية. وعندما نستخرج هذا الوقود من عقول شبابنا وتكنوقراطنا، فإننا نضمن أولاً الملكية الفكرية للمنتج، ثانياً "البصمة الفدرالية للهوية الوطنية الموحدة".<br><br>الخلاصة السيادية: تتفق جميع دوائر صنع القرار في مراكز الدراسات والبحوث العالمية، على أن المعركة القادمة ليست على خطوط النفط ومحطات الوقود، بل على "خطوط التفكير" و"مصانع التأهيل الذهني وصنع القرار". فمن يملك "النفط الفكري" وحده هو من سيملك القدرة على التحرك في الوقت الذي يتجمد فيه الآخرون. ونحن من البحرين لا نقدم أفكاراً للبشرية فحسب، بل نضخ السيادة في عروق الوطن وننشرها للعالم صدقة علم.<br><br><em>© حقوق الملكية الفكرية محفوظة — محمد طلعت عبد العزيز</em></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — Full Published Version<br><small>🔗 <a href="https://www.albiladpress.com/news/2026/6350/columns/982261.html" target="_blank" style="color:var(--gold)">Al Bilad Press — Published Article</a></small></div><p style="line-height:2.1;direction:ltr;text-align:left"><strong>"Intellectual Petroleum" is the Fuel of the Future — Why Oil is No Longer Sufficient to Power the Engines of Sovereignty?</strong><br>By: Mohamed Talaat Abdel Aziz | Researcher in Media Affairs, Strategic Awareness, and Political Psychology<br><br>The greatness of nations in the 20th century was measured by crude oil reserves. In 2026, a state with oil wells but no original "Intellectual Fuel" or "Strategic Diplomacy" deeply embedded in international strategic decision-making has become merely a fuel station for others — they fill their tanks from its land, operate its engines with their minds, and leave behind the "exhaust" of Strategic Dependency.<br><br>"Intellectual Fuel" — or what we term "Grey Petroleum" — is the product of a rigorous refining process of Identity, Consciousness, and Local National Intelligence. It alone is capable of producing solutions to our problems using our own tools, not through Western or Eastern manuals. Extracting this fuel from our youth and technocrats ensures: first, the Intellectual Property of the product; and second, the "Federal Imprint of a Unified National Identity."<br><br>Sovereign Conclusion: All decision-making circles in global research centers agree: the upcoming battle is not over oil pipelines, but over "Lines of Thinking" and "Mental Qualification Factories." He who possesses "Intellectual Petroleum" alone will have the capacity to maneuver when others are frozen. From Bahrain, we do not merely offer ideas to humanity — we pump sovereignty into the veins of the nation and disseminate it to the world as an endowment of knowledge.<br><br><em>© All intellectual property rights reserved — Mohamed Talaat Abdel Aziz</em></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    brief:`<div class="sec-ttl">الإيجاز الاستراتيجي + مؤشر ISI — Strategic Brief + ISI</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div><p style="line-height:2"><strong>مؤشر السيادة المعرفية — Intellectual Sovereignty Index (ISI)</strong><br>الهدف: قياس قدرة الدولة على إنتاج المعرفة الاستراتيجية محلياً وتقليل التبعية الفكرية<br><br><strong>المحاور الستة:</strong><br>• الإنتاج المعرفي السيادي — 25%: براءات فكرية + أوراق استراتيجية وطنية + نماذج محلية<br>• الاستقلال الاستشاري — 20%: نسبة المحلي مقابل الأجنبي<br>• البنية المؤسسية المعرفية — 15%: Think Tanks وطنية + مختبرات استراتيجية<br>• الأمن المعرفي الرقمي — 15%: AI سيادي + حماية البيانات + السحابة الوطنية<br>• التأهيل القيادي السيادي — 15%: برامج القرار + تدريب القيادات<br>• الاقتصاد المعرفي — 10%: مساهمة الصناعات المعرفية في GDP<br><br><strong>تصنيف الدول:</strong><br>80-100: سيادة معرفية عالية | 60-79: سيادة متوسطة | 40-59: تبعية جزئية | أقل من 40: تبعية استراتيجية خطرة<br><br><strong>نموذج المصفاة السيادية:</strong><br>مجلس الحوكمة → مجلس علمي → مختبر بحث → مركز AI سيادي → أكاديمية قرار → وحدة أمن معرفي<br>دورة العمل: رصد التحديات → تحليل البيانات → إنتاج الاستراتيجية → محاكاة القرار → اعتماد حكومي → قياس ISI</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English</div><p style="line-height:2;direction:ltr;text-align:left"><strong>Intellectual Sovereignty Index (ISI)</strong><br>Purpose: Measure a state's capacity for indigenous strategic knowledge production and cognitive independence<br><br><strong>6 Dimensions:</strong><br>• Sovereign Knowledge Production — 25%: IP filings + national strategic papers + domestic policy models<br>• Consultancy Independence — 20%: Local vs foreign advisory ratio<br>• Institutional Knowledge Capacity — 15%: National think tanks + strategic labs<br>• Cognitive Security — 15%: Sovereign AI + data localization + national cloud<br>• Leadership Qualification — 15%: Sovereign decision programs + executive training<br>• Knowledge Economy Output — 10%: Knowledge industries share of GDP<br><br><strong>ISI Classification:</strong><br>80-100: High Cognitive Sovereignty | 60-79: Moderate | 40-59: Partial Dependency | Below 40: Strategic Cognitive Dependency<br><br><strong>Sovereign Refinery Model:</strong><br>Governance Council → Scientific Board → Research Lab → Sovereign AI Center → Decision Academy → Cognitive Security Unit<br>Cycle: Threat Detection → Data Analysis → Strategy Production → Policy Simulation → Government Adoption → ISI Measurement</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    research:`<div class="sec-ttl">White Paper هيكل 25 صفحة — Full White Paper Structure</div><div class="lang-block"><div class="lang-tag">🇧🇭 عربي — هيكل الورقة البحثية الكاملة</div><p style="line-height:2"><strong>"النفط الفكري كمحدد لسيادة الدول في النظام الدولي الجديد"</strong><br>إعداد: محمد طلعت عبد العزيز<br><br>١. الملخص التنفيذي: المشكلة + الحل المفاهيمي + النتائج المتوقعة<br>٢. السياق العالمي: نهاية عصر الريع + صعود اقتصاد المعرفة + حروب السيطرة المعرفية<br>٣. الإطار المفاهيمي: النفط الرمادي + رأس المال المعرفي السيادي + نموذج السيادة الذهنية<br>٤. التحليل الجيوسياسي: الخليج في النظام الجديد + مخاطر التبعية + أمثلة دولية<br>٥. مؤشر ISI: المنهجية + الجداول + النتائج الافتراضية للبحرين<br>٦. نموذج المصفاة السيادية: الهيكل المؤسسي + دورة الإنتاج + نموذج التشغيل<br>٧. التحول الاقتصادي: المعرفة كصادرات + سوق الأفكار السيادية + الصناعات الفكرية<br>٨. بعد الحرب المعرفية: الإعلام + AI + الأمن المعرفي<br>٩. التوصيات السياسية: قصيرة + متوسطة + طويلة المدى<br>١٠. خارطة الطريق: 6 أشهر → سنتان → 5 سنوات<br>١١. تقييم المخاطر: البيروقراطية + هجرة العقول + الانغلاق + تسرب المعرفة<br>١٢. الخلاصة: السيادة في القرن 21 لمن يملك منظومات إنتاج المعرفة الاستراتيجية<br><br><strong>هذا النموذج يندمج مع:</strong> SRAGMS System + منصة Qiran + كتاب AbdulAziz Strategic Intelligence</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — White Paper (25-Page Model)</div><p style="line-height:2;direction:ltr;text-align:left"><strong>"Intellectual Petroleum as a Determinant of State Sovereignty in the New International Order"</strong><br>Author: Mohamed Talaat AbdulAziz<br><br>1. Executive Summary: Strategic problem + Conceptual solution + Policy implications<br>2. Global Context: Decline of rentier power + Rise of knowledge economies + Cognitive warfare<br>3. Conceptual Framework: Grey Petroleum + Sovereign Cognitive Capital + Knowledge sovereignty model<br>4. Geopolitical Implications: Gulf vulnerabilities + Strategic dependency risks + International cases<br>5. ISI: Methodology + Measurement tables + Scenario analysis for Bahrain<br>6. Sovereign Refinery Model: Institutional design + Production cycle + Governance structure<br>7. Economic Transformation: Knowledge industries + Sovereign ideas market + Strategic expertise export<br>8. Cognitive Warfare: Media as strategic infrastructure + AI influence ops + Data sovereignty<br>9. Policy Recommendations: Short / Medium / Long-term reforms<br>10. Implementation Roadmap: 6 months → 2 years → 5 years<br>11. Risk Assessment: Bureaucratic resistance + Brain drain + Intellectual isolation + Data leakage<br>12. Conclusion: 21st century sovereignty belongs to strategic knowledge producers<br><br><strong>Integrates directly with:</strong> SRAGMS System + Qiran Platform + AbdulAziz Strategic Intelligence Project</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    infographic:`<div class="sec-ttl">مقترح الإنفوجرافيك — Infographic Blueprint</div><div class="lang-block"><div class="lang-tag">🎨 International Design Specs — English</div><p style="line-height:2;direction:ltr;text-align:left"><strong>Title: "Intellectual Petroleum: The New Measure of State Sovereignty"</strong><br>© Mohamed Talaat Abdel Aziz — All Rights Reserved<br><br><strong>VISUAL METAPHOR:</strong> Oil refinery → replaced by → Knowledge Refinery (Sovereign Refinery)<br><br><strong>SECTION 1 — THE SHIFT:</strong><br>🛢 20th Century: Oil = Power → 🧠 21st Century: Knowledge = Sovereignty<br><br><strong>SECTION 2 — THE THREAT (ADULTERATED FUEL):</strong><br>⚠️ Foreign consultancy models | ⚠️ Copied strategies | ⚠️ Strategic dependency exhaust<br><br><strong>SECTION 3 — ISI WHEEL (6 dimensions):</strong><br>Sovereign Knowledge Production 25% | Consultancy Independence 20% | Institutional Capacity 15% | Cognitive Security 15% | Leadership Qualification 15% | Knowledge Economy 10%<br><br><strong>SECTION 4 — SOVEREIGN REFINERY PIPELINE:</strong><br>Threat Detection → Analysis → Strategy → Simulation → Adoption → ISI Score<br><br><strong>SECTION 5 — BAHRAIN AS KNOWLEDGE HUB:</strong><br>"From oil exports to knowledge exports — the next sovereign advantage"<br><br><strong>Specs:</strong> LinkedIn 1200×627px | Instagram 1080×1350px | Story 1080×1920px<br>Colors: Royal green #1a4731 + Black velvet #0a0f1e + Gold #c9a84c<br>Signature: Mohamed Talaat Abdel Aziz — محمد طلعت عبد العزيز</p></div><div class="lang-block"><div class="lang-tag">🇧🇭 النسخة العربية</div><p style="line-height:2"><strong>العنوان:</strong> النفط الفكري: المعيار الجديد لسيادة الدول<br>المحور البصري: مصفاة نفط تقليدية ← تتحول إلى → مصفاة سيادية معرفية<br>القسم ١: التحول (نفط → معرفة) | القسم ٢: التهديد (الوقود المغشوش) | القسم ٣: عجلة ISI | القسم ٤: خط أنابيب المصفاة السيادية | القسم ٥: البحرين مركزاً للمعرفة الإقليمية</p></div>`,
+    campaign:`<div class="sec-ttl">خطة التسويق 30 يوماً — 30-Day Marketing Plan</div><div class="lang-block"><div class="lang-tag">🇧🇭 الأسبوع الأول: إطلاق الفكرة</div><p style="line-height:2.1"><strong>اليوم ١ — LinkedIn:</strong> اقتباس قوي من المقال + صورة غلاف أخضر ملكي أو أسود مخملي<br>#النفط_الفكري #السيادة_المعرفية #محمد_طلعت_عبد_العزيز<br><br><strong>اليوم ٢ — X Thread:</strong> «النفط لم يعد معيار القوة — المعرفة أصبحت وقود السيادة — مفهوم النفط الفكري...»<br><br><strong>اليوم ٣ — فيديو 2 دقيقة:</strong> "لماذا النفط لم يعد كافياً؟"<br><br><strong>اليوم ٥ — إنفوجرافيك:</strong> مؤشر السيادة المعرفية ISI<br><br><strong>اليوم ٧ — PDF:</strong> نشر الملخص التنفيذي<br><br><strong>الأسبوع الثاني: بناء المصداقية</strong><br>مقال Medium مختصر — مشاركة أكاديمية — إرسال للـ Think Tanks الخليجية — حلقة بودكاست<br><br><strong>الأسبوع الثالث: النقاش العام</strong><br>Space في X — Webinar على Zoom — مقارنة دولية (سنغافورة-كوريا) — فيديو أطول<br><br><strong>الأسبوع الرابع: الإطلاق الكامل</strong><br>نشر White Paper كاملة — إرسالها للجامعات — إعلان مشروع مؤشر ISI — دعوة لندوة</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — 30-Day Campaign</div><p style="line-height:2.1;direction:ltr;text-align:left"><strong>WEEK 1 — Awareness:</strong><br>Day 1 — LinkedIn: Strong quote + royal green/black velvet cover image<br>Day 2 — X Thread: "Oil is no longer the measure of power — Knowledge is the fuel of sovereignty"<br>Day 3 — 2-min video: "Why oil is no longer enough"<br>Day 5 — ISI Infographic<br>Day 7 — Executive Summary PDF release<br><br><strong>WEEK 2 — Credibility:</strong><br>Medium article + Academic group sharing + Think tank outreach + Podcast appearance<br><br><strong>WEEK 3 — Engagement:</strong><br>X Space discussion + Zoom webinar + Comparative case (Singapore/Korea) + Long-form video<br><br><strong>WEEK 4 — Full Launch:</strong><br>Full White Paper release + University outreach + ISI project announcement + Conference invitation<br><br><strong>Core Message:</strong> "Sovereignty in the 21st century is knowledge sovereignty."<br><strong>Sub-messages:</strong> Oil declines… ideas multiply | Strong states build minds, not wells | The next war is a war of thinking<br><br><strong>Target Segments:</strong> Policy makers | Researchers | Media analysts | Graduate students | Think Tanks<br><strong>Platforms:</strong> LinkedIn + X + YouTube + Medium + ResearchGate + Academia.edu<br><strong>KPIs:</strong> White Paper downloads | Academic citations | Media interviews | Conference invitations | Think Tank partnerships</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`
+  },
+  a3:{
+    title:'اقتصاد المشاعر السياسية: هندسة الإدراك في عصر السيادة المعرفية الخليجية',
+    meta:'2026 · صحيفة البلاد البحرينية · صفحة منطلقات · بقلم: محمد طلعت عبد العزيز',
+    draft:`<div class="sec-ttl">مسودة المقال — Draft</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div><p style="line-height:2">إن المتبحر في العلوم السياسية الاستراتيجية يؤمن يقيناً بأنه لا يمكن فهم التحولات الجيوسياسية الراهنة بمعزل عن مختبر الهندسة الدقيقة التي يمكن أن نطلق عليها <strong>"اقتصاد المشاعر السياسية"</strong>، حيث باتت إدارة الإدراك العام هي الركيزة الجوهرية التي تتقدم على فكرة السيادة بمفهومها الكلاسيكي. فالعالم المعاصر أضحى لا يُحكم عبر الهيمنة المادية، بل من خلال <strong>"الابتزاز الاستراتيجي في منظومات المعرفة الاقتصادية"</strong>، محاولاً فرض <strong>"استلاب ذهني"</strong> يعيد — كفيروس متجذر — إنتاج التبعية. بيد أن الصعود التكنوقراطي الخليجي قدم أنموذجاً عملياً عبر <strong>"الإزاحة التكتيكية الاستراتيجية"</strong>، مستنداً إلى <strong>"قضية الوجود الأبدية"</strong> ذات الجذور القيمية والدينية.</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English</div><p style="line-height:2;direction:ltr;text-align:left">The veteran of strategic political science believes that current geopolitical transformations cannot be understood without the "micro-engineering laboratory" of the <strong>"Economy of Political Feelings"</strong>. The contemporary world is governed not by material domination, but by <strong>"strategic blackmail in economic knowledge systems"</strong>, imposing <strong>"mental alienation"</strong> that reproduces dependency like an entrenched virus. Yet the Gulf technocratic rise offered a practical model through <strong>"strategic tactical displacement"</strong>, rooted in the <strong>"eternal question of existence."</strong></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    final:`<div class="sec-ttl">النسخة النهائية المنشورة — Published Version</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية — النص الكامل</div><p style="line-height:2.1"><strong>اقتصاد المشاعر السياسية: هندسة الإدراك في عصر السيادة المعرفية الخليجية</strong><br>بقلم: محمد طلعت عبد العزيز<br><br>إن المتبحر في العلوم السياسية الاستراتيجية يؤمن يقيناً بأنه لا يمكن فهم التحولات الجيوسياسية الراهنة بمعزل عن مختبر الهندسة الدقيقة التي يمكن أن نطلق عليها "اقتصاد المشاعر السياسية"؛ حيث باتت إدارة "الإدراك العام" هي الركيزة الجوهرية التي تتقدم على فكرة السيادة بمفهومها الكلاسيكي. فالعالم المعاصر، في موقعه وآلياته، أضحى لا يُحكم بالضرورة عبر الهيمنة المادية بالمعدات والأسلحة التقليدية، بل من خلال قدرة الأنظمة الدولية على ممارسة فنون "الابتزاز الاستراتيجي في منظومات المعرفة الاقتصادية"، الأمر الذي يُبقي الفواعل الإقليمية في حالة ترقب دائم، محاولاً فرض حالة من "التنميط الإدراكي القسري"، وتصدير موجات من "التضخم الإدراكي المفتعل" الهادفة لإرباك بوصلة الوعي الجمعي وإضعاف قدرته على التمييز بين المنجز الحقيقي والبروباغندا الموجهة.<br><br>بيد أن الصعود التكنوقراطي الخليجي المعاصر قدم أنموذجاً عملياً على أرض الواقع عبر سيناريوهات "الإزاحة التكتيكية الاستراتيجية" لهذا المشهد المأزوم؛ إذ لم يعد هذا العنصر العربي الجديد مجرد أرقام مكملة في معادلات الطاقة، بل أصبح لاعباً استراتيجياً يمتلك أدوات "احتلال الوعي" المضاد عبر تفعيل ميكانيزمات "الأيض السياسي للإدراك" — تلك العملية التي يتم من خلالها امتصاص الضغوط وتحويلها إلى طاقة بناء تُغذي "القومية التكنوقراطية الموحدة المعاصرة"، محققاً "الاستدامة الوجدانية للقرار" السيادي.<br><br>إن هذا التماسك هو ما أوقف "فقدان جينيوم الاقتصاد المعرفي السياسي"؛ حيث تم الانتقال من التلقي إلى الفعل عبر "الانشطار القيمي الموجه"، وصولاً إلى "التكافؤ السيادي الرقمي". إننا لا نسعى للتصفيق، بل نؤسس لمانيفستو لتسييس المشاريع الفكرية المقبلة، حيث تصبح المعرفة هي السلاح والوعي هو الجبهة.<br><br><em>© حقوق الملكية الفكرية محفوظة — محمد طلعت عبد العزيز</em></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — Full Published Version</div><p style="line-height:2.1;direction:ltr;text-align:left"><strong>The Economy of Political Sentiment: Cognitive Engineering in the Era of Gulf Knowledge Dominance</strong><br>By: Mohamed Talaat Abdel Aziz | Researcher in Information, Strategic Awareness and Political Psychology<br><br>The veteran of strategic political science certainly believes that current geopolitical transformations cannot be understood without the "economy of political feelings" — where management of "public perception" has become the fundamental pillar advancing beyond classical sovereignty. The contemporary world is governed not by material domination, but by "strategic blackmail in systems of economic knowledge", imposing "forced cognitive profiling" and waves of "artificial cognitive inflation" aimed at confusing collective consciousness.<br><br>The rise of contemporary Gulf technocracy offered a practical model through "strategic tactical displacement" — no longer complementary numbers in energy equations, but a strategic player activating the "political metabolism of perception", absorbing international pressures and converting them into constructive energy feeding "contemporary unified technocratic nationalism", achieving "emotional sustainability of sovereign decision".<br><br>This cohesion stopped "loss of the political knowledge economy genome", transitioning through "directed value fission" to "digital sovereign parity". We do not seek applause — we establish a manifesto to politicize future intellectual projects, where knowledge is the weapon and consciousness is the front.<br><br><em>© All intellectual property rights reserved — Mohamed Talaat Abdel Aziz</em></p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    brief:`<div class="sec-ttl">الإيجاز الاستراتيجي — Strategic Brief</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div><p style="line-height:2"><strong>١. جوهر الأطروحة:</strong> الانتقال من السيادة الجغرافية إلى "السيادة الإدراكية" — المشاعر السياسية كأصول اقتصادية وجيوسياسية.<br><br><strong>٢. التهديد الوجودي:</strong><br>• الابتزاز الاستراتيجي المعرفي: لعرقلة استقلال القرار<br>• التضخم الإدراكي المفتعل: لتآكل جينوم الاقتصاد المعرفي<br><br><strong>٣. ذراع المواجهة:</strong><br>• الأيض السياسي للإدراك: الضغوط → طاقة دفع<br>• الانشطار القيمي الموجه: الإرث → محرك تحديثي<br><br><strong>٤. الهدف النهائي:</strong> التكافؤ السيادي الرقمي + الاستدامة الوجدانية للقرار<br><br><strong>٥. الرسالة:</strong> السيادة المعرفية — الضامن الوحيد للبقاء في قضية الوجود الأبدية</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English</div><p style="line-height:2;direction:ltr;text-align:left"><strong>1. Core Thesis:</strong> From geographic to Perceptual Sovereignty — political emotions as economic/geopolitical assets.<br><br><strong>2. Existential Threat:</strong><br>• Strategic Knowledge Extortion: blocking decision independence<br>• Artificial Cognitive Inflation: eroding the knowledge genome<br><br><strong>3. Counter Arm:</strong><br>• Political Metabolism of Perception: pressures → propulsion energy<br>• Directed Valuational Fission: heritage → modernization engine<br><br><strong>4. Final Goal:</strong> Digital Sovereign Parity + Emotional Sustainability of Decision<br><br><strong>5. Message:</strong> Knowledge sovereignty — the sole guarantor of survival in the eternal existential cause</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    research:`<div class="sec-ttl">ورقة السياسات — Policy Paper</div><div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div><p style="line-height:2"><strong>ورقة سياسات: هندسة الإدراك والسيادة المعرفية</strong><br>إعداد: محمد طلعت عبد العزيز<br><br><strong>أ. محور الانشطار القيمي الموجه:</strong> الإرث الديني كـ"قضية وجود أبدية" تمنح ثباتاً أمام الاستلاب العالمي.<br><br><strong>ب. محور احتلال الوعي المضاد:</strong> منصات "دبلوماسية الإدراك" تصنع سردية عربية في العقل الجمعي الدولي.<br><br><strong>ج. محور القومية التكنوقراطية الموحدة:</strong> الكفاءات العلمية في مفاصل القرار — المهندس كمقاتل استراتيجي.<br><br><strong>مؤشرات النجاح:</strong><br>• تحييد الهجمات الإعلامية في زمن قياسي<br>• إزاحات تكتيكية في المواقف الدولية<br>• جيوبوليتيك الأنوثة كقوة ناعمة فعالة<br><br><strong>التوصية:</strong> تبني "اقتصاد المشاعر السياسية" كمنهج عمل رسمي للكوادر العليا.</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English</div><p style="line-height:2;direction:ltr;text-align:left"><strong>Policy Paper: Cognitive Engineering & Knowledge Sovereignty</strong><br>By: Mohamed Talaat Abdel Aziz<br><br><strong>A. Directed Valuational Fission:</strong> Religious heritage as "eternal existential cause" granting stability against global alienation.<br><br><strong>B. Counter-Cognitive Occupation:</strong> "Perception Diplomacy" platforms creating Arab narratives in international collective mind.<br><br><strong>C. Unified Technocratic Nationalism:</strong> Scientific competencies in decision-making — engineer as strategic combatant.<br><br><strong>KPIs:</strong><br>• Rapid neutralization of media attacks<br>• Tactical shifts in international positions<br>• Geopolitics of femininity as effective soft power<br><br><strong>Recommendation:</strong> Adopt "Economy of Political Emotions" as official methodology for senior cadres.</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`,
+    infographic:`<div class="sec-ttl">الإنفوجرافيك العالمي — Global Infographic Blueprint</div><div class="lang-block"><div class="lang-tag">🎨 International Specs — English</div><p style="line-height:2;direction:ltr;text-align:left"><strong>Title:</strong> "The Geopolitics of Emotion: Engineering Perception for Sovereign Parity"<br><strong>© Mohamed Talaat Abdel Aziz — All Rights Reserved</strong><br><br><strong>SECTION 1 — SHIFT IN POWER:</strong> Geographic → Perceptional Sovereignty<br><strong>SECTION 2 — GLOBAL THREAT:</strong> Forced Cognitive Profiling | Artificial Cognitive Inflation | Strategic Knowledge Extortion<br><strong>SECTION 3 — GCC RESPONSE:</strong> Political Metabolism of Perception | Unified Technocratic Nationalism | Directed Valuational Fission | Emotional Sustainability of Decision<br><strong>SECTION 4 — NEW SOVEREIGNTY:</strong> Digital Sovereign Parity | Counter-Cognitive Occupation | Eternal Existential Cause<br><strong>CTA:</strong> "Transform intellectual projects into sovereign tools for global influence"<br><br><strong>Specs:</strong> LinkedIn 1200×627px | Instagram 1080×1350px | Story 1080×1920px<br>Colors: #0a0f1e + #c9a84c + #4a9eff | Font: Bold sans-serif + Amiri Arabic</p></div><div class="lang-block"><div class="lang-tag">🇧🇭 النسخة العربية</div><p style="line-height:2"><strong>العنوان:</strong> جيوبوليتيك المشاعر: هندسة الإدراك نحو التكافؤ السيادي<br>© محمد طلعت عبد العزيز — جميع الحقوق محفوظة<br><br>القسم ١: التحول (جغرافي → إدراكي) | القسم ٢: التهديد (التنميط + التضخم + الابتزاز) | القسم ٣: الاستجابة (الأيض + القومية + الانشطار) | القسم ٤: السيادة الجديدة (التكافؤ + الاحتلال المضاد + الوجود الأبدي)</p></div>`,
+    campaign:`<div class="sec-ttl">خطة التسويق الأسبوعية — Weekly Marketing Plan</div><div class="lang-block"><div class="lang-tag">🇧🇭 أسبوعان كاملان — عربي</div><p style="line-height:2.1"><strong>الأسبوع الأول: إطلاق الأطروحة</strong><br><br>الإثنين — LinkedIn + X: «اقتصاد المشاعر السياسية: مفهوم جديد يقلب موازين القوى. كيف تتحول المشاعر إلى عملة جيوسياسية؟» + رابط المقال<br>#اقتصاد_المشاعر_السياسية #محمد_طلعت_عبد_العزيز<br><br>الأربعاء — LinkedIn + X: «هل تتعرض منطقتنا لـ #تنميط_إدراكي_قسري؟ كيف نواجهه بـ #القومية_التكنوقراطية_الموحدة»<br><br>الجمعة — LinkedIn: تحليل معمق — "الأيض السياسي للإدراك: كيف يحول الضغوط إلى قوة دافعة"<br><br><strong>الأسبوع الثاني: تعميق المفاهيم</strong><br><br>الإثنين — LinkedIn + X: «وداعاً للابتزاز الاستراتيجي المعرفي! كيف نحقق #التكافؤ_السيادي_الرقمي؟»<br><br>الأربعاء — Instagram + X: «هل تُدار قراراتنا تحت #التضخم_الإدراكي_المفتعل؟ كيف نضمن #الاستدامة_الوجدانية_للقرار؟»<br><br>الجمعة — جميع المنصات: «ليس مجرد إرث، بل #انشطار_قيمي_موجه! الدين والثقافة كطاقة تحديثية فائقة»<br><br><strong>الهاشتاقات الثابتة:</strong> #اقتصاد_المشاعر_السياسية #محمد_طلعت_عبد_العزيز #السيادة_المعرفية #جيوبوليتيك_الإدراك</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English — 2-Week Plan</div><p style="line-height:2.1;direction:ltr;text-align:left"><strong>WEEK 1 — Launch</strong><br><br>Monday — LinkedIn + X: "The Economy of Political Emotions: a new concept reshaping the balance of power" + article link<br>#PoliticalEmotionsEconomy #MohamedTalatAbdelAziz<br><br>Wednesday: "Is our region subjected to #ForcedCognitiveProfiling? How to counter it with #UnifiedTechnocraticNationalism"<br><br>Friday — LinkedIn: Deep analysis: "Political Metabolism of Perception — converting pressures into power"<br><br><strong>WEEK 2 — Depth & CTA</strong><br><br>Monday: "Goodbye Strategic Knowledge Extortion! How to achieve #DigitalSovereignParity?"<br><br>Wednesday: "Are decisions shaped by #ArtificialCognitiveInflation? How to ensure #EmotionalSustainabilityOfDecision?"<br><br>Friday — All Platforms: "Not just heritage — #DirectedValuationalFission! Religion & culture as supreme modernization force"<br><br><strong>Fixed Hashtags:</strong> #PoliticalEmotionsEconomy #MohamedTalaat #KnowledgeSovereignty #GeopoliticsOfPerception</p><button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button></div>`
+  },
+  a2:{
+    title:'تأميم الوعي.. معركة السيادة الذهنية في العصر الرقمي',
+    meta:'فبراير 2026 · صحيفة البلاد البحرينية · صفحة منطلقات',
+    draft:`<div class="sec-ttl">مسودة المقال — Draft</div>
+<div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div>
+<p>إن أخطر أنواع الاحتلال في عصرنا الحالي ليس احتلال الأوطان، بل "استيطان الوعي والإدراك المعرفي". الوعي الذي لا نصنعه بقرارنا الوطني، هو ثغرة أمنية مكشوفة. من هنا تنبثق ضرورة "تأميم الوعي" كفعل سيادي استراتيجي.</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button>
+</div>
+<div class="lang-block"><div class="lang-tag">🌐 English</div>
+<p>The most dangerous type of occupation in our time is not the occupation of homelands, but rather the "settlement of consciousness and cognitive perception." Awareness that we do not create with our national decision is an exposed security gap. Hence emerges the necessity of "Nationalization of Consciousness" as a sovereign strategic act.</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button>
+</div>`,
+    final:`<div class="sec-ttl">النسخة النهائية — Final Version</div>
+<div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div>
+<p><strong>تأميم الوعي.. معركة السيادة الذهنية في العصر الرقمي</strong><br><br>إن أخطر أنواع الاحتلال في عصرنا ليس احتلال الأوطان، بل "استيطان الوعي". في هذا المقال أطرح رؤية تتجاوز التحديث الشكلي إلى "الاسترداد السيادي" للمقود الفكري. نحن بحاجة لإنشاء "أكاديمية للوعي الاستراتيجي" تحمي أجيالنا من الاستلاب الكلي. كما نحتاج "كتائب دبلوماسية ناعمة" تُتقن أدوات الردع الفكري لتفكيك الشائعات وتحصين الهوية الوطنية.</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button>
+</div>
+<div class="lang-block"><div class="lang-tag">🌐 English</div>
+<p><strong>Nationalization of Consciousness: The Battle for Mental Sovereignty in the Digital Age</strong><br><br>The most dangerous occupation today is not territorial but cognitive — the colonization of minds. This article proposes a vision that transcends superficial modernization toward the "sovereign recovery" of intellectual agency. We need an "Academy of Strategic Awareness" to protect generations from total dispossession, and "soft diplomatic battalions" proficient in intellectual deterrence tools.</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button>
+</div>`,
+    brief:`<div class="sec-ttl">الإيجاز الاستراتيجي — Strategic Brief</div>
+<div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div>
+<p><strong>الفكرة المحورية:</strong> تأميم الوعي كفعل سيادي وطني<br><strong>المقترحات الثلاثة:</strong><br>١. أكاديمية الوعي الاستراتيجي<br>٢. إعادة هندسة القوى الناعمة<br>٣. الكتائب الدبلوماسية الناعمة<br><strong>الخلاصة:</strong> امتلاك نخب لا يمكن برمجتها إلا عبر منصاتنا الوطنية — درع حقيقي وقضية وجودية.</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button>
+</div>
+<div class="lang-block"><div class="lang-tag">🌐 English</div>
+<p><strong>Core Idea:</strong> Nationalization of consciousness as a sovereign national act<br><strong>Three Proposals:</strong><br>1. Academy of Strategic Awareness<br>2. Re-engineering soft power<br>3. Soft Diplomatic Battalions<br><strong>Conclusion:</strong> Having elites programmable only through our national platforms is a real shield and eternal existential cause.</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button>
+</div>`,
+    research:`<div class="sec-ttl">الورقة البحثية — Research Paper</div>
+<div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div>
+<p><strong>عنوان الورقة:</strong> جيوبوليتيك الوعي وعلم النفس السياسي<br><strong>الإشكالية:</strong> كيف تحولت الحروب المعرفية من أداة هامشية إلى سلاح وجودي في العصر الرقمي؟<br><strong>المفاهيم الرئيسية:</strong> الردع الفكري · الاستلاب المعرفي · السيادة الذهنية · الهشاشة المجتمعية<br><strong>التوصيات:</strong> بناء منظومة وطنية للتحصين المعرفي تتجاوز الحلول الأمنية التقليدية.</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button>
+</div>
+<div class="lang-block"><div class="lang-tag">🌐 English</div>
+<p><strong>Paper Title:</strong> Geopolitics of Consciousness and Political Psychology<br><strong>Problem:</strong> How have cognitive wars transformed from a marginal tool to an existential weapon in the digital age?<br><strong>Key Concepts:</strong> Intellectual Deterrence · Cognitive Alienation · Mental Sovereignty · Societal Fragility<br><strong>Recommendations:</strong> Building a national cognitive fortification system that transcends traditional security solutions.</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button>
+</div>`,
+    infographic:`<div class="sec-ttl">مقترح الإنفوجرافيك — Infographic Blueprint</div>
+<div class="lang-block"><div class="lang-tag">🎨 التصميم البصري</div>
+<p><strong>النوع:</strong> مخطط دائري + خط زمني<br><strong>العنوان البصري:</strong> «من الاستيطان الذهني إلى السيادة الوطنية»<br><br><strong>العناصر البصرية:</strong><br>🔴 المركز: «الوعي المُستعمَر»<br>➡️ المسار الأول: أكاديمية الوعي الاستراتيجي<br>➡️ المسار الثاني: إعادة هندسة القوى الناعمة<br>➡️ المسار الثالث: الكتائب الدبلوماسية<br>✅ النتيجة: «السيادة الذهنية»<br><br><strong>الألوان:</strong> أزرق ملكي + أخضر زمردي + ذهبي<br><strong>الأحجام:</strong> 1080×1080 مربع · 1080×1920 Story</p>
+</div>`,
+    campaign:`<div class="sec-ttl">خطة التسويق — Marketing Plan</div>
+<div class="lang-block"><div class="lang-tag">🇧🇭 خطة 7 أيام</div>
+<p><strong>اليوم ١:</strong> Thread تشويقي — «من يستعمر وعيك؟» (LinkedIn + X)<br><strong>اليوم ٢:</strong> إنفوجرافيك «مسارات تأميم الوعي» (Instagram)<br><strong>اليوم ٣:</strong> تساؤل تفاعلي — «هل تعتقد أن وعينا مستقل؟» (LinkedIn)<br><strong>اليوم ٥:</strong> 4 اقتباسات بصرية من المقال (Instagram + X)<br><strong>اليوم ٧:</strong> رابط المقال الكامل + دعوة للحوار (جميع المنصات)<br><br>#تأميم_الوعي #السيادة_الذهنية #الفكر_الاستراتيجي #محمد_طلعت_عبدالعزيز</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">نسخ 📋</button>
+</div>
+<div class="lang-block"><div class="lang-tag">🌐 English 7-Day Plan</div>
+<p><strong>Day 1:</strong> Teaser Thread — "Who is colonizing your mind?" (LinkedIn + X)<br><strong>Day 2:</strong> Infographic "Pathways to Consciousness Nationalization" (Instagram)<br><strong>Day 3:</strong> Interactive question — "Is your awareness truly independent?" (LinkedIn)<br><strong>Day 5:</strong> 4 visual quotes from the article (Instagram + X)<br><strong>Day 7:</strong> Full article link + dialogue invitation (All Platforms)<br><br>#NationalizationOfConsciousness #MentalSovereignty #StrategicThought #MohamedTalaat</p>
+<button class="copy-btn" onclick="copyText(this.previousElementSibling.textContent)">Copy 📋</button>
+</div>`
+  }
+};
+
+// ══ MODAL ══
+let currentTab='draft';
+function openModal(id){
+  const d=articleData[id];
+  if(!d)return;
+  document.getElementById('mTitle').textContent=d.title;
+  document.getElementById('mMeta').textContent=d.meta;
+  currentTab='draft';
+  document.querySelectorAll('#mTabs .mtab').forEach((t,i)=>{t.classList.toggle('active',i===0);});
+  document.getElementById('mBody').innerHTML=d[currentTab]||'';
+  document.getElementById('artModal').classList.add('open');
+}
+function mSwitch(tab,el){
+  currentTab=tab;
+  const id=document.getElementById('artModal').dataset.id||'a1';
+  document.querySelectorAll('#mTabs .mtab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  const d=Object.values(articleData).find(a=>a.title===document.getElementById('mTitle').textContent);
+  if(d)document.getElementById('mBody').innerHTML=d[tab]||'<p style="color:var(--text3);text-align:center;padding:30px">سيتم توليد هذا المحتوى بالذكاء الاصطناعي</p>';
+}
+function closeModal(){document.getElementById('artModal').classList.remove('open');}
+document.getElementById('artModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+// ══ AI GENERATION ══
+async function callClaude(prompt){
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    const d=await r.json();
+    return d.content?.[0]?.text||'';
+  }catch(e){return null;}
+}
+
+function renderLangBlock(ar,en){
+  return `<div class="lang-block"><div class="lang-tag">🇧🇭 العربية</div><p style="white-space:pre-wrap">${ar}</p><button class="copy-btn" onclick="copyText(\`${ar.replace(/`/g,"'")}\`)">نسخ 📋</button></div><div class="lang-block"><div class="lang-tag">🌐 English</div><p style="white-space:pre-wrap;direction:ltr;text-align:left">${en}</p><button class="copy-btn" onclick="copyText(\`${en.replace(/`/g,"'")}\`)">Copy 📋</button></div>`;
+}
+
+const tabLabels={draft:'📄 مسودة',final:'📰 نهائي',brief:'📊 إيجاز',research:'🔬 بحثية',infographic:'🖼 إنفوجرافيك',campaign:'📣 تسويق'};
+
+function setTabContent(tab,html){
+  document.getElementById('tab-'+tab).innerHTML=html;
+}
+function showTab(tab){
+  document.querySelectorAll('#outTabs .mtab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  const tabs=document.querySelectorAll('#outTabs .mtab');
+  const keys=['draft','final','brief','research','infographic','campaign'];
+  const idx=keys.indexOf(tab);
+  if(tabs[idx])tabs[idx].classList.add('active');
+  const pane=document.getElementById('tab-'+tab);
+  if(pane)pane.classList.add('active');
+  document.getElementById('outPlaceholder').style.display='none';
+  document.getElementById('tabContent').style.display='block';
+  document.getElementById('outTabs').style.display='flex';
+}
+function switchTab(tab,el){
+  document.querySelectorAll('#outTabs .mtab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+}
+
+async function genSingle(type){
+  const title=document.getElementById('genTitle').value.trim()||'المقال';
+  const draft=document.getElementById('genDraft').value.trim();
+  const cat=document.getElementById('genCat').value;
+  if(!draft&&!title){alert('الرجاء إدخال عنوان المقال أو نصه');return;}
+
+  const prompts={
+    draft:`أنت مساعد كتابة استراتيجي لمحمد طلعت عبد العزيز، محلل سياسي استراتيجي بحريني متخصص في علم النفس السياسي والحروب الهجينة. 
+اكتب مسودة مقال احترافي بناءً على:
+العنوان: ${title}
+التصنيف: ${cat}
+الأفكار الأولية: ${draft||'لا يوجد'}
+أجب بصيغة JSON: {"ar":"...النص العربي...","en":"...English text..."}
+كن موجزاً ومحترفاً في 150 كلمة لكل لغة.`,
+    final:`أنت محرر لمحمد طلعت عبد العزيز. طوّر النسخة النهائية الاحترافية لمقال:
+العنوان: ${title} | التصنيف: ${cat}
+المحتوى: ${draft||title}
+أجب بـ JSON: {"ar":"...النسخة النهائية بالعربية (200 كلمة)...","en":"...Final English version (200 words)..."}`,
+    brief:`أنت محلل استراتيجي. اكتب إيجازاً استراتيجياً احترافياً لمقال:
+العنوان: ${title} | المحتوى: ${draft||title}
+الإيجاز يشمل: الفكرة المحورية، المحاور الرئيسية، الخلاصة الاستراتيجية.
+أجب بـ JSON: {"ar":"...الإيجاز بالعربية...","en":"...Strategic Brief in English..."}`,
+    research:`اكتب ورقة بحثية مختصرة لمقال: ${title}
+المحتوى: ${draft||title} | التصنيف: ${cat}
+تشمل: الإشكالية، الإطار النظري، المنهجية، النتائج، التوصيات.
+أجب بـ JSON: {"ar":"...الورقة بالعربية...","en":"...Research paper in English..."}`,
+    infographic:`صمّم مقترح إنفوجرافيك بصري لمقال: ${title}
+المحتوى: ${draft||title}
+يشمل: نوع التصميم، العناصر البصرية، الألوان، التسلسل المنطقي، الأحجام المقترحة.
+أجب بـ JSON: {"ar":"...المقترح بالعربية...","en":"...Infographic blueprint in English..."}`,
+    campaign:`اكتب خطة تسويقية 7 أيام لمقال: ${title}
+المحتوى: ${draft||title}
+لكل يوم: المنصة، التوقيت، نوع المحتوى، الكابشن، الهاشتاقات.
+أجب بـ JSON: {"ar":"...الخطة بالعربية...","en":"...7-day plan in English..."}`
+  };
+
+  document.getElementById('outPlaceholder').style.display='none';
+  document.getElementById('tabContent').style.display='block';
+  document.getElementById('outTabs').style.display='flex';
+  setTabContent(type,`<div class="ai-think"><span></span><span></span><span></span></div><div style="font-size:11px;color:var(--text3);margin-top:8px">يولّد الذكاء الاصطناعي ${tabLabels[type]}...</div>`);
+  showTab(type);
+
+  const result=await callClaude(prompts[type]);
+  if(result){
+    try{
+      const clean=result.replace(/```json|```/g,'').trim();
+      const parsed=JSON.parse(clean);
+      setTabContent(type,`<div class="sec-ttl">${tabLabels[type]}</div>${renderLangBlock(parsed.ar||'',parsed.en||'')}`);
+    }catch{
+      setTabContent(type,`<div class="sec-ttl">${tabLabels[type]}</div><div class="lang-block"><div class="lang-tag">المحتوى المولَّد</div><p style="white-space:pre-wrap">${result}</p></div>`);
+    }
+  }else{
+    setTabContent(type,`<div style="color:var(--text3);text-align:center;padding:20px;font-size:12px">⚠️ تعذّر الاتصال بـ AI — تأكد من الاتصال بالإنترنت</div>`);
+  }
+}
+
+async function genAll(){
+  const title=document.getElementById('genTitle').value.trim();
+  const draft=document.getElementById('genDraft').value.trim();
+  if(!title&&!draft){alert('الرجاء إدخال عنوان المقال أو نصه');return;}
+
+  const prog=document.getElementById('genProgress');
+  const progTxt=document.getElementById('genProgressTxt');
+  const progBar=document.getElementById('genProgressBar');
+  prog.style.display='block';
+  document.getElementById('outPlaceholder').style.display='none';
+  document.getElementById('tabContent').style.display='block';
+  document.getElementById('outTabs').style.display='flex';
+
+  const types=['draft','final','brief','research','infographic','campaign'];
+  const labels=['مسودة المقال','النسخة النهائية','الإيجاز الاستراتيجي','الورقة البحثية','الإنفوجرافيك','خطة التسويق'];
+
+  for(let i=0;i<types.length;i++){
+    progTxt.textContent=`جارٍ توليد (${i+1}/6): ${labels[i]}...`;
+    progBar.style.width=((i/6)*100)+'%';
+    setTabContent(types[i],`<div class="ai-think"><span></span><span></span><span></span></div><div style="font-size:11px;color:var(--text3);margin-top:8px">جارٍ توليد ${tabLabels[types[i]]}...</div>`);
+    if(i===0)showTab(types[0]);
+    await genSingle(types[i]);
+    await new Promise(r=>setTimeout(r,300));
+  }
+  progBar.style.width='100%';
+  progTxt.textContent='✅ اكتمل توليد جميع المكونات الستة!';
+  setTimeout(()=>{prog.style.display='none';},3000);
+}
+
+// Quick gen on home
+async function quickGen(){
+  const title=document.getElementById('quickInp').value.trim();
+  if(!title)return;
+  const out=document.getElementById('quickOut');
+  out.innerHTML='<div class="ai-think"><span></span><span></span><span></span></div>';
+  const result=await callClaude(`أنت مستشار تسويقي لمحمد طلعت عبد العزيز، محلل سياسي بحريني. اقترح فكرة تسويقية قوية وجذابة لمقال بعنوان: "${title}". اكتب جملة افتتاحية مشوّقة للـ LinkedIn باللغة العربية (لا تتجاوز 60 كلمة) ثم نسخة إنجليزية منها. أجب مباشرة بدون مقدمات.`);
+  out.innerHTML=result?`<p style="white-space:pre-wrap;font-size:12px">${result}</p>`:'<div style="color:var(--text3);font-size:11px;text-align:center">تعذّر الاتصال — تأكد من الإنترنت</div>';
+}
+
+// Campaign gen
+async function genCampaign(){
+  const title=document.getElementById('campTitle').value.trim();
+  const plat=document.getElementById('campPlat').value;
+  const days=document.getElementById('campDays').value;
+  const out=document.getElementById('campOut');
+  if(!title){out.innerHTML='<div style="color:var(--text3);text-align:center;padding:14px;font-size:11px">أدخل عنوان المقال أولاً</div>';return;}
+  out.innerHTML='<div class="ai-think"><span></span><span></span><span></span></div>';
+  const result=await callClaude(`أنت مسوّق استراتيجي لمحمد طلعت عبد العزيز، محلل سياسي بحريني. اكتب خطة نشر ${days} أيام لمقال بعنوان: "${title}" على ${plat==='all'?'LinkedIn وInstagram وX':plat}. لكل يوم: اليوم، المنصة، التوقيت، ونوع المحتوى. باللغة العربية أولاً ثم الإنجليزية. كن موجزاً واحترافياً.`);
+  out.innerHTML=result?`<p style="white-space:pre-wrap;font-size:11px;line-height:1.8">${result}</p>`:'<div style="color:var(--text3);font-size:11px;text-align:center">تعذّر الاتصال</div>';
+}
+
+// Copy
+function copyText(txt){
+  navigator.clipboard.writeText(txt).then(()=>{
+    const el=event?.target
